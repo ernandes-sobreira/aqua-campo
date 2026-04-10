@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="AQUA-CAMPO">
+<meta name="application-name" content="AQUA-CAMPO">
+<meta name="theme-color" content="#005F73">
+<meta name="description" content="Coleta de entrevistas qualitativas - Agricultura Familiar - UNEMAT/ProfAgua">
+<title>AQUA-CAMPO | Coleta de Entrevistas</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:    #0A9396;
+    --teal2:   #005F73;
+    --amber:   #E9C46A;
+    --orange:  #F4A261;
+    --red:     #E76F51;
+    --mint:    #94D2BD;
+    --light:   #EAF4F4;
+    --white:   #FFFFFF;
+    --gray1:   #f7f9fa;
+    --gray2:   #e8eef0;
+    --gray3:   #b0bec5;
+    --text:    #1a2530;
+    --text2:   #4a6370;
+    --shadow:  0 4px 24px rgba(10,147,150,0.10);
+    --shadow2: 0 2px 8px rgba(0,0,0,0.07);
+    --radius:  14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ======= CAPA ======= */
+  #capa {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #005F73 0%, #0A9396 45%, #94D2BD 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  #capa::before {
+    content:'';
+    position:absolute; top:-80px; right:-80px;
+    width:340px; height:340px;
+    border-radius:50%;
+    background: rgba(255,255,255,0.06);
+  }
+  #capa::after {
+    content:'';
+    position:absolute; bottom:-60px; left:-60px;
+    width:280px; height:280px;
+    border-radius:50%;
+    background: rgba(233,196,106,0.12);
+  }
+  .capa-inner {
+    max-width: 560px;
+    width:100%;
+    text-align:center;
+    position:relative; z-index:2;
+  }
+  .capa-badge {
+    display:inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 99px;
+    margin-bottom: 28px;
+  }
+  .capa-icon {
+    font-size: 64px;
+    margin-bottom: 18px;
+    display: block;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.2));
+  }
+  .capa-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 7vw, 52px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+  }
+  .capa-title span { color: var(--amber); }
+  .capa-subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.80);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 420px;
+    margin-left:auto; margin-right:auto;
+  }
+  .capa-proj {
+    background: rgba(255,255,255,0.13);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin-bottom: 32px;
+    text-align: left;
+  }
+  .capa-proj p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .capa-proj h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14.5px;
+    color: #fff;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .capa-authors {
+    display:flex; flex-direction:column; gap:8px;
+    margin-bottom: 36px;
+  }
+  .capa-author-item {
+    background: rgba(255,255,255,0.14);
+    border-radius: 10px;
+    padding: 12px 20px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .capa-author-avatar {
+    width:36px; height:36px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px;
+    flex-shrink:0;
+  }
+  .capa-author-avatar.pesq { background: var(--amber); }
+  .capa-author-avatar.ori  { background: var(--mint); }
+  .capa-author-info { text-align:left; }
+  .capa-author-role {
+    font-size: 10px;
+    color: rgba(255,255,255,0.60);
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .capa-author-name {
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+  }
+  .btn-entrar {
+    display:inline-flex; align-items:center; gap:10px;
+    background: var(--white);
+    color: var(--teal2);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 40px;
+    border-radius: 99px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.3px;
+  }
+  .btn-entrar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+  }
+  .capa-offline-note {
+    margin-top: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+
+  /* ======= APP SHELL ======= */
+  #app { display:none; min-height:100vh; background:var(--gray1); }
+
+  /* HEADER */
+  .app-header {
+    background: var(--white);
+    border-bottom: 2px solid var(--light);
+    padding: 0 20px;
+    height: 64px;
+    display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:100;
+    box-shadow: 0 2px 12px rgba(10,147,150,0.07);
+  }
+  .header-brand {
+    display:flex; align-items:center; gap:10px;
+  }
+  .header-logo {
+    width:38px; height:38px;
+    background: linear-gradient(135deg, var(--teal), var(--teal2));
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+  }
+  .header-name {
+    font-family: 'Playfair Display', serif;
+    font-size:18px;
+    font-weight:700;
+    color:var(--teal2);
+  }
+  .header-name span { color: var(--orange); }
+  .header-actions { display:flex; gap:8px; }
+  .btn-sm {
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.18s;
+    display:flex; align-items:center; gap:6px;
+  }
+  .btn-sm.outline {
+    background: transparent;
+    border: 1.5px solid var(--teal);
+    color: var(--teal);
+  }
+  .btn-sm.outline:hover { background: var(--light); }
+  .btn-sm.primary {
+    background: var(--teal);
+    color: #fff;
+  }
+  .btn-sm.primary:hover { background: var(--teal2); }
+  .btn-sm.danger { background: #fdecea; color: #c0392b; border: 1.5px solid #f5c6c1; }
+  .btn-sm.danger:hover { background: #f5c6c1; }
+  .btn-sm.success { background: #e8f5e9; color: #2e7d32; border: 1.5px solid #a5d6a7; }
+  .btn-sm.success:hover { background: #a5d6a7; }
+
+  /* NAV TABS */
+  .nav-tabs {
+    background: var(--white);
+    border-bottom: 2px solid var(--gray2);
+    display:flex;
+    padding: 0 20px;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-tab {
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text2);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.18s;
+    display:flex; align-items:center; gap:6px;
+  }
+  .nav-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+  .nav-tab:hover:not(.active) { color: var(--text); background: var(--gray1); }
+
+  /* PAGES */
+  .page { display:none; padding: 24px 20px; max-width: 860px; margin: 0 auto; }
+  .page.active { display:block; }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow2);
+    border: 1px solid var(--gray2);
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--teal2);
+    margin-bottom: 16px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .card-title .icon { font-size:20px; }
+
+  /* FORM */
+  .form-group { margin-bottom: 18px; }
+  .form-label {
+    display:block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+  }
+  .form-label .required { color: var(--red); margin-left:3px; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--gray2);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.18s, box-shadow 0.18s;
+    outline:none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(10,147,150,0.10);
+  }
+  .form-textarea { resize:vertical; min-height:100px; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .form-row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+
+  /* CHECKBOX GROUP */
+  .check-group {
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .check-item {
+    display:flex; align-items:flex-start; gap:10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1.5px solid var(--gray2);
+    cursor:pointer;
+    transition: background 0.15s, border-color 0.15s;
+    user-select:none;
+  }
+  .check-item:hover { background: var(--light); }
+  .check-item input[type=checkbox], .check-item input[type=radio] {
+    margin-top: 2px;
+    accent-color: var(--teal);
+    width:16px; height:16px;
+    flex-shrink:0;
+    cursor:pointer;
+  }
+  .check-item.checked { background: var(--light); border-color: var(--teal); }
+  .check-label { font-size:14px; color:var(--text); line-height:1.4; }
+
+  /* SECTION HEADER */
+  .section-header {
+    margin: 28px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--light);
+    display:flex; align-items:center; gap:10px;
+  }
+  .section-header-dot {
+    width:10px; height:10px;
+    border-radius:50%;
+    background: var(--teal);
+    flex-shrink:0;
+  }
+  .section-header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--teal2);
+  }
+  .section-header-num {
+    margin-left:auto;
+    font-size:12px;
+    color:var(--gray3);
+    font-weight:600;
+    background: var(--gray2);
+    padding: 3px 10px;
+    border-radius:99px;
+  }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    background: var(--gray2);
+    border-radius: 99px;
+    height:8px;
+    overflow:hidden;
+    margin-bottom: 6px;
+  }
+  .progress-bar {
+    height:100%;
+    background: linear-gradient(90deg, var(--teal), var(--mint));
+    border-radius:99px;
+    transition: width 0.5s ease;
+  }
+  .progress-label {
+    font-size:12px;
+    color:var(--text2);
+    margin-bottom:18px;
+  }
+
+  /* ENTREVISTAS LIST */
+  .interview-item {
+    background: var(--white);
+    border: 1.5px solid var(--gray2);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    display:flex; align-items:flex-start; gap:14px;
+    cursor:pointer;
+    transition: all 0.18s;
+  }
+  .interview-item:hover { border-color: var(--teal); box-shadow: var(--shadow); }
+  .interview-avatar {
+    width:46px; height:46px;
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px;
+    flex-shrink:0;
+  }
+  .avatar-ag { background: linear-gradient(135deg, #94D2BD, #0A9396); }
+  .avatar-te { background: linear-gradient(135deg, #E9C46A, #F4A261); }
+  .avatar-re { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+  .interview-info { flex:1; min-width:0; }
+  .interview-name {
+    font-size:15px;
+    font-weight:600;
+    color:var(--text);
+    margin-bottom:3px;
+  }
+  .interview-meta {
+    font-size:12px;
+    color:var(--text2);
+    display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .interview-meta span { display:flex; align-items:center; gap:4px; }
+  .badge {
+    display:inline-block;
+    padding: 3px 10px;
+    border-radius:99px;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.5px;
+  }
+  .badge-ag { background:#e0f7fa; color:#00838f; }
+  .badge-te { background:#fff8e1; color:#f57f17; }
+  .badge-re { background:#f3e5f5; color:#7b1fa2; }
+  .badge-sync { background:#e8f5e9; color:#2e7d32; }
+  .badge-pending { background:#fff3e0; color:#e65100; }
+  .interview-actions {
+    display:flex; gap:6px; flex-shrink:0;
+  }
+
+  /* STATS */
+  .stats-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+    gap:12px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    border: 1.5px solid var(--gray2);
+    text-align:center;
+  }
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size:32px;
+    font-weight:700;
+    color:var(--teal);
+    line-height:1;
+    margin-bottom:4px;
+  }
+  .stat-label {
+    font-size:12px;
+    color:var(--text2);
+    font-weight:500;
+  }
+
+  /* ALERT */
+  .alert {
+    padding:12px 16px;
+    border-radius:10px;
+    font-size:13px;
+    margin-bottom:16px;
+    display:flex; align-items:flex-start; gap:10px;
+  }
+  .alert-info { background:#e3f2fd; color:#1565c0; border:1px solid #90caf9; }
+  .alert-warn { background:#fff8e1; color:#e65100; border:1px solid #ffe082; }
+  .alert-success { background:#e8f5e9; color:#2e7d32; border:1px solid #a5d6a7; }
+
+  /* EXPORT */
+  .export-card {
+    background: linear-gradient(135deg, var(--teal2), var(--teal));
+    border-radius: var(--radius);
+    padding: 24px;
+    color:#fff;
+    margin-bottom:16px;
+  }
+  .export-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size:18px;
+    margin-bottom:8px;
+  }
+  .export-card p { font-size:13px; opacity:0.85; margin-bottom:16px; }
+  .btn-export {
+    background: rgba(255,255,255,0.95);
+    color: var(--teal2);
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    font-family:'DM Sans',sans-serif;
+    transition:all 0.18s;
+    display:inline-flex; align-items:center; gap:6px;
+    margin-right:8px; margin-bottom:8px;
+  }
+  .btn-export:hover { background:#fff; box-shadow:0 4px 16px rgba(0,0,0,0.15); }
+
+  /* MODAL */
+  .modal-overlay {
+    position:fixed; inset:0;
+    background:rgba(0,0,0,0.45);
+    z-index:999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .modal-overlay.open { display:flex; }
+  .modal {
+    background:var(--white);
+    border-radius: 18px;
+    max-width:580px;
+    width:100%;
+    max-height:90vh;
+    overflow-y:auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    animation: modalIn 0.25s ease;
+  }
+  @keyframes modalIn {
+    from { transform:scale(0.95) translateY(10px); opacity:0; }
+    to   { transform:scale(1) translateY(0); opacity:1; }
+  }
+  .modal-header {
+    padding:22px 24px 16px;
+    border-bottom:1.5px solid var(--gray2);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .modal-title {
+    font-family:'Playfair Display',serif;
+    font-size:19px;
+    font-weight:700;
+    color:var(--teal2);
+    display:flex; align-items:center; gap:8px;
+  }
+  .modal-close {
+    width:32px; height:32px;
+    border:none; background:var(--gray2);
+    border-radius:8px;
+    cursor:pointer;
+    font-size:18px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--text2);
+    transition:background 0.15s;
+  }
+  .modal-close:hover { background:var(--gray3); }
+  .modal-body { padding:22px 24px; }
+  .modal-footer {
+    padding:16px 24px;
+    border-top:1.5px solid var(--gray2);
+    display:flex; justify-content:flex-end; gap:10px;
+  }
+
+  /* TOAST */
+  #toast {
+    position:fixed; bottom:24px; left:50%;
+    transform: translateX(-50%) translateY(80px);
+    background:var(--teal2);
+    color:#fff;
+    padding:12px 24px;
+    border-radius:99px;
+    font-size:14px;
+    font-weight:500;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    z-index:9999;
+    transition: transform 0.3s ease;
+    white-space:nowrap;
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align:center;
+    padding:60px 24px;
+  }
+  .empty-state .icon { font-size:52px; margin-bottom:14px; }
+  .empty-state h3 {
+    font-family:'Playfair Display',serif;
+    font-size:20px; color:var(--teal2);
+    margin-bottom:8px;
+  }
+  .empty-state p { font-size:14px; color:var(--text2); }
+
+  .divider { height:1px; background:var(--gray2); margin:20px 0; }
+
+  /* AUDIO RECORDER */
+  .audio-recorder {
+    background:var(--light);
+    border-radius:12px;
+    padding:16px;
+    display:flex; flex-direction:column; gap:10px;
+    border: 1.5px solid var(--mint);
+  }
+  .audio-controls { display:flex; align-items:center; gap:10px; }
+  .btn-record {
+    width:44px; height:44px;
+    border-radius:50%;
+    border:none;
+    cursor:pointer;
+    font-size:20px;
+    display:flex; align-items:center; justify-content:center;
+    transition:all 0.18s;
+    font-family:'DM Sans',sans-serif;
+  }
+  .btn-record.idle { background:var(--red); color:#fff; }
+  .btn-record.recording { background:#c0392b; color:#fff; animation: pulse 1s infinite; }
+  .btn-record.paused { background:var(--amber); color:var(--text); }
+  @keyframes pulse {
+    0%,100% { box-shadow:0 0 0 0 rgba(231,111,81,0.4); }
+    50%      { box-shadow:0 0 0 10px rgba(231,111,81,0); }
+  }
+  .audio-time {
+    font-family: monospace;
+    font-size:20px;
+    font-weight:700;
+    color:var(--teal2);
+    letter-spacing:2px;
+  }
+  .audio-status { font-size:12px; color:var(--text2); }
+  .audio-list { display:flex; flex-direction:column; gap:8px; }
+  .audio-item {
+    background:var(--white);
+    border-radius:8px;
+    padding:10px 14px;
+    display:flex; align-items:center; gap:10px;
+    border:1.5px solid var(--gray2);
+  }
+  .audio-item audio { flex:1; height:36px; }
+  .audio-item-name { font-size:12px; color:var(--text2); min-width:80px; }
+
+  /* RESPONSIVE */
+  @media(max-width:600px){
+    .form-row, .form-row-3 { grid-template-columns:1fr; }
+    .stats-grid { grid-template-columns:1fr 1fr; }
+    .header-name { font-size:15px; }
+    .nav-tab { padding:12px 14px; font-size:12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== CAPA ====== -->
+<div id="capa">
+  <div class="capa-inner">
+    <div class="capa-badge">ProfAgua / UNEMAT &nbsp;&bull;&nbsp; Pesquisa de Campo</div>
+    <span class="capa-icon">💧</span>
+    <h1 class="capa-title">AQUA<span>-CAMPO</span></h1>
+    <p class="capa-subtitle">Plataforma de Coleta de Entrevistas Qualitativas<br>Impactos da Escassez Hidrica na Agricultura Familiar</p>
+
+    <div class="capa-proj">
+      <p>Projeto de Pesquisa</p>
+      <h3>Impactos da Escassez Hidrica na Agricultura Familiar da Regiao do Vale do Rio Cuiaba</h3>
+    </div>
+
+    <div class="capa-authors">
+      <div class="capa-author-item">
+        <div class="capa-author-avatar pesq">👩‍🔬</div>
+        <div class="capa-author-info">
+          <div class="capa-author-role">Pesquisadora</div>
+          <div class="capa-author-name">Maria Silvina da Cruz Goncalves</div>
+        </div>
+      </div>
+      <div class="capa-author-item">
+        <div class="capa-author-avatar ori">🎓</div>
+        <div class="capa-author-info">
+          <div class="capa-author-role">Orientador</div>
+          <div class="capa-author-name">Prof. Dr. Ernandes Sobreira Oliveira Junior</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-entrar" onclick="entrarApp()">
+      <span>▶</span> Iniciar Coleta de Campo
+    </button>
+    <p class="capa-offline-note">🔒 100% offline &bull; dados salvos no dispositivo</p>
+  </div>
+</div>
+
+<!-- ====== APP ====== -->
+<div id="app">
+  <!-- Header -->
+  <div class="app-header">
+    <div class="header-brand">
+      <div class="header-logo">💧</div>
+      <span class="header-name">AQUA<span>-CAMPO</span></span>
+    </div>
+    <div class="header-actions">
+      <button class="btn-sm outline" onclick="showPage('export')">📤 Exportar</button>
+      <a href="analise.html" class="btn-sm" style="background:var(--amber);color:var(--teal2);text-decoration:none;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;">📊 Análise</a>
+      <button class="btn-sm primary" onclick="openNovaEntrevista()">+ Nova</button>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('dashboard')" id="tab-dashboard">📊 Painel</button>
+    <button class="nav-tab" onclick="showPage('entrevistas')" id="tab-entrevistas">📋 Entrevistas</button>
+    <button class="nav-tab" onclick="showPage('nova')" id="tab-nova">✏️ Registrar</button>
+    <button class="nav-tab" onclick="showPage('roteiro')" id="tab-roteiro">📖 Roteiro</button>
+    <button class="nav-tab" onclick="showPage('export')" id="tab-export">📤 Exportar</button>
+  </div>
+
+  <!-- PAINEL -->
+  <div class="page active" id="page-dashboard">
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card"><div class="stat-value" id="st-total">0</div><div class="stat-label">Entrevistas</div></div>
+      <div class="stat-card"><div class="stat-value" id="st-ag">0</div><div class="stat-label">Agricultores</div></div>
+      <div class="stat-card"><div class="stat-value" id="st-te">0</div><div class="stat-label">Tecnicos</div></div>
+      <div class="stat-card"><div class="stat-value" id="st-rep">0</div><div class="stat-label">Representantes</div></div>
+    </div>
+
+    <div class="alert alert-info">
+      📡 <div><strong>Modo Offline Ativo</strong> — Todos os dados sao salvos localmente. Exporte os dados quando tiver internet disponivel.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🌱</span> Sobre a Pesquisa</div>
+      <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:14px;">Esta pesquisa analisa os impactos da escassez hidrica na producao, sustentabilidade e condicoes socioeconomicas da agricultura familiar na <strong>Regiao Metropolitana do Vale do Rio Cuiaba e Entorno (RMVRCE)</strong>.</p>
+      <p style="font-size:14px;color:var(--text2);line-height:1.7;">Abrange 14 municipios: Acorizal, Campo Verde, Cuiaba, Chapada dos Guimaraes, Nossa Senhora do Livramento, Santo Antonio do Leverger, Varzea Grande, Barao de Melgaco, Jangada, Nobres, Nova Brasilandia, Planalto da Serra, Pocone e Rosario Oeste.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🎯</span> Objetivos da Etapa de Campo</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--text2);line-height:1.6;">
+        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">01</span>Diagnosticar os multiplos usos da agua na RMVRCE</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">02</span>Diagnosticar a demanda hidrica da regiao</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">03</span>Identificar impactos socioeconomicos da escassez hidrica</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">04</span>Propor alternativas para gestao sustentavel dos recursos hidricos</div>
+      </div>
+    </div>
+
+    <div class="card" id="recentList">
+      <div class="card-title"><span class="icon">🕐</span> Ultimas Entrevistas</div>
+      <div id="recentItems"></div>
+    </div>
+  </div>
+
+  <!-- ENTREVISTAS -->
+  <div class="page" id="page-entrevistas">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--teal2);">Entrevistas Salvas</h2>
+      <select class="form-select" style="width:auto;padding:8px 12px;font-size:13px;" id="filtroTipo" onchange="renderEntrevistas()">
+        <option value="">Todos os tipos</option>
+        <option value="agricultor">Agricultores</option>
+        <option value="tecnico">Tecnicos</option>
+        <option value="representante">Representantes</option>
+      </select>
+    </div>
+    <div id="listaEntrevistas"></div>
+  </div>
+
+  <!-- NOVA ENTREVISTA -->
+  <div class="page" id="page-nova">
+    <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--teal2);margin-bottom:6px;">Registrar Entrevista</h2>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:20px;">Preencha os dados do participante e as respostas da entrevista semiestruturada</p>
+
+    <!-- Progresso -->
+    <div>
+      <div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+      <div class="progress-label" id="progressLabel">Complete os campos para avanzar</div>
+    </div>
+
+    <!-- BLOCO 0: IDENTIFICACAO -->
+    <div class="card">
+      <div class="card-title"><span class="icon">🪪</span> Identificacao do Participante</div>
+
+      <div class="form-group">
+        <label class="form-label">Tipo de Participante <span class="required">*</span></label>
+        <div class="check-group" id="tipoParticipante">
+          <label class="check-item">
+            <input type="radio" name="tipo" value="agricultor" onchange="onTipoChange(this)">
+            <span class="check-label">🌾 Agricultor(a) Familiar</span>
+          </label>
+          <label class="check-item">
+            <input type="radio" name="tipo" value="tecnico" onchange="onTipoChange(this)">
+            <span class="check-label">🔧 Tecnico(a) Extensionista (EMPAER/SEAF)</span>
+          </label>
+          <label class="check-item">
+            <input type="radio" name="tipo" value="representante" onchange="onTipoChange(this)">
+            <span class="check-label">🏛️ Representante de Associacao/Cooperativa</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Codigo do Participante <span class="required">*</span></label>
+          <input class="form-input" id="f_codigo" placeholder="Ex: AG-001, TE-004" oninput="updateProgress()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Data da Entrevista <span class="required">*</span></label>
+          <input class="form-input" type="date" id="f_data" oninput="updateProgress()">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Municipio <span class="required">*</span></label>
+          <select class="form-select" id="f_municipio" onchange="updateProgress()">
+            <option value="">Selecione...</option>
+            <option>Acorizal</option><option>Barao de Melgaco</option>
+            <option>Campo Verde</option><option>Chapada dos Guimaraes</option>
+            <option>Cuiaba</option><option>Jangada</option><option>Nobres</option>
+            <option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option>
+            <option>Planalto da Serra</option><option>Pocone</option>
+            <option>Rosario Oeste</option><option>Santo Antonio do Leverger</option>
+            <option>Varzea Grande</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Localidade / Comunidade</label>
+          <input class="form-input" id="f_localidade" placeholder="Nome da comunidade ou sitio">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Genero</label>
+          <select class="form-select" id="f_genero">
+            <option value="">Nao informado</option>
+            <option>Masculino</option><option>Feminino</option><option>Nao binario</option>
+            <option>Prefiro nao informar</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Faixa Etaria</label>
+          <select class="form-select" id="f_idade">
+            <option value="">Nao informado</option>
+            <option>Ate 25 anos</option><option>26-35 anos</option><option>36-45 anos</option>
+            <option>46-55 anos</option><option>56-65 anos</option><option>Acima de 65 anos</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCO 1: AGUA E PROPRIEDADE -->
+    <div class="section-header">
+      <div class="section-header-dot"></div>
+      <div class="section-header-title">Bloco 1 — Recursos Hidricos e Propriedade</div>
+      <div class="section-header-num">Tema central</div>
+    </div>
+
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">1. Quais fontes de agua sao utilizadas na propriedade? (marque todas que se aplicam)</label>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="poco_artesiano">💧 Poco artesiano ou cacimba</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="rio_corrego">🌊 Rio ou corrego</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="chuva">🌧️ Captacao de agua da chuva</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="lago_represa">🏞️ Lago ou represa propria</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="rede_publica">🏠 Rede publica de abastecimento</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="compra_carro_pipa">🚛 Compra de carro-pipa</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">2. Sistemas de irrigacao adotados</label>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="gotejamento">💦 Irrigacao por gotejamento</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="aspersao">🚿 Irrigacao por aspersao</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="inundacao">🌾 Inundacao/gravidade</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="sem_irrigacao">❌ Nao utiliza irrigacao</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">3. Percepcao sobre mudancas no regime de chuvas nos ultimos 10 anos</label>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_chuva')"><input type="radio" name="r_chuva" value="muito_menos">Muito menos chuva que antes</label>
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_chuva')"><input type="radio" name="r_chuva" value="pouco_menos">Um pouco menos chuva</label>
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_chuva')"><input type="radio" name="r_chuva" value="igual">Nao percebeu mudancas</label>
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_chuva')"><input type="radio" name="r_chuva" value="mais_irregular">Chuvas mais irregulares e imprevisveis</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">4. Descricao detalhada sobre a situacao hidrica da propriedade</label>
+        <textarea class="form-textarea" id="f_situacao_hidrica" placeholder="Descreva como o participante relata a disponibilidade e qualidade da agua em sua propriedade..." rows="4"></textarea>
+      </div>
+      <div style="background:#f0fafa;border:1.5px dashed var(--mint);border-radius:10px;padding:14px 16px;margin-top:4px;">
+        <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — Bloco 1</div>
+        <textarea class="form-textarea" id="f_obs_b1" placeholder="Tom, emocoes, gestos, contexto fisico observado, informacoes espontaneas sobre agua que merecem destaque analitico..." rows="3" style="background:rgba(255,255,255,0.7);border-color:var(--mint);font-size:13px;"></textarea>
+      </div>
+    </div>
+
+    <!-- BLOCO 2: IMPACTOS -->
+    <div class="section-header">
+      <div class="section-header-dot" style="background:var(--orange);"></div>
+      <div class="section-header-title">Bloco 2 — Impactos Socioeconomicos</div>
+    </div>
+
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">5. Impactos observados com maior frequencia (marque ate 3)</label>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="reducao_produtividade">📉 Reducao da produtividade agricola</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="perda_lavouras">🌾 Perda de lavouras</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="mortandade_animal">🐄 Mortandade animal</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="aumento_custos">💰 Aumento dos custos de producao</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="mudanca_cultura">🔄 Mudanca no tipo de cultura plantada</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="exodo">🏃 Exodo ou abandono da atividade</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="conflitos_agua">⚡ Conflitos pelo uso da agua</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">6. A escassez hidrica afeta a seguranca alimentar das familias?</label>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_segalim')"><input type="radio" name="r_segalim" value="sim">Sim, de forma significativa</label>
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_segalim')"><input type="radio" name="r_segalim" value="parcialmente">Parcialmente</label>
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_segalim')"><input type="radio" name="r_segalim" value="nao">Nao afeta</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">7. Relato dos impactos socioeconomicos (resposta aberta)</label>
+        <textarea class="form-textarea" id="f_impactos" placeholder="Documente o relato do participante sobre como a escassez afeta sua producao, renda e vida familiar..." rows="5"></textarea>
+      </div>
+      <div style="background:#fff9ef;border:1.5px dashed var(--amber);border-radius:10px;padding:14px 16px;margin-top:4px;">
+        <div style="font-size:11px;font-weight:700;color:#c07c00;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — Bloco 2</div>
+        <textarea class="form-textarea" id="f_obs_b2" placeholder="Reacoes emocionais ao falar de perdas, contradições nas respostas, narrativas inesperadas sobre impactos, tensoes observadas..." rows="3" style="background:rgba(255,255,255,0.7);border-color:var(--amber);font-size:13px;"></textarea>
+      </div>
+    </div>
+
+    <!-- BLOCO 3: ESTRATEGIAS -->
+    <div class="section-header">
+      <div class="section-header-dot" style="background:var(--teal);"></div>
+      <div class="section-header-title">Bloco 3 — Estrategias de Adaptacao</div>
+    </div>
+
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">8. Estrategias atuais de convivencia com a seca</label>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="armazenamento">🛢️ Armazenamento de agua em caixas/cisternas</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="barraginha">🏞️ Barraginhas e pequenas represas</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="reuso">♻️ Reuso de agua</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="culturas_resistentes">🌵 Adocao de culturas mais resistentes a seca</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="reducao_area">📏 Reducao da area plantada</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="sem_estrategia">❓ Nao tem estrategias definidas</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">9. Principais dificuldades para implementar solucoes (marque todas que se aplicam)</label>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="financeiro">💸 Falta de recursos financeiros</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="informacao">📚 Falta de informacao tecnica</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="assistencia">🤝 Falta de assistencia tecnica continua</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="infraestrutura">🔧 Falta de equipamentos ou infraestrutura</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="organizacao_social">👥 Baixa organizacao social/coletiva</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="politicas_publicas">📜 Acesso insuficiente a politicas publicas</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">10. Sugestoes de solucoes viaveis para a comunidade (resposta aberta)</label>
+        <textarea class="form-textarea" id="f_sugestoes" placeholder="Registre as propostas e sugestoes que o participante aponta como mais viáveis para enfrentar a escassez hidrica..." rows="4"></textarea>
+      </div>
+      <div style="background:#edfaf3;border:1.5px dashed #5cb87a;border-radius:10px;padding:14px 16px;margin-top:4px;">
+        <div style="font-size:11px;font-weight:700;color:#2e7d32;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — Bloco 3</div>
+        <textarea class="form-textarea" id="f_obs_b3" placeholder="Grau de conhecimento sobre alternativas, confianca nas solucoes citadas, resistencias a mudancas, redes de apoio mencionadas..." rows="3" style="background:rgba(255,255,255,0.7);border-color:#5cb87a;font-size:13px;"></textarea>
+      </div>
+    </div>
+
+    <!-- BLOCO 4: POLITICAS PUBLICAS -->
+    <div class="section-header">
+      <div class="section-header-dot" style="background:var(--amber);"></div>
+      <div class="section-header-title">Bloco 4 — Politicas Publicas e Governanca</div>
+    </div>
+
+    <div class="card">
+      <div class="form-group">
+        <label class="form-label">11. Avaliacao do acesso as politicas publicas de recursos hidricos</label>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="muito_bom">⭐⭐⭐⭐⭐ Muito bom</label>
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="bom">⭐⭐⭐⭐ Bom</label>
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="regular">⭐⭐⭐ Regular</label>
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="ruim">⭐⭐ Ruim</label>
+          <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="muito_ruim">⭐ Muito ruim</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">12. Programas ou acoes consideradas eficazes para a regiao</label>
+        <textarea class="form-textarea" id="f_programas" placeholder="Quais programas, acoes ou iniciativas o participante considera eficazes ou que funcionaram na pratica..." rows="3"></textarea>
+      </div>
+      <div style="background:#f5f0fb;border:1.5px dashed #b39ddb;border-radius:10px;padding:14px 16px;margin-top:4px;">
+        <div style="font-size:11px;font-weight:700;color:#6a1b9a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — Bloco 4</div>
+        <textarea class="form-textarea" id="f_obs_b4" placeholder="Postura critica ou resignada diante do poder publico, experiencias de exclusao de programas, expectativas ou decepções institucionais..." rows="3" style="background:rgba(255,255,255,0.7);border-color:#b39ddb;font-size:13px;"></textarea>
+      </div>
+    </div>
+
+    <!-- BLOCO 5: AUDIO -->
+    <div class="section-header">
+      <div class="section-header-dot" style="background:var(--red);"></div>
+      <div class="section-header-title">Bloco 5 — Gravacao de Audio</div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Grave trechos da entrevista diretamente aqui. Os audios ficam salvos no dispositivo e podem ser exportados posteriormente.</p>
+      <div class="audio-recorder">
+        <div class="audio-controls">
+          <button class="btn-record idle" id="btnRecord" onclick="toggleRecord()">🎤</button>
+          <div>
+            <div class="audio-time" id="audioTime">00:00</div>
+            <div class="audio-status" id="audioStatus">Pronto para gravar</div>
+          </div>
+          <button class="btn-sm outline" onclick="saveAudio()" id="btnSaveAudio" style="display:none;">💾 Salvar</button>
+        </div>
+      </div>
+      <div class="audio-list" id="audioList" style="margin-top:12px;"></div>
+    </div>
+
+    <!-- BLOCO 6: OBSERVACOES -->
+    <div class="card">
+      <div class="card-title"><span class="icon">📝</span> Observacoes e Memorandos da Pesquisadora</div>
+      <div class="form-group">
+        <label class="form-label">Notas de campo / observacoes gerais</label>
+        <textarea class="form-textarea" id="f_observacoes" placeholder="Registre contexto da entrevista, ambiente, linguagem corporal, informacoes relevantes nao capturadas nas perguntas, memos analiticos..." rows="5"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Categorias tematicas identificadas</label>
+        <div class="check-group">
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="impactos_percebidos">Categoria 1: Impactos percebidos da escassez</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="estrategias_adaptacao">Categoria 2: Estrategias de adaptacao existentes</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="barreiras_solucoes">Categoria 3: Barreiras a implementacao de solucoes</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="governanca_agua">Categoria 4: Governanca e politicas hidricas</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- TCLE -->
+    <div class="card" style="border:2px solid var(--teal);background:var(--light);">
+      <div class="card-title"><span class="icon">✅</span> Consentimento e Conformidade Etica</div>
+      <div class="check-group">
+        <label class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox" id="f_tcle_assinado">
+          <span class="check-label"><strong>TCLE assinado</strong> — O Termo de Consentimento Livre e Esclarecido foi lido e assinado pelo participante</span>
+        </label>
+        <label class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox" id="f_audio_autorizado">
+          <span class="check-label"><strong>Audio autorizado</strong> — O participante autorizou a gravacao de audio da entrevista</span>
+        </label>
+        <label class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox" id="f_anonimato_garantido">
+          <span class="check-label"><strong>Anonimato garantido</strong> — O codigo de identificacao garante anonimato conforme Resolucao CNS n. 510/2016</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- BOTAO SALVAR -->
+    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:8px;padding-bottom:40px;">
+      <button class="btn-sm outline" onclick="limparFormulario()" style="padding:14px 28px;font-size:15px;">🗑️ Limpar</button>
+      <button class="btn-sm primary" onclick="salvarEntrevista()" style="padding:14px 32px;font-size:15px;">💾 Salvar Entrevista</button>
+    </div>
+  </div>
+
+  <!-- ROTEIRO -->
+  <div class="page" id="page-roteiro">
+    <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--teal2);margin-bottom:6px;">Roteiro de Entrevista</h2>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:20px;">Guia de referencia para conduzir as entrevistas semiestruturadas em campo</p>
+
+    <div class="alert alert-warn">
+      🎙️ <strong>Lembre-se:</strong> A entrevista e semiestruturada. Use o roteiro como guia, mas deixe o participante falar livremente. Aprofunde em temas que surgirem espontaneamente.
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🌊</span> Tema 1: Percepcao da Escassez Hidrica</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:var(--light);padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid var(--teal);">Como voce percebe a situacao da agua aqui na sua propriedade / regiao hoje em comparacao a 10 anos atras?</div>
+        <div style="background:var(--light);padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid var(--teal);">Quando voce percebeu pela primeira vez que a agua estava diminuindo ou ficando mais escassa?</div>
+        <div style="background:var(--light);padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid var(--teal);">Na sua opiniao, quais sao as causas principais da escassez hidrica que voces enfrentam?</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">📉</span> Tema 2: Impactos na Producao e na Vida</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#fff8e1;padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid var(--amber);">Pode me contar como a falta de agua afetou sua producao nos ultimos anos? Houve alguma perda importante?</div>
+        <div style="background:#fff8e1;padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid var(--amber);">Sua familia passou por alguma dificuldade de alimentacao ou financeira por causa da falta de agua?</div>
+        <div style="background:#fff8e1;padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid var(--amber);">Voce conhece alguem que teve que deixar a propriedade ou mudar de atividade por causa da escassez?</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🛠️</span> Tema 3: Estrategias e Solucoes</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#e8f5e9;padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid #4caf50;">O que voce tem feito para conviver com a escassez de agua? Tem dado certo?</div>
+        <div style="background:#e8f5e9;padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid #4caf50;">Que tecnologias ou praticas voce acha que seriam mais uteis para a sua realidade?</div>
+        <div style="background:#e8f5e9;padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid #4caf50;">Se voce pudesse recomendar uma acao prioritaria para o governo, o que seria?</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🏛️</span> Tema 4: Politicas Publicas e Assistencia</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#f3e5f5;padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid #9c27b0;">Voce conhece ou ja acessou algum programa do governo para enfrentar a escassez hidrica?</div>
+        <div style="background:#f3e5f5;padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid #9c27b0;">Como voce avalia a atuacao da EMPAER, SEAF e prefeitura nessa questao?</div>
+        <div style="background:#f3e5f5;padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid #9c27b0;">O que voce precisa que essas instituicoes fassem de diferente?</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🔮</span> Encerramento</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:var(--light);padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid var(--teal2);">Tem alguma coisa que voce queira acrescentar ou que acha importante que eu saiba sobre esse assunto?</div>
+        <div style="background:var(--light);padding:12px 16px;border-radius:8px;font-size:14px;border-left:3px solid var(--teal2);">Voce gostaria de ser informado sobre os resultados desta pesquisa?</div>
+      </div>
+    </div>
+
+    <div class="card" style="background:var(--light);border:1.5px solid var(--mint);">
+      <div class="card-title"><span class="icon">⚖️</span> Orientacoes Eticas em Campo</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.8;">
+        <div style="margin-bottom:8px;">✅ Apresentar-se e explicar o objetivo da pesquisa antes de iniciar</div>
+        <div style="margin-bottom:8px;">✅ Verificar assinatura do TCLE ANTES de qualquer gravacao</div>
+        <div style="margin-bottom:8px;">✅ Garantir que o participante pode interromper a qualquer momento</div>
+        <div style="margin-bottom:8px;">✅ Nao coletar nomes — apenas codigo de identificacao</div>
+        <div style="margin-bottom:8px;">✅ Manter postura empatica, sem julgamentos</div>
+        <div>✅ Informar sobre possibilidade de receber resultados da pesquisa</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPORTAR -->
+  <div class="page" id="page-export">
+    <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--teal2);margin-bottom:6px;">Exportar Dados</h2>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:20px;">Exporte os dados coletados para analise posterior quando tiver internet ou computador disponivel</p>
+
+    <div class="card" style="border:2px solid var(--teal2);background:linear-gradient(135deg,#f0fafa,#fff);">
+      <div class="card-title"><span class="icon">📱</span> Como funciona o salvamento offline</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.8;">
+        <div style="margin-bottom:8px;display:flex;gap:10px;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">1.</span>Cada entrevista que voce salva fica gravada <strong>dentro do Chrome deste celular</strong> automaticamente. Nao precisa de internet.</div>
+        <div style="margin-bottom:8px;display:flex;gap:10px;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">2.</span>Voce pode sair do app, fechar o celular, retornar dias depois — <strong>os dados continuam aqui</strong>.</div>
+        <div style="margin-bottom:8px;display:flex;gap:10px;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">3.</span>Para nao perder: <strong>nunca limpe os dados do Chrome</strong> e sempre abra o mesmo arquivo neste celular.</div>
+        <div style="display:flex;gap:10px;"><span style="color:var(--orange);font-weight:700;flex-shrink:0;">⚡</span>Quando tiver internet, use os botoes abaixo para <strong>exportar tudo de uma vez</strong> para o computador.</div>
+      </div>
+    </div>
+
+    <div class="export-card">
+      <h3>💾 Exportar para JSON</h3>
+      <p>Arquivo completo com todas as entrevistas, metadados e estrutura de dados. Ideal para backup e importacao em outros sistemas.</p>
+      <button class="btn-export" onclick="exportarJSON()">📥 Baixar JSON</button>
+    </div>
+
+    <div class="export-card" style="background:linear-gradient(135deg, #2e7d32, #4caf50);">
+      <h3>📊 Exportar para CSV</h3>
+      <p>Planilha com dados estruturados das entrevistas. Compativel com Excel, Google Sheets e software de analise estatistica.</p>
+      <button class="btn-export" onclick="exportarCSV()">📥 Baixar CSV</button>
+    </div>
+
+    <div class="export-card" style="background:linear-gradient(135deg, #c0392b, #e74c3c);">
+      <h3>📄 Relatorio de Campo</h3>
+      <p>Documento de texto com todas as respostas abertas e observacoes, formatado para analise de conteudo.</p>
+      <button class="btn-export" onclick="exportarRelatorio()">📥 Baixar TXT</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🛡️</span> Status de Segurança dos Dados</div>
+      <div id="safetyStatus"><div style="font-size:13px;color:var(--text2);">Carregando...</div></div>
+      <button class="btn-sm outline" onclick="updateSafetyStatus()" style="margin-top:4px;">🔄 Verificar agora</button>
+    </div>
+
+    <div class="card" style="border:2px solid var(--teal);background:var(--light);">
+      <div class="card-title"><span class="icon">🚨</span> Recuperacao de Emergencia</div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Se os dados parecerem ter sumido, tente recuperar de uma das camadas de backup:</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-sm outline" onclick="recuperarDeBackup()">♻️ Recuperar do backup local</button>
+        <button class="btn-sm outline" onclick="recuperarDeSessao()">🔁 Recuperar da sessao</button>
+        <button class="btn-sm outline" onclick="importarJSON()">📂 Importar JSON salvo</button>
+      </div>
+      <input type="file" id="inputImportJSON" accept=".json" style="display:none" onchange="processarImportJSON(this)">
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🗃️</span> Gerenciar Dados</div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:16px;">Total de entrevistas salvas: <strong id="exportTotal">0</strong></p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn-sm success" onclick="exportarJSON()">✅ Backup completo (JSON)</button>
+        <button class="btn-sm danger" onclick="limparTodos()">🗑️ Apagar todos os dados</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DETALHES -->
+<div class="modal-overlay" id="modalDetalhes">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title"><span>📋</span> Detalhes da Entrevista</div>
+      <button class="modal-close" onclick="closeModal('modalDetalhes')">✕</button>
+    </div>
+    <div class="modal-body" id="modalDetalhesBody"></div>
+    <div class="modal-footer">
+      <button class="btn-sm danger" id="btnDeleteModal" onclick="deleteEntrevista()">🗑️ Excluir</button>
+      <button class="btn-sm outline" onclick="closeModal('modalDetalhes')">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMACAO SALVO -->
+<div class="modal-overlay" id="modalConfirmacao">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <div class="modal-title"><span>💾</span> Registro Salvo</div>
+      <button class="modal-close" onclick="closeModal('modalConfirmacao');showPage('entrevistas');">✕</button>
+    </div>
+    <div class="modal-body" id="confirmacaoBody"></div>
+    <div class="modal-footer">
+      <button class="btn-sm outline" onclick="closeModal('modalConfirmacao');openNovaEntrevista();">+ Nova Entrevista</button>
+      <button class="btn-sm primary" onclick="closeModal('modalConfirmacao');showPage('entrevistas');">Ver Lista</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ===== STATE =====
+let entrevistas = [];
+let editingId = null;
+let mediaRecorder = null;
+let audioChunks = [];
+let recordingTimer = null;
+let recordingSeconds = 0;
+let currentAudios = [];
+let isRecording = false;
+let isPaused = false;
+let audioStream = null;
+let deleteTargetId = null;
+
+// ===== INIT =====
+async function entrarApp() {
+  document.getElementById('capa').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  await loadData();
+  renderDashboard();
+  // set today's date
+  const d = new Date().toISOString().split('T')[0];
+  if(document.getElementById('f_data')) document.getElementById('f_data').value = d;
+}
+
+// ===== SISTEMA DE PERSISTÊNCIA 3 CAMADAS =====
+// Camada 1: localStorage (instantâneo, síncrono)
+// Camada 2: IndexedDB (robusto, suporta mais dados)
+// Camada 3: sessionStorage (backup da sessão atual)
+
+let db = null;
+const DB_NAME = 'aquacampo_db';
+const DB_VERSION = 1;
+const STORE_NAME = 'entrevistas';
+
+// Inicializa IndexedDB
+function initIndexedDB() {
+  return new Promise((resolve) => {
+    if (!window.indexedDB) { resolve(false); return; }
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains(STORE_NAME)) {
+        d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+      }
+    };
+    req.onsuccess = (e) => { db = e.target.result; resolve(true); };
+    req.onerror = () => resolve(false);
+  });
+}
+
+// Salva no IndexedDB
+function saveToIndexedDB(data) {
+  if (!db) return;
+  try {
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    const store = tx.objectStore(STORE_NAME);
+    store.clear();
+    data.forEach(e => store.put(e));
+  } catch(err) {}
+}
+
+// Lê do IndexedDB
+function loadFromIndexedDB() {
+  return new Promise((resolve) => {
+    if (!db) { resolve([]); return; }
+    try {
+      const tx = db.transaction(STORE_NAME, 'readonly');
+      const store = tx.objectStore(STORE_NAME);
+      const req = store.getAll();
+      req.onsuccess = () => resolve(req.result || []);
+      req.onerror = () => resolve([]);
+    } catch(err) { resolve([]); }
+  });
+}
+
+async function loadData() {
+  // Tenta localStorage primeiro
+  let fromLS = [];
+  try {
+    const s = localStorage.getItem('aquacampo_entrevistas');
+    fromLS = s ? JSON.parse(s) : [];
+  } catch(e) { fromLS = []; }
+
+  // Tenta IndexedDB
+  await initIndexedDB();
+  let fromIDB = await loadFromIndexedDB();
+
+  // Usa o que tem mais dados (mais recente)
+  if (fromIDB.length >= fromLS.length) {
+    entrevistas = fromIDB;
+  } else {
+    entrevistas = fromLS;
+  }
+
+  // Sincroniza tudo
+  saveData();
+  updateSafetyStatus();
+}
+
+function saveData() {
+  const payload = JSON.stringify(entrevistas);
+
+  // Camada 1: localStorage
+  try {
+    localStorage.setItem('aquacampo_entrevistas', payload);
+    localStorage.setItem('aquacampo_backup', payload); // cópia de segurança
+    localStorage.setItem('aquacampo_last_save', new Date().toISOString());
+  } catch(e) {
+    // localStorage cheio — tenta limpar o backup antigo
+    try { localStorage.removeItem('aquacampo_backup'); } catch(_) {}
+    try { localStorage.setItem('aquacampo_entrevistas', payload); } catch(_) {}
+  }
+
+  // Camada 2: IndexedDB
+  saveToIndexedDB(entrevistas);
+
+  // Camada 3: sessionStorage (cópia da sessão)
+  try {
+    sessionStorage.setItem('aquacampo_session', payload);
+  } catch(e) {}
+
+  updateSafetyStatus();
+}
+
+function updateSafetyStatus() {
+  const el = document.getElementById('safetyStatus');
+  if (!el) return;
+  const lastSave = localStorage.getItem('aquacampo_last_save');
+  const total = entrevistas.length;
+  const lsOK = !!localStorage.getItem('aquacampo_entrevistas');
+  const ssOK = !!sessionStorage.getItem('aquacampo_session');
+  const idbOK = !!db;
+
+  const lastStr = lastSave
+    ? new Date(lastSave).toLocaleString('pt-BR')
+    : 'nunca';
+
+  el.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <div style="font-size:28px;">${total > 0 ? '🟢' : '⚪'}</div>
+      <div>
+        <div style="font-weight:700;font-size:15px;color:var(--teal2);">${total} entrevista${total!==1?'s':''} salva${total!==1?'s':''}</div>
+        <div style="font-size:12px;color:var(--text2);">Ultimo salvamento: ${lastStr}</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;">
+      <div style="text-align:center;padding:10px 6px;border-radius:10px;background:${lsOK?'#e8f5e9':'#fdecea'};border:1.5px solid ${lsOK?'#a5d6a7':'#f5c6c1'};">
+        <div style="font-size:18px;">${lsOK?'✅':'❌'}</div>
+        <div style="font-size:11px;font-weight:600;color:${lsOK?'#2e7d32':'#c0392b'};margin-top:3px;">localStorage</div>
+      </div>
+      <div style="text-align:center;padding:10px 6px;border-radius:10px;background:${idbOK?'#e8f5e9':'#fff8e1'};border:1.5px solid ${idbOK?'#a5d6a7':'#ffe082'};">
+        <div style="font-size:18px;">${idbOK?'✅':'⚠️'}</div>
+        <div style="font-size:11px;font-weight:600;color:${idbOK?'#2e7d32':'#e65100'};margin-top:3px;">IndexedDB</div>
+      </div>
+      <div style="text-align:center;padding:10px 6px;border-radius:10px;background:${ssOK?'#e8f5e9':'#fdecea'};border:1.5px solid ${ssOK?'#a5d6a7':'#f5c6c1'};">
+        <div style="font-size:18px;">${ssOK?'✅':'❌'}</div>
+        <div style="font-size:11px;font-weight:600;color:${ssOK?'#2e7d32':'#c0392b'};margin-top:3px;">Sessao</div>
+      </div>
+    </div>
+  `;
+}
+
+// Autossalvamento a cada 30s se houver mudanças pendentes
+let _pendingSave = false;
+function markDirty() { _pendingSave = true; }
+setInterval(() => {
+  if (_pendingSave) { saveData(); _pendingSave = false; }
+}, 30000);
+
+// Salva antes de fechar a página
+window.addEventListener('beforeunload', () => {
+  if (entrevistas.length > 0) saveData();
+});
+
+// ===== NAV =====
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  if(name === 'entrevistas') renderEntrevistas();
+  if(name === 'dashboard') renderDashboard();
+  if(name === 'export') {
+    document.getElementById('exportTotal').textContent = entrevistas.length;
+    updateSafetyStatus();
+  }
+}
+
+function openNovaEntrevista() {
+  showPage('nova');
+  limparFormulario();
+}
+
+// ===== FORM =====
+function onTipoChange(el) {
+  document.querySelectorAll('[name=tipo]').forEach(r => {
+    r.closest('.check-item').classList.toggle('checked', r.checked);
+  });
+}
+
+function toggleCheck(el, type, name) {
+  if(type === 'radio') {
+    document.querySelectorAll('[name=' + name + ']').forEach(r => r.closest('.check-item').classList.remove('checked'));
+  }
+  const inp = el.querySelector('input');
+  if(inp) {
+    if(type === 'radio') {
+      el.classList.add('checked');
+    } else {
+      el.classList.toggle('checked', inp.checked);
+    }
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  const codigo = (document.getElementById('f_codigo')?.value || '').trim();
+  const data = (document.getElementById('f_data')?.value || '').trim();
+  const municipio = (document.getElementById('f_municipio')?.value || '').trim();
+  const tipo = document.querySelector('[name=tipo]:checked');
+  let filled = 0;
+  if(codigo) filled++;
+  if(data) filled++;
+  if(municipio) filled++;
+  if(tipo) filled++;
+  const pct = Math.round((filled/4)*100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = pct < 100 ? `${pct}% — Preencha codigo, data, municipio e tipo` : '100% — Pronto para salvar!';
+}
+
+function getChecked(name) {
+  return Array.from(document.querySelectorAll('[name=' + name + ']:checked')).map(c=>c.value);
+}
+
+function getCheckedBoxes(container) {
+  return Array.from(document.querySelectorAll('#' + container + ' input[type=checkbox]:checked')).map(c=>c.value);
+}
+
+function getAllCheckedBoxes() {
+  return Array.from(document.querySelectorAll('.page#page-nova input[type=checkbox]:checked')).map(c=>c.value);
+}
+
+function salvarEntrevista() {
+  const codigo = (document.getElementById('f_codigo')?.value || '').trim();
+  const tipo = document.querySelector('[name=tipo]:checked')?.value;
+  if(!codigo || !tipo) {
+    showToast('Preencha o codigo e o tipo de participante!', true);
+    return;
+  }
+
+  const entrevista = {
+    id: editingId || Date.now().toString(),
+    timestamp: new Date().toISOString(),
+    codigo,
+    tipo,
+    data: document.getElementById('f_data')?.value || '',
+    municipio: document.getElementById('f_municipio')?.value || '',
+    localidade: document.getElementById('f_localidade')?.value || '',
+    genero: document.getElementById('f_genero')?.value || '',
+    faixa_etaria: document.getElementById('f_idade')?.value || '',
+    fontes_agua: Array.from(document.querySelectorAll('#page-nova input[value="poco_artesiano"],[value="rio_corrego"],[value="chuva"],[value="lago_represa"],[value="rede_publica"],[value="compra_carro_pipa"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
+    irrigacao: Array.from(document.querySelectorAll('#page-nova input[value="gotejamento"],[value="aspersao"],[value="inundacao"],[value="sem_irrigacao"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
+    percepcao_chuva: getChecked('r_chuva')[0] || '',
+    situacao_hidrica: document.getElementById('f_situacao_hidrica')?.value || '',
+    obs_b1: document.getElementById('f_obs_b1')?.value || '',
+    impactos_marcados: Array.from(document.querySelectorAll('#page-nova input[value="reducao_produtividade"],[value="perda_lavouras"],[value="mortandade_animal"],[value="aumento_custos"],[value="mudanca_cultura"],[value="exodo"],[value="conflitos_agua"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
+    seguranca_alimentar: getChecked('r_segalim')[0] || '',
+    relato_impactos: document.getElementById('f_impactos')?.value || '',
+    obs_b2: document.getElementById('f_obs_b2')?.value || '',
+    estrategias: Array.from(document.querySelectorAll('#page-nova input[value="armazenamento"],[value="barraginha"],[value="reuso"],[value="culturas_resistentes"],[value="reducao_area"],[value="sem_estrategia"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
+    dificuldades: Array.from(document.querySelectorAll('#page-nova input[value="financeiro"],[value="informacao"],[value="assistencia"],[value="infraestrutura"],[value="organizacao_social"],[value="politicas_publicas"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
+    sugestoes: document.getElementById('f_sugestoes')?.value || '',
+    obs_b3: document.getElementById('f_obs_b3')?.value || '',
+    avaliacao_politicas: getChecked('r_politicas')[0] || '',
+    programas_eficazes: document.getElementById('f_programas')?.value || '',
+    obs_b4: document.getElementById('f_obs_b4')?.value || '',
+    observacoes: document.getElementById('f_observacoes')?.value || '',
+    categorias: Array.from(document.querySelectorAll('#page-nova input[value="impactos_percebidos"],[value="estrategias_adaptacao"],[value="barreiras_solucoes"],[value="governanca_agua"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
+    tcle_assinado: document.getElementById('f_tcle_assinado')?.checked || false,
+    audio_autorizado: document.getElementById('f_audio_autorizado')?.checked || false,
+    anonimato_garantido: document.getElementById('f_anonimato_garantido')?.checked || false,
+    audios: currentAudios.map(a=>({name:a.name, note:'Audio gravado em campo'})),
+    sincronizado: false
+  };
+
+  if(editingId) {
+    const idx = entrevistas.findIndex(e=>e.id===editingId);
+    if(idx>=0) entrevistas[idx] = entrevista;
+  } else {
+    entrevistas.unshift(entrevista);
+  }
+  saveData();
+  _pendingSave = false;
+  mostrarConfirmacaoSalvo(entrevista);
+  limparFormulario();
+  renderDashboard();
+}
+
+function mostrarConfirmacaoSalvo(e) {
+  const total = entrevistas.length;
+  document.getElementById('confirmacaoBody').innerHTML = `
+    <div style="text-align:center;padding:10px 0 20px;">
+      <div style="font-size:56px;margin-bottom:10px;">\u2705</div>
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--teal2);margin-bottom:6px;">Entrevista Salva!</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:20px;">Gravada com seguranca no navegador deste celular</div>
+    </div>
+    <div style="background:var(--light);border-radius:12px;padding:16px 18px;margin-bottom:16px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;">
+        <div><span style="color:var(--text2);">Codigo:</span> <strong>${e.codigo}</strong></div>
+        <div><span style="color:var(--text2);">Tipo:</span> <strong>${e.tipo}</strong></div>
+        <div><span style="color:var(--text2);">Municipio:</span> <strong>${e.municipio||'-'}</strong></div>
+        <div><span style="color:var(--text2);">Data:</span> <strong>${e.data||'-'}</strong></div>
+      </div>
+    </div>
+    <div style="background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:10px;padding:14px 16px;margin-bottom:12px;font-size:13px;">
+      <div style="font-weight:700;color:#2e7d32;margin-bottom:6px;">\ud83d\uddc4\ufe0f Total no app: ${total} entrevista${total!==1?'s':''}</div>
+      <div style="color:#2e7d32;">Todos os dados ficam gravados neste Chrome, neste celular. Continue registrando normalmente.</div>
+    </div>
+    <div style="background:#fff8e1;border:1.5px solid #ffe082;border-radius:10px;padding:12px 16px;font-size:12px;color:#e65100;">
+      \u26a0\ufe0f <strong>Lembre-se:</strong> Nao limpe os dados do Chrome e sempre use este mesmo navegador neste celular.
+    </div>
+  `;
+  openModal('modalConfirmacao');
+}
+
+function limparFormulario() {
+  editingId = null;
+  currentAudios = [];
+  document.querySelectorAll('#page-nova input, #page-nova textarea, #page-nova select').forEach(el => {
+    if(el.type === 'checkbox' || el.type === 'radio') el.checked = false;
+    else el.value = '';
+  });
+  document.querySelectorAll('#page-nova .check-item').forEach(el => el.classList.remove('checked'));
+  document.getElementById('audioList').innerHTML = '';
+  const d = new Date().toISOString().split('T')[0];
+  document.getElementById('f_data').value = d;
+  updateProgress();
+}
+
+// ===== RENDER =====
+function tipoLabel(tipo) {
+  if(tipo==='agricultor') return '<span class="badge badge-ag">🌾 Agricultor</span>';
+  if(tipo==='tecnico') return '<span class="badge badge-te">🔧 Tecnico</span>';
+  return '<span class="badge badge-re">🏛️ Representante</span>';
+}
+function tipoAvatar(tipo) {
+  if(tipo==='agricultor') return 'avatar-ag';
+  if(tipo==='tecnico') return 'avatar-te';
+  return 'avatar-re';
+}
+function tipoEmoji(tipo) {
+  if(tipo==='agricultor') return '🌾';
+  if(tipo==='tecnico') return '🔧';
+  return '🏛️';
+}
+
+function renderDashboard() {
+  document.getElementById('st-total').textContent = entrevistas.length;
+  document.getElementById('st-ag').textContent = entrevistas.filter(e=>e.tipo==='agricultor').length;
+  document.getElementById('st-te').textContent = entrevistas.filter(e=>e.tipo==='tecnico').length;
+  document.getElementById('st-rep').textContent = entrevistas.filter(e=>e.tipo==='representante').length;
+
+  const recent = entrevistas.slice(0,3);
+  const ri = document.getElementById('recentItems');
+  if(recent.length === 0) {
+    ri.innerHTML = '<div class="empty-state"><div class="icon">📋</div><h3>Nenhuma entrevista ainda</h3><p>Registre sua primeira entrevista de campo</p></div>';
+    return;
+  }
+  ri.innerHTML = recent.map(e => `
+    <div class="interview-item" onclick="openDetalhes('${e.id}')">
+      <div class="interview-avatar ${tipoAvatar(e.tipo)}">${tipoEmoji(e.tipo)}</div>
+      <div class="interview-info">
+        <div class="interview-name">${e.codigo}</div>
+        <div class="interview-meta">
+          <span>${tipoLabel(e.tipo)}</span>
+          <span>📍 ${e.municipio || 'Sem municipio'}</span>
+          <span>📅 ${e.data || 'Sem data'}</span>
+        </div>
+      </div>
+      <span class="badge ${e.sincronizado ? 'badge-sync' : 'badge-pending'}">${e.sincronizado ? 'Sincronizado' : 'Pendente'}</span>
+    </div>
+  `).join('');
+}
+
+function renderEntrevistas() {
+  const filtro = document.getElementById('filtroTipo').value;
+  let lista = entrevistas;
+  if(filtro) lista = lista.filter(e => e.tipo === filtro);
+  const cont = document.getElementById('listaEntrevistas');
+  if(lista.length === 0) {
+    cont.innerHTML = '<div class="empty-state"><div class="icon">📭</div><h3>Nenhuma entrevista encontrada</h3><p>Nao ha entrevistas com os filtros selecionados</p></div>';
+    return;
+  }
+  cont.innerHTML = lista.map(e => `
+    <div class="interview-item" onclick="openDetalhes('${e.id}')">
+      <div class="interview-avatar ${tipoAvatar(e.tipo)}">${tipoEmoji(e.tipo)}</div>
+      <div class="interview-info">
+        <div class="interview-name">${e.codigo}</div>
+        <div class="interview-meta">
+          <span>${tipoLabel(e.tipo)}</span>
+          <span>📍 ${e.municipio || '-'}</span>
+          <span>📅 ${e.data || '-'}</span>
+          ${e.localidade ? `<span>🏘️ ${e.localidade}</span>` : ''}
+        </div>
+      </div>
+      <div class="interview-actions">
+        <span class="badge ${e.sincronizado ? 'badge-sync' : 'badge-pending'}">${e.sincronizado ? '✔ Sync' : '⏳ Local'}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== MODAL =====
+function openDetalhes(id) {
+  const e = entrevistas.find(x=>x.id===id);
+  if(!e) return;
+  deleteTargetId = id;
+  const body = document.getElementById('modalDetalhesBody');
+  body.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <div class="interview-avatar ${tipoAvatar(e.tipo)}" style="width:52px;height:52px;border-radius:14px;font-size:26px;flex-shrink:0;">${tipoEmoji(e.tipo)}</div>
+      <div>
+        <div style="font-size:20px;font-weight:700;color:var(--teal2);">${e.codigo}</div>
+        <div style="display:flex;gap:8px;margin-top:4px;">${tipoLabel(e.tipo)} <span class="badge ${e.sincronizado?'badge-sync':'badge-pending'}">${e.sincronizado?'Sincronizado':'Salvo localmente'}</span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;font-size:13px;">
+      <div><span style="color:var(--text2);">📅 Data:</span> <strong>${e.data||'-'}</strong></div>
+      <div><span style="color:var(--text2);">📍 Municipio:</span> <strong>${e.municipio||'-'}</strong></div>
+      <div><span style="color:var(--text2);">🏘️ Localidade:</span> <strong>${e.localidade||'-'}</strong></div>
+      <div><span style="color:var(--text2);">👤 Genero:</span> <strong>${e.genero||'-'}</strong></div>
+      <div><span style="color:var(--text2);">🎂 Faixa etaria:</span> <strong>${e.faixa_etaria||'-'}</strong></div>
+      <div><span style="color:var(--text2);">✅ TCLE:</span> <strong>${e.tcle_assinado?'Sim':'Nao'}</strong></div>
+    </div>
+    ${e.fontes_agua?.length ? `<div style="margin-bottom:10px;font-size:13px;"><strong style="color:var(--teal2);">Fontes de agua:</strong> ${e.fontes_agua.join(', ')}</div>` : ''}
+    ${e.impactos_marcados?.length ? `<div style="margin-bottom:10px;font-size:13px;"><strong style="color:var(--orange);">Impactos marcados:</strong> ${e.impactos_marcados.join(', ')}</div>` : ''}
+    ${e.relato_impactos ? `<div style="margin-bottom:10px;"><div style="font-size:12px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Relato de impactos</div><div style="font-size:13px;background:var(--light);padding:10px 14px;border-radius:8px;line-height:1.6;">${e.relato_impactos}</div></div>` : ''}
+    ${e.obs_b1||e.obs_b2||e.obs_b3||e.obs_b4 ? `<div style="margin-bottom:6px;font-size:12px;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:14px;">📌 Memos de Campo por Bloco</div>` : ''}
+    ${e.obs_b1 ? `<div style="margin-bottom:8px;background:#f0fafa;border-left:3px solid var(--mint);padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;line-height:1.5;"><em style="font-size:11px;color:var(--teal);font-weight:700;">B1 — Recursos Hidricos:</em><br>${e.obs_b1}</div>` : ''}
+    ${e.obs_b2 ? `<div style="margin-bottom:8px;background:#fff9ef;border-left:3px solid var(--amber);padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;line-height:1.5;"><em style="font-size:11px;color:#c07c00;font-weight:700;">B2 — Impactos:</em><br>${e.obs_b2}</div>` : ''}
+    ${e.obs_b3 ? `<div style="margin-bottom:8px;background:#edfaf3;border-left:3px solid #5cb87a;padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;line-height:1.5;"><em style="font-size:11px;color:#2e7d32;font-weight:700;">B3 — Estrategias:</em><br>${e.obs_b3}</div>` : ''}
+    ${e.obs_b4 ? `<div style="margin-bottom:8px;background:#f5f0fb;border-left:3px solid #b39ddb;padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;line-height:1.5;"><em style="font-size:11px;color:#6a1b9a;font-weight:700;">B4 — Politicas:</em><br>${e.obs_b4}</div>` : ''}
+    ${e.sugestoes ? `<div style="margin-bottom:10px;margin-top:10px;"><div style="font-size:12px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Sugestoes do participante</div><div style="font-size:13px;background:var(--light);padding:10px 14px;border-radius:8px;line-height:1.6;">${e.sugestoes}</div></div>` : ''}
+    ${e.observacoes ? `<div style="margin-bottom:10px;"><div style="font-size:12px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Observacoes gerais</div><div style="font-size:13px;background:#fff8e1;padding:10px 14px;border-radius:8px;line-height:1.6;">${e.observacoes}</div></div>` : ''}
+    ${e.categorias?.length ? `<div style="font-size:13px;"><strong style="color:var(--teal2);">Categorias:</strong> ${e.categorias.join(', ')}</div>` : ''}
+  `;
+  openModal('modalDetalhes');
+}
+
+function deleteEntrevista() {
+  if(!deleteTargetId) return;
+  entrevistas = entrevistas.filter(e=>e.id!==deleteTargetId);
+  saveData();
+  closeModal('modalDetalhes');
+  renderDashboard();
+  renderEntrevistas();
+  showToast('Entrevista excluida');
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ===== AUDIO =====
+async function toggleRecord() {
+  if(!isRecording && !isPaused) {
+    try {
+      audioStream = await navigator.mediaDevices.getUserMedia({audio:true});
+      mediaRecorder = new MediaRecorder(audioStream);
+      audioChunks = [];
+      mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+      mediaRecorder.start();
+      isRecording = true;
+      recordingSeconds = 0;
+      recordingTimer = setInterval(() => {
+        recordingSeconds++;
+        const m = String(Math.floor(recordingSeconds/60)).padStart(2,'0');
+        const s = String(recordingSeconds%60).padStart(2,'0');
+        document.getElementById('audioTime').textContent = m+':'+s;
+      }, 1000);
+      document.getElementById('btnRecord').className = 'btn-record recording';
+      document.getElementById('btnRecord').textContent = '⏸';
+      document.getElementById('audioStatus').textContent = 'Gravando...';
+      document.getElementById('btnSaveAudio').style.display = 'inline-flex';
+    } catch(err) {
+      showToast('Microfone nao disponivel neste dispositivo', true);
+    }
+  } else if(isRecording) {
+    mediaRecorder.pause();
+    clearInterval(recordingTimer);
+    isRecording = false; isPaused = true;
+    document.getElementById('btnRecord').className = 'btn-record paused';
+    document.getElementById('btnRecord').textContent = '▶';
+    document.getElementById('audioStatus').textContent = 'Pausado — clique para continuar';
+  } else if(isPaused) {
+    mediaRecorder.resume();
+    isRecording = true; isPaused = false;
+    recordingTimer = setInterval(() => {
+      recordingSeconds++;
+      const m = String(Math.floor(recordingSeconds/60)).padStart(2,'0');
+      const s = String(recordingSeconds%60).padStart(2,'0');
+      document.getElementById('audioTime').textContent = m+':'+s;
+    }, 1000);
+    document.getElementById('btnRecord').className = 'btn-record recording';
+    document.getElementById('btnRecord').textContent = '⏸';
+    document.getElementById('audioStatus').textContent = 'Gravando...';
+  }
+}
+
+function saveAudio() {
+  if(!mediaRecorder) return;
+  mediaRecorder.stop();
+  clearInterval(recordingTimer);
+  isRecording = false; isPaused = false;
+  mediaRecorder.onstop = () => {
+    const blob = new Blob(audioChunks, {type:'audio/webm'});
+    const url = URL.createObjectURL(blob);
+    const name = `audio_${Date.now()}.webm`;
+    currentAudios.push({name, url, blob});
+    const list = document.getElementById('audioList');
+    const item = document.createElement('div');
+    item.className = 'audio-item';
+    item.innerHTML = `<span class="audio-item-name">🎤 ${name.substring(6,12)}</span><audio controls src="${url}"></audio>`;
+    list.appendChild(item);
+    if(audioStream) audioStream.getTracks().forEach(t=>t.stop());
+    document.getElementById('btnRecord').className = 'btn-record idle';
+    document.getElementById('btnRecord').textContent = '🎤';
+    document.getElementById('audioTime').textContent = '00:00';
+    document.getElementById('audioStatus').textContent = 'Pronto para gravar';
+    document.getElementById('btnSaveAudio').style.display = 'none';
+    showToast('Audio salvo!');
+  };
+}
+
+// ===== EXPORT =====
+function exportarJSON() {
+  const data = JSON.stringify({
+    projeto: 'AQUA-CAMPO',
+    pesquisadora: 'Maria Silvina da Cruz Goncalves',
+    orientador: 'Ernandes Sobreira Oliveira Junior',
+    exportado_em: new Date().toISOString(),
+    total_entrevistas: entrevistas.length,
+    entrevistas: entrevistas.map(e => ({...e, audios: e.audios?.map(a=>a.name) || []}))
+  }, null, 2);
+  download('aquacampo_dados_' + new Date().toISOString().split('T')[0] + '.json', data, 'application/json');
+  showToast('JSON exportado com sucesso!');
+}
+
+function exportarCSV() {
+  const headers = ['ID','Codigo','Tipo','Data','Municipio','Localidade','Genero','Faixa_Etaria','Fontes_Agua','Percepcao_Chuva','Seguranca_Alimentar','Impactos','Estrategias','Avaliacao_Politicas','TCLE','Timestamp'];
+  const rows = entrevistas.map(e => [
+    e.id, e.codigo, e.tipo, e.data, e.municipio, e.localidade, e.genero, e.faixa_etaria,
+    (e.fontes_agua||[]).join('|'), e.percepcao_chuva, e.seguranca_alimentar,
+    (e.impactos_marcados||[]).join('|'), (e.estrategias||[]).join('|'),
+    e.avaliacao_politicas, e.tcle_assinado?'Sim':'Nao', e.timestamp
+  ].map(v => '"' + (v||'').toString().replace(/"/g,'""') + '"').join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  download('aquacampo_' + new Date().toISOString().split('T')[0] + '.csv', '\uFEFF' + csv, 'text/csv;charset=utf-8');
+  showToast('CSV exportado!');
+}
+
+function exportarRelatorio() {
+  const linhas = [
+    '====================================================',
+    'RELATORIO DE CAMPO - AQUA-CAMPO',
+    '====================================================',
+    'Projeto: Impactos da Escassez Hidrica na Agricultura Familiar da Regiao do Vale do Rio Cuiaba',
+    'Pesquisadora: Maria Silvina da Cruz Goncalves',
+    'Orientador: Prof. Dr. Ernandes Sobreira Oliveira Junior',
+    'Instituicao: UNEMAT / ProfAgua',
+    'Gerado em: ' + new Date().toLocaleString('pt-BR'),
+    'Total de entrevistas: ' + entrevistas.length,
+    '====================================================\n'
+  ];
+  entrevistas.forEach((e, i) => {
+    linhas.push(`--- ENTREVISTA ${i+1}: ${e.codigo} ---`);
+    linhas.push(`Tipo: ${e.tipo} | Data: ${e.data} | Municipio: ${e.municipio} | Localidade: ${e.localidade||'-'}`);
+    linhas.push(`Genero: ${e.genero||'-'} | Faixa etaria: ${e.faixa_etaria||'-'}`);
+    linhas.push(`TCLE assinado: ${e.tcle_assinado?'Sim':'Nao'}`);
+    if(e.situacao_hidrica) linhas.push(`\nSITUACAO HIDRICA:\n${e.situacao_hidrica}`);
+    if(e.obs_b1) linhas.push(`\n[MEMO B1 - Recursos Hidricos]:\n${e.obs_b1}`);
+    if(e.relato_impactos) linhas.push(`\nRELATO DE IMPACTOS:\n${e.relato_impactos}`);
+    if(e.obs_b2) linhas.push(`\n[MEMO B2 - Impactos]:\n${e.obs_b2}`);
+    if(e.sugestoes) linhas.push(`\nSUGESTOES DO PARTICIPANTE:\n${e.sugestoes}`);
+    if(e.obs_b3) linhas.push(`\n[MEMO B3 - Estrategias]:\n${e.obs_b3}`);
+    if(e.programas_eficazes) linhas.push(`\nPROGRAMAS EFICAZES:\n${e.programas_eficazes}`);
+    if(e.obs_b4) linhas.push(`\n[MEMO B4 - Politicas Publicas]:\n${e.obs_b4}`);
+    if(e.observacoes) linhas.push(`\nOBSERVACOES GERAIS:\n${e.observacoes}`);
+    if(e.categorias?.length) linhas.push(`\nCATEGORIAS: ${e.categorias.join(', ')}`);
+    linhas.push('\n');
+  });
+  download('aquacampo_relatorio_' + new Date().toISOString().split('T')[0] + '.txt', linhas.join('\n'), 'text/plain;charset=utf-8');
+  showToast('Relatorio exportado!');
+}
+
+function download(filename, content, type) {
+  const blob = new Blob([content], {type});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function recuperarDeBackup() {
+  try {
+    const backup = localStorage.getItem('aquacampo_backup');
+    if (!backup) { showToast('Nenhum backup encontrado', true); return; }
+    const dados = JSON.parse(backup);
+    if (!Array.isArray(dados) || dados.length === 0) { showToast('Backup vazio', true); return; }
+    entrevistas = dados;
+    saveData();
+    renderDashboard();
+    renderEntrevistas();
+    showToast(`Recuperadas ${dados.length} entrevista(s) do backup!`);
+  } catch(e) {
+    showToast('Erro ao recuperar backup', true);
+  }
+}
+
+function recuperarDeSessao() {
+  try {
+    const sess = sessionStorage.getItem('aquacampo_session');
+    if (!sess) { showToast('Nenhum dado de sessao encontrado', true); return; }
+    const dados = JSON.parse(sess);
+    if (!Array.isArray(dados) || dados.length === 0) { showToast('Sessao vazia', true); return; }
+    entrevistas = dados;
+    saveData();
+    renderDashboard();
+    renderEntrevistas();
+    showToast(`Recuperadas ${dados.length} entrevista(s) da sessao!`);
+  } catch(e) {
+    showToast('Erro ao recuperar sessao', true);
+  }
+}
+
+function importarJSON() {
+  document.getElementById('inputImportJSON').click();
+}
+
+function processarImportJSON(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      let dados = Array.isArray(parsed) ? parsed : (parsed.entrevistas || []);
+      if (!Array.isArray(dados) || dados.length === 0) {
+        showToast('Arquivo JSON nao contem entrevistas', true); return;
+      }
+      // Merge: adiciona apenas os que nao existem ainda
+      let adicionados = 0;
+      dados.forEach(nova => {
+        if (!entrevistas.find(ex => ex.id === nova.id)) {
+          entrevistas.unshift(nova);
+          adicionados++;
+        }
+      });
+      saveData();
+      renderDashboard();
+      renderEntrevistas();
+      showToast(`${adicionados} entrevista(s) importada(s) com sucesso!`);
+    } catch(err) {
+      showToast('Arquivo invalido ou corrompido', true);
+    }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function limparTodos() {
+  if(confirm('Tem certeza? Todos os dados serao apagados permanentemente!')) {
+    entrevistas = [];
+    saveData();
+    renderDashboard();
+    renderEntrevistas();
+    showToast('Dados apagados');
+  }
+}
+
+// ===== TOAST =====
+function showToast(msg, error=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = error ? '#c0392b' : 'var(--teal2)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Set today's date on load
+document.addEventListener('DOMContentLoaded', () => {
+  const d = new Date().toISOString().split('T')[0];
+  const f = document.getElementById('f_data');
+  if(f) f.value = d;
+});
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => console.log('SW registrado:', reg.scope))
+      .catch(err => console.log('SW erro:', err));
+  });
+}
+</script>
+</body>
+</html>
