@@ -1405,7 +1405,10 @@
       <div class="section-header"><div class="section-header-dot" style="background:var(--red);"></div><div class="section-header-title">Gravacao de Audio (Offline)</div></div>
       <div class="card">
         <div class="alert alert-success" style="margin-bottom:12px;">✅ <strong>Gravacao 100% offline</strong> — funciona sem internet. O audio fica salvo no proprio dispositivo.</div>
-        <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Grave trechos da entrevista. O audio fica salvo localmente e pode ser exportado como arquivo quando houver internet.</p>
+        <div class="alert alert-ok" style="margin-bottom:12px;">
+          ✅ <div><strong>Audio salvo direto no celular</strong> — ao clicar em 💾 Salvar, o arquivo <code>.webm</code> vai automaticamente para a pasta <strong>Downloads</strong> do celular. Funciona 100% offline.</div>
+        </div>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Grave quantos trechos quiser. Cada um gera um arquivo separado em Downloads.</p>
         <div class="audio-recorder">
           <div class="audio-controls">
             <button class="btn-record idle" id="btnRecord" onclick="toggleRecord()">🎤</button>
@@ -2390,20 +2393,48 @@ function saveAudio() {
   mediaRecorder.onstop = () => {
     const blob = new Blob(audioChunks, {type:'audio/webm'});
     const url = URL.createObjectURL(blob);
-    const name = `audio_${Date.now()}.webm`;
+
+    // Gera nome com codigo da entrevista + timestamp
+    const codigoEl = document.getElementById('f_codigo') ||
+                     document.getElementById('te_codigo') ||
+                     document.getElementById('re_codigo');
+    const codigo = (codigoEl?.value || 'audio').trim().replace(/[^a-zA-Z0-9_-]/g,'_');
+    const ts = new Date().toISOString().replace(/[:.]/g,'-').substring(0,19);
+    const name = `aquacampo_${codigo}_${ts}.webm`;
+
+    // Salva na memória (para player na tela)
     currentAudios.push({name, url, blob});
+
+    // ── DOWNLOAD AUTOMÁTICO para a pasta do celular ──
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Player na tela para ouvir na hora
     const list = document.getElementById('audioList');
     const item = document.createElement('div');
     item.className = 'audio-item';
-    item.innerHTML = `<span class="audio-item-name">🎤 ${name.substring(6,12)}</span><audio controls src="${url}"></audio>`;
+    item.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:6px;width:100%;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:11px;color:var(--teal);font-weight:700;">🎤 ${name}</span>
+          <span style="font-size:10px;background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:99px;font-weight:600;">✅ Salvo em Downloads</span>
+        </div>
+        <audio controls src="${url}" style="width:100%;height:36px;"></audio>
+      </div>`;
     list.appendChild(item);
+
     if(audioStream) audioStream.getTracks().forEach(t=>t.stop());
     document.getElementById('btnRecord').className = 'btn-record idle';
     document.getElementById('btnRecord').textContent = '🎤';
     document.getElementById('audioTime').textContent = '00:00';
     document.getElementById('audioStatus').textContent = 'Pronto para gravar';
     document.getElementById('btnSaveAudio').style.display = 'none';
-    showToast('Audio salvo!');
+
+    showToast('🎤 Audio salvo em Downloads do celular!');
   };
 }
 
