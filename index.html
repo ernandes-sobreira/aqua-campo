@@ -1057,11 +1057,11 @@
       <div class="card">
         <div class="card-title"><span class="icon">🪪</span> Identificacao — Tecnico(a) Extensionista</div>
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Codigo <span class="required">*</span></label><input class="form-input" id="f_codigo" placeholder="Ex: TE-001" oninput="updateProgress()"></div>
-          <div class="form-group"><label class="form-label">Data <span class="required">*</span></label><input class="form-input" type="date" id="f_data" oninput="updateProgress()"></div>
+          <div class="form-group"><label class="form-label">Codigo <span class="required">*</span></label><input class="form-input" id="te_codigo" placeholder="Ex: TE-001" oninput="updateProgress()"></div>
+          <div class="form-group"><label class="form-label">Data <span class="required">*</span></label><input class="form-input" type="date" id="te_data" oninput="updateProgress()"></div>
         </div>
         <div class="form-group"><label class="form-label">Municipio <span class="required">*</span></label>
-          <select class="form-select" id="f_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select>
+          <select class="form-select" id="te_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select>
         </div>
         <div class="form-group"><label class="form-label">Genero</label>
           <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
@@ -1258,11 +1258,11 @@
       <div class="card">
         <div class="card-title"><span class="icon">🪪</span> Identificacao — Presidente de Cooperativa / Representante</div>
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Codigo <span class="required">*</span></label><input class="form-input" id="f_codigo" placeholder="Ex: RE-001" oninput="updateProgress()"></div>
-          <div class="form-group"><label class="form-label">Data <span class="required">*</span></label><input class="form-input" type="date" id="f_data" oninput="updateProgress()"></div>
+          <div class="form-group"><label class="form-label">Codigo <span class="required">*</span></label><input class="form-input" id="re_codigo" placeholder="Ex: RE-001" oninput="updateProgress()"></div>
+          <div class="form-group"><label class="form-label">Data <span class="required">*</span></label><input class="form-input" type="date" id="re_data" oninput="updateProgress()"></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Municipio <span class="required">*</span></label><select class="form-select" id="f_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select></div>
+          <div class="form-group"><label class="form-label">Municipio <span class="required">*</span></label><select class="form-select" id="re_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select></div>
           <div class="form-group"><label class="form-label">Tipo de organizacao</label><select class="form-select" id="f_org_tipo"><option value="">Selecione...</option><option>Cooperativa</option><option>Associacao de agricultores</option><option>Sindicato rural</option><option>Comite de bacia hidrografica</option><option>Outra</option></select></div>
         </div>
         <div class="form-row">
@@ -1760,7 +1760,9 @@ function onTipoChange(el) {
     document.getElementById('bloco-obs-comum').style.display = 'block';
     // Seta data de hoje
     const d = new Date().toISOString().split('T')[0];
-    document.querySelectorAll('#form-' + tipo + ' [id="f_data"]').forEach(el => { if(!el.value) el.value = d; });
+    const dataId = tipo==='tecnico'?'te_data': tipo==='representante'?'re_data':'f_data';
+    const dataEl = document.getElementById(dataId);
+    if(dataEl && !dataEl.value) dataEl.value = d;
   }
   // Mostrar/esconder campo "Outros" nas fontes
   setupOutrosListeners();
@@ -1825,18 +1827,24 @@ function toggleCheck(el, type, name) {
 }
 
 function updateProgress() {
-  const codigo = (document.getElementById('f_codigo')?.value || '').trim();
-  const data = (document.getElementById('f_data')?.value || '').trim();
-  const municipio = (document.getElementById('f_municipio')?.value || '').trim();
-  const tipo = document.querySelector('[name=tipo]:checked');
+  const tipo = document.querySelector('[name=tipo]:checked')?.value;
+  const prefix = tipo === 'tecnico' ? 'te' : tipo === 'representante' ? 're' : 'f';
+  const codigoId   = prefix === 'f' ? 'f_codigo'    : prefix + '_codigo';
+  const dataId     = prefix === 'f' ? 'f_data'      : prefix + '_data';
+  const municipioId = prefix === 'f' ? 'f_municipio' : prefix + '_municipio';
+  const codigo   = (document.getElementById(codigoId)?.value || '').trim();
+  const data     = (document.getElementById(dataId)?.value || '').trim();
+  const municipio = (document.getElementById(municipioId)?.value || '').trim();
   let filled = 0;
   if(codigo) filled++;
   if(data) filled++;
   if(municipio) filled++;
   if(tipo) filled++;
   const pct = Math.round((filled/4)*100);
-  document.getElementById('progressBar').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = pct < 100 ? `${pct}% — Preencha codigo, data, municipio e tipo` : '100% — Pronto para salvar!';
+  const pb = document.getElementById('progressBar');
+  const pl = document.getElementById('progressLabel');
+  if(pb) pb.style.width = pct + '%';
+  if(pl) pl.textContent = pct < 100 ? `${pct}% — Preencha codigo, data, municipio e tipo` : '100% — Pronto para salvar!';
 }
 
 function getChecked(name) {
@@ -1865,12 +1873,17 @@ function salvarEntrevista() {
     return;
   }
 
+  const idMap = {
+    codigo:    tipo==='tecnico'?'te_codigo':    tipo==='representante'?'re_codigo':    'f_codigo',
+    data:      tipo==='tecnico'?'te_data':      tipo==='representante'?'re_data':      'f_data',
+    municipio: tipo==='tecnico'?'te_municipio': tipo==='representante'?'re_municipio': 'f_municipio',
+  };
   const base = {
     id: editingId || Date.now().toString(),
     timestamp: new Date().toISOString(),
     codigo, tipo,
-    data:      getF('f_data'),
-    municipio: getF('f_municipio'),
+    data:      getF(idMap.data),
+    municipio: getF(idMap.municipio),
     tcle_assinado:       document.getElementById('f_tcle_assinado')?.checked || false,
     audio_autorizado:    document.getElementById('f_audio_autorizado')?.checked || false,
     anonimato_garantido: document.getElementById('f_anonimato_garantido')?.checked || false,
