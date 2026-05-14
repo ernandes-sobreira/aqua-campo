@@ -659,7 +659,76 @@
   .audio-item audio { flex:1; height:36px; }
   .audio-item-name { font-size:12px; color:var(--text2); min-width:80px; }
 
-  /* RESPONSIVE */
+  /* ALERTA EXPORTACAO OBRIGATORIO */
+.exp-alert-ov {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.82);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  animation: fadeIn .25s ease;
+}
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.exp-alert-box {
+  background: var(--white);
+  border-radius: 20px;
+  max-width: 460px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+  animation: slideUp .28s ease;
+}
+@keyframes slideUp { from { transform:translateY(30px);opacity:0; } to { transform:translateY(0);opacity:1; } }
+.exp-alert-top {
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+  padding: 28px 24px 22px;
+  text-align: center;
+  color: #fff;
+}
+.exp-alert-top .icon { font-size: 56px; display:block; margin-bottom: 12px; animation: shake 0.6s ease 0.3s; }
+@keyframes shake {
+  0%,100%{transform:rotate(0);} 20%{transform:rotate(-12deg);} 40%{transform:rotate(12deg);}
+  60%{transform:rotate(-8deg);} 80%{transform:rotate(8deg);}
+}
+.exp-alert-top h2 { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; margin-bottom:6px; }
+.exp-alert-top p { font-size:13px; opacity:.88; line-height:1.5; }
+.exp-alert-body { padding: 22px 24px; }
+.exp-alert-body .info-box {
+  background: #fff3cd; border: 2px solid #ffc107;
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 16px;
+  font-size: 13px; color: #7a5500; line-height: 1.6;
+}
+.exp-alert-body .info-box strong { display:block; font-size:14px; margin-bottom:4px; color:#5a3e00; }
+.exp-btns { display: flex; gap: 10px; flex-direction: column; }
+.btn-exp-now {
+  width: 100%; padding: 16px;
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+  color: #fff; border: none; border-radius: 12px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: all .18s;
+}
+.btn-exp-now:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(192,57,43,0.35); }
+.btn-exp-json {
+  width: 100%; padding: 13px;
+  background: linear-gradient(135deg, #005F73, #0A9396);
+  color: #fff; border: none; border-radius: 12px;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all .18s;
+}
+.btn-exp-json:hover { transform: translateY(-2px); }
+.btn-exp-skip {
+  width: 100%; padding: 11px;
+  background: transparent; color: #999;
+  border: 1.5px solid #ddd; border-radius: 12px;
+  font-size: 12px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-exp-skip:hover { color: #666; border-color: #bbb; }
+
+/* RESPONSIVE */
   @media(max-width:600px){
     .form-row, .form-row-3 { grid-template-columns:1fr; }
     .stats-grid { grid-template-columns:1fr 1fr; }
@@ -1545,6 +1614,34 @@
   </div>
 </div>
 
+<!-- ALERTA EXPORTACAO OBRIGATORIO -->
+<div class="exp-alert-ov" id="expAlertOv" style="display:none;">
+  <div class="exp-alert-box">
+    <div class="exp-alert-top">
+      <span class="icon">⚠️</span>
+      <h2>EXPORTE AGORA!</h2>
+      <p>Os dados ficam salvos <strong>apenas neste celular</strong>.<br>Se algo acontecer, você perde tudo.</p>
+    </div>
+    <div class="exp-alert-body">
+      <div class="info-box">
+        <strong>📋 Entrevista registrada com sucesso!</strong>
+        Mas para garantir que os dados não se percam, exporte agora e envie o arquivo para o professor ou salve em um lugar seguro.
+      </div>
+      <div class="exp-btns">
+        <button class="btn-exp-now" onclick="expAlertCSV()">
+          📊 Exportar CSV agora (Excel/Sheets)
+        </button>
+        <button class="btn-exp-json" onclick="expAlertJSON()">
+          💾 Exportar JSON agora (backup completo)
+        </button>
+        <button class="btn-exp-skip" onclick="expAlertPular()">
+          Entendi o risco — continuar sem exportar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div id="toast"></div>
 
@@ -2046,30 +2143,50 @@ function salvarEntrevista() {
 
 function mostrarConfirmacaoSalvo(e) {
   const total = entrevistas.length;
-  document.getElementById('confirmacaoBody').innerHTML = `
-    <div style="text-align:center;padding:10px 0 20px;">
-      <div style="font-size:56px;margin-bottom:10px;">\u2705</div>
-      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--teal2);margin-bottom:6px;">Entrevista Salva!</div>
-      <div style="font-size:13px;color:var(--text2);margin-bottom:20px;">Gravada com seguranca no navegador deste celular</div>
-    </div>
-    <div style="background:var(--light);border-radius:12px;padding:16px 18px;margin-bottom:16px;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;">
-        <div><span style="color:var(--text2);">Codigo:</span> <strong>${e.codigo}</strong></div>
-        <div><span style="color:var(--text2);">Tipo:</span> <strong>${e.tipo}</strong></div>
-        <div><span style="color:var(--text2);">Municipio:</span> <strong>${e.municipio||'-'}</strong></div>
-        <div><span style="color:var(--text2);">Data:</span> <strong>${e.data||'-'}</strong></div>
-      </div>
-    </div>
-    <div style="background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:10px;padding:14px 16px;margin-bottom:12px;font-size:13px;">
-      <div style="font-weight:700;color:#2e7d32;margin-bottom:6px;">\ud83d\uddc4\ufe0f Total no app: ${total} entrevista${total!==1?'s':''}</div>
-      <div style="color:#2e7d32;">Todos os dados ficam gravados neste Chrome, neste celular. Continue registrando normalmente.</div>
-    </div>
-    <div style="background:#fff8e1;border:1.5px solid #ffe082;border-radius:10px;padding:12px 16px;font-size:12px;color:#e65100;">
-      \u26a0\ufe0f <strong>Lembre-se:</strong> Nao limpe os dados do Chrome e sempre use este mesmo navegador neste celular.
-    </div>
-  `;
-  openModal('modalConfirmacao');
+  // Atualiza o modal de confirmação (não mostra — vai direto pro alerta de exportação)
+  // Guarda dados da última entrevista para exibir no alerta
+  window._ultimaEntrevista = e;
+  window._totalEntrevistas = total;
+  // Mostra alerta de exportação obrigatório
+  mostrarAlertaExportacao(e, total);
 }
+
+function mostrarAlertaExportacao(e, total) {
+  const ov = document.getElementById('expAlertOv');
+  if (!ov) return;
+  // Atualiza o info-box com dados da entrevista
+  const infoBox = ov.querySelector('.info-box');
+  if (infoBox) {
+    infoBox.innerHTML = `
+      <strong>✅ Entrevista salva: ${e.codigo} (${e.tipo})</strong>
+      Total acumulado: <strong>${total} entrevista${total!==1?'s':''}</strong> neste celular.<br>
+      Exporte agora para não perder os dados!
+    `;
+  }
+  ov.style.display = 'flex';
+}
+
+function expAlertCSV() {
+  exportarCSV();
+  fecharAlertaExportacao();
+}
+
+function expAlertJSON() {
+  exportarJSON();
+  fecharAlertaExportacao();
+}
+
+function expAlertPular() {
+  if (!confirm('Tem certeza? Os dados ficam APENAS neste celular.\nSe o Chrome for limpo ou o celular quebrar, você perde tudo.')) return;
+  fecharAlertaExportacao();
+}
+
+function fecharAlertaExportacao() {
+  const ov = document.getElementById('expAlertOv');
+  if (ov) ov.style.display = 'none';
+  showPage('entrevistas');
+}
+
 
 function limparFormulario() {
   editingId = null;
