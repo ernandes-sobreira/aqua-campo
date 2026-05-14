@@ -783,309 +783,605 @@
   <!-- NOVA ENTREVISTA -->
   <div class="page" id="page-nova">
     <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--teal2);margin-bottom:6px;">Registrar Entrevista</h2>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:20px;">Preencha os dados do participante e as respostas da entrevista semiestruturada</p>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;">Selecione o tipo de participante para carregar o formulario correspondente</p>
 
-    <!-- Progresso -->
+    <!-- SELETOR DE TIPO -->
+    <div class="card" style="border:2px solid var(--teal);">
+      <div class="card-title"><span class="icon">🎯</span> Tipo de Participante</div>
+      <div class="check-group" id="tipoParticipante">
+        <label class="check-item" onclick="onTipoChange(this)">
+          <input type="radio" name="tipo" value="agricultor">
+          <span class="check-label">🌾 <strong>Agricultor(a) Familiar</strong></span>
+        </label>
+        <label class="check-item" onclick="onTipoChange(this)">
+          <input type="radio" name="tipo" value="tecnico">
+          <span class="check-label">🔧 <strong>Tecnico(a) Extensionista</strong> (EMPAER / SEAF)</span>
+        </label>
+        <label class="check-item" onclick="onTipoChange(this)">
+          <input type="radio" name="tipo" value="representante">
+          <span class="check-label">🏛️ <strong>Presidente de Cooperativa / Representante de Associacao</strong></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- PROGRESSO -->
     <div>
       <div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
-      <div class="progress-label" id="progressLabel">Complete os campos para avanzar</div>
+      <div class="progress-label" id="progressLabel">Selecione o tipo de participante para comecar</div>
     </div>
 
-    <!-- BLOCO 0: IDENTIFICACAO -->
-    <div class="card">
-      <div class="card-title"><span class="icon">🪪</span> Identificacao do Participante</div>
+    <!-- FORMULÁRIO AGRICULTOR -->
+    <div id="form-agricultor" style="display:none;">
 
-      <div class="form-group">
-        <label class="form-label">Tipo de Participante <span class="required">*</span></label>
-        <div class="check-group" id="tipoParticipante">
-          <label class="check-item">
-            <input type="radio" name="tipo" value="agricultor" onchange="onTipoChange(this)">
-            <span class="check-label">🌾 Agricultor(a) Familiar</span>
-          </label>
-          <label class="check-item">
-            <input type="radio" name="tipo" value="tecnico" onchange="onTipoChange(this)">
-            <span class="check-label">🔧 Tecnico(a) Extensionista (EMPAER/SEAF)</span>
-          </label>
-          <label class="check-item">
-            <input type="radio" name="tipo" value="representante" onchange="onTipoChange(this)">
-            <span class="check-label">🏛️ Representante de Associacao/Cooperativa</span>
-          </label>
+      <!-- I. IDENTIFICAÇÃO -->
+      <div class="section-header"><div class="section-header-dot"></div><div class="section-header-title">I — Identificacao</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco I</div></div>
+      <div class="card">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Codigo <span class="required">*</span></label><input class="form-input" id="f_codigo" placeholder="Ex: AG-001" oninput="updateProgress()"></div>
+          <div class="form-group"><label class="form-label">Data <span class="required">*</span></label><input class="form-input" type="date" id="f_data" oninput="updateProgress()"></div>
         </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Codigo do Participante <span class="required">*</span></label>
-          <input class="form-input" id="f_codigo" placeholder="Ex: AG-001, TE-004" oninput="updateProgress()">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Data da Entrevista <span class="required">*</span></label>
-          <input class="form-input" type="date" id="f_data" oninput="updateProgress()">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Municipio <span class="required">*</span></label>
-          <select class="form-select" id="f_municipio" onchange="updateProgress()">
-            <option value="">Selecione...</option>
-            <option>Acorizal</option><option>Barao de Melgaco</option>
-            <option>Campo Verde</option><option>Chapada dos Guimaraes</option>
-            <option>Cuiaba</option><option>Jangada</option><option>Nobres</option>
-            <option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option>
-            <option>Planalto da Serra</option><option>Pocone</option>
-            <option>Rosario Oeste</option><option>Santo Antonio do Leverger</option>
-            <option>Varzea Grande</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Localidade / Comunidade</label>
-          <input class="form-input" id="f_localidade" placeholder="Nome da comunidade ou sitio">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Genero</label>
-          <select class="form-select" id="f_genero">
-            <option value="">Nao informado</option>
-            <option>Masculino</option><option>Feminino</option><option>Nao binario</option>
-            <option>Prefiro nao informar</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Faixa Etaria</label>
-          <select class="form-select" id="f_idade">
-            <option value="">Nao informado</option>
-            <option>Ate 25 anos</option><option>26-35 anos</option><option>36-45 anos</option>
-            <option>46-55 anos</option><option>56-65 anos</option><option>Acima de 65 anos</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <!-- BLOCO 1: AGUA E PROPRIEDADE -->
-    <div class="section-header">
-      <div class="section-header-dot"></div>
-      <div class="section-header-title">Bloco 1 — Recursos Hidricos e Propriedade</div>
-      <div class="section-header-num">Tema central</div>
-    </div>
-
-    <div class="card">
-      <div class="form-group">
-        <label class="form-label">1. Quais fontes de agua sao utilizadas na propriedade? (marque todas que se aplicam)</label>
-        <div class="check-group">
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="poco_artesiano">💧 Poco artesiano ou cacimba</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="rio_corrego">🌊 Rio ou corrego</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="chuva">🌧️ Captacao de agua da chuva</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="lago_represa">🏞️ Lago ou represa propria</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="rede_publica">🏠 Rede publica de abastecimento</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="compra_carro_pipa">🚛 Compra de carro-pipa</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">2. Sistemas de irrigacao adotados</label>
-        <div class="check-group">
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="gotejamento">💦 Irrigacao por gotejamento</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="aspersao">🚿 Irrigacao por aspersao</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="inundacao">🌾 Inundacao/gravidade</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="sem_irrigacao">❌ Nao utiliza irrigacao</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">3. Percepcao sobre mudancas no regime de chuvas nos ultimos 10 anos</label>
-        <div class="check-group">
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_chuva')"><input type="radio" name="r_chuva" value="muito_menos">Muito menos chuva que antes</label>
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_chuva')"><input type="radio" name="r_chuva" value="pouco_menos">Um pouco menos chuva</label>
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_chuva')"><input type="radio" name="r_chuva" value="igual">Nao percebeu mudancas</label>
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_chuva')"><input type="radio" name="r_chuva" value="mais_irregular">Chuvas mais irregulares e imprevisveis</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">4. Descricao detalhada sobre a situacao hidrica da propriedade</label>
-        <textarea class="form-textarea" id="f_situacao_hidrica" placeholder="Descreva como o participante relata a disponibilidade e qualidade da agua em sua propriedade..." rows="4"></textarea>
-      </div>
-      <div style="background:#f0fafa;border:1.5px dashed var(--mint);border-radius:10px;padding:14px 16px;margin-top:4px;">
-        <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — Bloco 1</div>
-        <textarea class="form-textarea" id="f_obs_b1" placeholder="Tom, emocoes, gestos, contexto fisico observado, informacoes espontaneas sobre agua que merecem destaque analitico..." rows="3" style="background:rgba(255,255,255,0.7);border-color:var(--mint);font-size:13px;"></textarea>
-      </div>
-    </div>
-
-    <!-- BLOCO 2: IMPACTOS -->
-    <div class="section-header">
-      <div class="section-header-dot" style="background:var(--orange);"></div>
-      <div class="section-header-title">Bloco 2 — Impactos Socioeconomicos</div>
-    </div>
-
-    <div class="card">
-      <div class="form-group">
-        <label class="form-label">5. Impactos observados com maior frequencia (marque ate 3)</label>
-        <div class="check-group">
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="reducao_produtividade">📉 Reducao da produtividade agricola</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="perda_lavouras">🌾 Perda de lavouras</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="mortandade_animal">🐄 Mortandade animal</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="aumento_custos">💰 Aumento dos custos de producao</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="mudanca_cultura">🔄 Mudanca no tipo de cultura plantada</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="exodo">🏃 Exodo ou abandono da atividade</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="conflitos_agua">⚡ Conflitos pelo uso da agua</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">6. A escassez hidrica afeta a seguranca alimentar das familias?</label>
-        <div class="check-group">
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_segalim')"><input type="radio" name="r_segalim" value="sim">Sim, de forma significativa</label>
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_segalim')"><input type="radio" name="r_segalim" value="parcialmente">Parcialmente</label>
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_segalim')"><input type="radio" name="r_segalim" value="nao">Nao afeta</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">7. Relato dos impactos socioeconomicos (resposta aberta)</label>
-        <textarea class="form-textarea" id="f_impactos" placeholder="Documente o relato do participante sobre como a escassez afeta sua producao, renda e vida familiar..." rows="5"></textarea>
-      </div>
-      <div style="background:#fff9ef;border:1.5px dashed var(--amber);border-radius:10px;padding:14px 16px;margin-top:4px;">
-        <div style="font-size:11px;font-weight:700;color:#c07c00;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — Bloco 2</div>
-        <textarea class="form-textarea" id="f_obs_b2" placeholder="Reacoes emocionais ao falar de perdas, contradições nas respostas, narrativas inesperadas sobre impactos, tensoes observadas..." rows="3" style="background:rgba(255,255,255,0.7);border-color:var(--amber);font-size:13px;"></textarea>
-      </div>
-    </div>
-
-    <!-- BLOCO 3: ESTRATEGIAS -->
-    <div class="section-header">
-      <div class="section-header-dot" style="background:var(--teal);"></div>
-      <div class="section-header-title">Bloco 3 — Estrategias de Adaptacao</div>
-    </div>
-
-    <div class="card">
-      <div class="form-group">
-        <label class="form-label">8. Estrategias atuais de convivencia com a seca</label>
-        <div class="check-group">
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="armazenamento">🛢️ Armazenamento de agua em caixas/cisternas</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="barraginha">🏞️ Barraginhas e pequenas represas</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="reuso">♻️ Reuso de agua</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="culturas_resistentes">🌵 Adocao de culturas mais resistentes a seca</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="reducao_area">📏 Reducao da area plantada</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="sem_estrategia">❓ Nao tem estrategias definidas</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">9. Principais dificuldades para implementar solucoes (marque todas que se aplicam)</label>
-        <div class="check-group">
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="financeiro">💸 Falta de recursos financeiros</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="informacao">📚 Falta de informacao tecnica</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="assistencia">🤝 Falta de assistencia tecnica continua</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="infraestrutura">🔧 Falta de equipamentos ou infraestrutura</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="organizacao_social">👥 Baixa organizacao social/coletiva</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="politicas_publicas">📜 Acesso insuficiente a politicas publicas</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">10. Sugestoes de solucoes viaveis para a comunidade (resposta aberta)</label>
-        <textarea class="form-textarea" id="f_sugestoes" placeholder="Registre as propostas e sugestoes que o participante aponta como mais viáveis para enfrentar a escassez hidrica..." rows="4"></textarea>
-      </div>
-      <div style="background:#edfaf3;border:1.5px dashed #5cb87a;border-radius:10px;padding:14px 16px;margin-top:4px;">
-        <div style="font-size:11px;font-weight:700;color:#2e7d32;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — Bloco 3</div>
-        <textarea class="form-textarea" id="f_obs_b3" placeholder="Grau de conhecimento sobre alternativas, confianca nas solucoes citadas, resistencias a mudancas, redes de apoio mencionadas..." rows="3" style="background:rgba(255,255,255,0.7);border-color:#5cb87a;font-size:13px;"></textarea>
-      </div>
-    </div>
-
-    <!-- BLOCO 4: POLITICAS PUBLICAS -->
-    <div class="section-header">
-      <div class="section-header-dot" style="background:var(--amber);"></div>
-      <div class="section-header-title">Bloco 4 — Politicas Publicas e Governanca</div>
-    </div>
-
-    <div class="card">
-      <div class="form-group">
-        <label class="form-label">11. Avaliacao do acesso as politicas publicas de recursos hidricos</label>
-        <div class="check-group">
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="muito_bom">⭐⭐⭐⭐⭐ Muito bom</label>
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="bom">⭐⭐⭐⭐ Bom</label>
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="regular">⭐⭐⭐ Regular</label>
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="ruim">⭐⭐ Ruim</label>
-          <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="muito_ruim">⭐ Muito ruim</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">12. Programas ou acoes consideradas eficazes para a regiao</label>
-        <textarea class="form-textarea" id="f_programas" placeholder="Quais programas, acoes ou iniciativas o participante considera eficazes ou que funcionaram na pratica..." rows="3"></textarea>
-      </div>
-      <div style="background:#f5f0fb;border:1.5px dashed #b39ddb;border-radius:10px;padding:14px 16px;margin-top:4px;">
-        <div style="font-size:11px;font-weight:700;color:#6a1b9a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — Bloco 4</div>
-        <textarea class="form-textarea" id="f_obs_b4" placeholder="Postura critica ou resignada diante do poder publico, experiencias de exclusao de programas, expectativas ou decepções institucionais..." rows="3" style="background:rgba(255,255,255,0.7);border-color:#b39ddb;font-size:13px;"></textarea>
-      </div>
-    </div>
-
-    <!-- BLOCO 5: AUDIO -->
-    <div class="section-header">
-      <div class="section-header-dot" style="background:var(--red);"></div>
-      <div class="section-header-title">Bloco 5 — Gravacao de Audio</div>
-    </div>
-
-    <div class="card">
-      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Grave trechos da entrevista diretamente aqui. Os audios ficam salvos no dispositivo e podem ser exportados posteriormente.</p>
-      <div class="audio-recorder">
-        <div class="audio-controls">
-          <button class="btn-record idle" id="btnRecord" onclick="toggleRecord()">🎤</button>
-          <div>
-            <div class="audio-time" id="audioTime">00:00</div>
-            <div class="audio-status" id="audioStatus">Pronto para gravar</div>
+        <div class="form-group"><label class="form-label">1. Idade</label><input class="form-input" id="f_ag_idade" placeholder="Ex: 45 anos"></div>
+        <div class="form-group"><label class="form-label">2. Genero</label>
+          <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_genero')"><input type="radio" name="r_ag_genero" value="Feminino"><span class="check-label">Feminino</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_genero')"><input type="radio" name="r_ag_genero" value="Masculino"><span class="check-label">Masculino</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_genero')"><input type="radio" name="r_ag_genero" value="Outro"><span class="check-label">Outro</span></label>
           </div>
-          <button class="btn-sm outline" onclick="saveAudio()" id="btnSaveAudio" style="display:none;">💾 Salvar</button>
+        </div>
+        <div class="form-group"><label class="form-label">3. Escolaridade</label>
+          <select class="form-select" id="f_ag_escolaridade"><option value="">Selecione...</option><option>Sem escolaridade</option><option>Fundamental incompleto</option><option>Fundamental completo</option><option>Medio incompleto</option><option>Medio completo</option><option>Superior</option></select>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">4. Municipio / Comunidade <span class="required">*</span></label>
+            <select class="form-select" id="f_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Localidade</label><input class="form-input" id="f_localidade" placeholder="Nome da comunidade ou sitio"></div>
+        </div>
+        <div class="form-group"><label class="form-label">5. Tempo de residencia no local</label><input class="form-input" id="f_ag_tempo_res" placeholder="Ex: 20 anos"></div>
+      </div>
+
+      <!-- II. PROPRIEDADE -->
+      <div class="section-header"><div class="section-header-dot" style="background:var(--orange);"></div><div class="section-header-title">II — Caracterizacao da Propriedade</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco II</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">6. Tamanho da propriedade (hectares)</label><input class="form-input" id="f_ag_tamanho" placeholder="Ex: 12 ha"></div>
+        <div class="form-group"><label class="form-label">7. Tipo de posse da terra</label>
+          <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_posse')"><input type="radio" name="r_ag_posse" value="Propria"><span class="check-label">Propria</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_posse')"><input type="radio" name="r_ag_posse" value="Arrendada"><span class="check-label">Arrendada</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_posse')"><input type="radio" name="r_ag_posse" value="Parceria"><span class="check-label">Parceria</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_posse')"><input type="radio" name="r_ag_posse" value="Outro_posse"><span class="check-label">Outro</span></label>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">8. Principais atividades produtivas desenvolvidas</label><textarea class="form-textarea" id="f_ag_atividades" rows="2" placeholder="Ex: hortalicas, gado, mandioca, milho..."></textarea></div>
+        <div class="form-group"><label class="form-label">9. Numero de pessoas envolvidas nas atividades da propriedade</label><input class="form-input" id="f_ag_pessoas" placeholder="Ex: 3 pessoas"></div>
+        <div style="background:#f0fafa;border:1.5px dashed var(--mint);border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco II</div>
+          <textarea class="form-textarea" id="f_memo_ii" rows="2" placeholder="Observacoes sobre a propriedade e contexto..." style="background:rgba(255,255,255,0.7);border-color:var(--mint);font-size:13px;"></textarea>
         </div>
       </div>
-      <div class="audio-list" id="audioList" style="margin-top:12px;"></div>
+
+      <!-- III. ACESSO E USO DA ÁGUA -->
+      <div class="section-header"><div class="section-header-dot" style="background:var(--teal2);"></div><div class="section-header-title">III — Acesso e Uso da Agua</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco III</div></div>
+      <div class="card">
+        <div class="form-group">
+          <label class="form-label">10. Quais sao as fontes de agua utilizadas na propriedade?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Rio">🌊 Rio</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Nascentes">🌿 Nascentes</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Corrego">🏞️ Corrego</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Acude">💧 Acude</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Poco_artesiano">🔩 Poco Artesiano</label>
+            <label class="check-item" onclick="toggleCheck(this)" id="opt_poco_caipira"><input type="checkbox" value="Poco_caipira">🪣 Poco caipira</label>
+          </div>
+          <div id="bloco_poco_caipira" style="display:none;margin-top:8px;background:var(--gray1);border-radius:9px;padding:12px 14px;border:1px solid var(--gray2);">
+            <div style="font-size:12px;color:var(--text2);margin-bottom:8px;font-weight:600;">Poco caipira — detalhes:</div>
+            <div class="check-group" style="flex-direction:row;gap:8px;margin-bottom:8px;">
+              <label class="check-item" onclick="toggleCheck(this,'radio','r_poco_tipo')"><input type="radio" name="r_poco_tipo" value="privado"><span class="check-label">Privado</span></label>
+              <label class="check-item" onclick="toggleCheck(this,'radio','r_poco_tipo')"><input type="radio" name="r_poco_tipo" value="particular"><span class="check-label">Particular</span></label>
+            </div>
+            <input class="form-input" id="f_poco_profundidade" placeholder="Profundidade (m): ______">
+          </div>
+          <label class="check-item" onclick="toggleCheck(this)" style="margin-top:8px;" id="opt_outro_fonte_ag"><input type="checkbox" value="Outro_fonte">➕ Outro</label>
+          <input class="form-input" id="f_outros_fonte" placeholder="Especifique outra fonte..." style="margin-top:7px;display:none;">
+        </div>
+        <div class="form-group">
+          <label class="form-label">11. Possui armazenamento de agua?</label>
+          <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_armazen')"><input type="radio" name="r_armazen" value="Nao"><span class="check-label">Nao</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_armazen')"><input type="radio" name="r_armazen" value="Cisterna"><span class="check-label">Sim — Cisterna</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_armazen')"><input type="radio" name="r_armazen" value="Cx_elevada"><span class="check-label">Sim — Cx d'agua elevada</span></label>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">12. A quantidade de agua disponivel e suficiente para as atividades?</label>
+          <div class="check-group" style="flex-direction:row;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_suficiente')"><input type="radio" name="r_suficiente" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_suficiente')"><input type="radio" name="r_suficiente" value="Nao"><span class="check-label">Nao</span></label>
+          </div>
+          <textarea class="form-textarea" id="f_suficiente_exp" rows="2" placeholder="Se nao, explique..." style="margin-top:8px;"></textarea>
+        </div>
+        <div class="form-group"><label class="form-label">13. Houve reducao na disponibilidade de agua nos ultimos anos?</label>
+          <div class="check-group" style="flex-direction:row;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_reducao_agua')"><input type="radio" name="r_reducao_agua" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_reducao_agua')"><input type="radio" name="r_reducao_agua" value="Nao"><span class="check-label">Nao</span></label>
+          </div>
+          <textarea class="form-textarea" id="f_reducao_agua_desc" rows="2" placeholder="Se sim, descreva..." style="margin-top:8px;"></textarea>
+        </div>
+        <div style="background:#f0fafa;border:1.5px dashed var(--mint);border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco III</div>
+          <textarea class="form-textarea" id="f_memo_iii" rows="2" placeholder="Tom, emocoes, contexto hidrico observado..." style="background:rgba(255,255,255,0.7);border-color:var(--mint);font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <!-- IV. QUALIDADE DA ÁGUA -->
+      <div class="section-header"><div class="section-header-dot" style="background:#1A6B9A;"></div><div class="section-header-title">IV — Qualidade da Agua</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco IV</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">14. Sao realizadas coletas de agua para analise?</label>
+          <div class="check-group" style="flex-direction:row;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_coleta_analise')"><input type="radio" name="r_coleta_analise" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_coleta_analise')"><input type="radio" name="r_coleta_analise" value="Nao"><span class="check-label">Nao</span></label>
+          </div>
+          <div id="bloco_analise_agua" style="display:none;margin-top:10px;background:var(--gray1);border-radius:9px;padding:14px;border:1px solid var(--gray2);">
+            <div class="form-group"><label class="form-label">Qual a periodicidade de coleta?</label><input class="form-input" id="f_periodicidade_coleta" placeholder="Ex: anual, semestral..."></div>
+            <div class="form-group"><label class="form-label">Quais os resultados das analises?</label><textarea class="form-textarea" id="f_result_analise" rows="2" placeholder="Resultados das analises de agua..."></textarea></div>
+            <div class="form-group"><label class="form-label">Quem realiza as analises de agua?</label><input class="form-input" id="f_quem_analisa" placeholder="Ex: EMPAER, laboratorio particular..."></div>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">Ja houve problemas de contaminacao da agua?</label>
+          <div class="check-group" style="flex-direction:row;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_contaminacao')"><input type="radio" name="r_contaminacao" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_contaminacao')"><input type="radio" name="r_contaminacao" value="Nao"><span class="check-label">Nao</span></label>
+          </div>
+          <textarea class="form-textarea" id="f_contaminacao_desc" rows="2" placeholder="Se nao, qual o motivo? Se sim, descreva..." style="margin-top:8px;"></textarea>
+        </div>
+        <div style="background:#e3f2fd;border:1.5px dashed #1A6B9A;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#1A6B9A;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco IV</div>
+          <textarea class="form-textarea" id="f_memo_iv" rows="2" placeholder="Percepcao sobre qualidade da agua, confianca na fonte..." style="background:rgba(255,255,255,0.7);border-color:#90caf9;font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <!-- V. IMPACTOS DA ESCASSEZ -->
+      <div class="section-header"><div class="section-header-dot" style="background:var(--red);"></div><div class="section-header-title">V — Impactos da Escassez Hidrica</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco V</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">15. A escassez de agua ja ocasionou perdas?</label>
+          <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_perdas')"><input type="radio" name="r_perdas" value="Nao"><span class="check-label">Nao</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_perdas')"><input type="radio" name="r_perdas" value="Sim_Cultura"><span class="check-label">Sim — Cultura</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_perdas')"><input type="radio" name="r_perdas" value="Sim_Animais"><span class="check-label">Sim — Animais</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_perdas')"><input type="radio" name="r_perdas" value="Sim_Ambos"><span class="check-label">Sim — Cultura e Animais</span></label>
+          </div>
+          <textarea class="form-textarea" id="f_perdas_desc" rows="3" placeholder="Descreva as perdas..." style="margin-top:8px;"></textarea>
+        </div>
+        <div class="form-group"><label class="form-label">16. Houve reducao de renda devido a falta de agua?</label>
+          <div class="check-group" style="flex-direction:row;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_red_renda')"><input type="radio" name="r_red_renda" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_red_renda')"><input type="radio" name="r_red_renda" value="Nao"><span class="check-label">Nao</span></label>
+          </div>
+        </div>
+        <div style="background:#fff4f1;border:1.5px dashed var(--orange);border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#c05020;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco V</div>
+          <textarea class="form-textarea" id="f_memo_v" rows="2" placeholder="Reacoes emocionais, narrativas sobre perdas, tom do relato..." style="background:rgba(255,255,255,0.7);border-color:var(--orange);font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <!-- VI. ESTRATÉGIAS -->
+      <div class="section-header"><div class="section-header-dot" style="background:var(--teal2);"></div><div class="section-header-title">VI — Estrategias de Adaptacao</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco VI</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">17. Quais estrategias voce utiliza para lidar com a falta de agua?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Reuso">♻️ Reuso de agua</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Captacao_chuva">🌧️ Captacao de chuva</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Irrigacao_economica">💦 Irrigacao economica</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Mudanca_culturas">🌵 Mudanca de culturas</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Reducao_area">📏 Reducao de area plantada</label>
+            <label class="check-item" onclick="toggleCheck(this)" id="opt_outras_estr_ag"><input type="checkbox" value="Outras_estrategias">➕ Outras</label>
+          </div>
+          <input class="form-input" id="f_outras_estr_ag" placeholder="Especifique outras estrategias..." style="margin-top:8px;display:none;">
+        </div>
+        <div class="form-group"><label class="form-label">18. Ja recebeu apoio tecnico ou orientacao sobre manejo da agua?</label>
+          <div class="check-group" style="flex-direction:row;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_apoio_tecnico')"><input type="radio" name="r_apoio_tecnico" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_apoio_tecnico')"><input type="radio" name="r_apoio_tecnico" value="Nao"><span class="check-label">Nao</span></label>
+          </div>
+          <input class="form-input" id="f_apoio_quem" placeholder="Se sim, de quem?" style="margin-top:8px;">
+        </div>
+        <div style="background:#edfaf3;border:1.5px dashed #5cb87a;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#2e7d32;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco VI</div>
+          <textarea class="form-textarea" id="f_memo_vi" rows="2" placeholder="Nivel de conhecimento, confianca nas estrategias, redes de apoio..." style="background:rgba(255,255,255,0.7);border-color:#5cb87a;font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <!-- VII. RESÍDUOS E SUSTENTABILIDADE -->
+      <div class="section-header"><div class="section-header-dot" style="background:#8B4513;"></div><div class="section-header-title">VII — Residuos e Sustentabilidade Ambiental</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco VII</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">19. Quais tipos de residuos sao gerados na sua propriedade?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Restos_cultura">🌿 Restos de cultura</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Embalagens_agrotox">🧴 Embalagens de agrotoxicos</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Residuos_organicos">🍂 Residuos organicos</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Residuos_animais">🐄 Residuos animais</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Lixo_domestico">🏠 Lixo domestico</label>
+            <label class="check-item" onclick="toggleCheck(this)" id="opt_outros_residuos_ag"><input type="checkbox" value="Outros_residuos">➕ Outros</label>
+          </div>
+          <input class="form-input" id="f_outros_residuos_ag" placeholder="Especifique outros residuos..." style="margin-top:8px;display:none;">
+        </div>
+        <div class="form-group"><label class="form-label">20. Como e feita a destinacao final desses residuos?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Queima">🔥 Queima</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Enterra">⛏️ Enterra</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Coleta_publica">🚛 Coleta publica</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Devolucao_posto">🏭 Devolucao em posto de recolhimento</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Compostagem">🌱 Compostagem</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Reaproveitamento">🔄 Reaproveitamento</label>
+            <label class="check-item" onclick="toggleCheck(this)" id="opt_outro_destino_ag"><input type="checkbox" value="Outro_destino">➕ Outro</label>
+          </div>
+          <input class="form-input" id="f_outro_destino_ag" placeholder="Especifique outra destinacao..." style="margin-top:8px;display:none;">
+        </div>
+        <div class="form-group"><label class="form-label">21. Existem dificuldades para realizar o manejo adequado dos residuos?</label>
+          <div class="check-group" style="flex-direction:row;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_dif_residuos')"><input type="radio" name="r_dif_residuos" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_dif_residuos')"><input type="radio" name="r_dif_residuos" value="Nao"><span class="check-label">Nao</span></label>
+          </div>
+          <textarea class="form-textarea" id="f_dif_residuos" rows="2" placeholder="Se sim, quais dificuldades?" style="margin-top:8px;"></textarea>
+        </div>
+        <div class="form-group"><label class="form-label">22. Voce conhece sobre o Biogas?</label>
+          <div class="check-group" style="flex-direction:row;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_biogas')"><input type="radio" name="r_biogas" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_biogas')"><input type="radio" name="r_biogas" value="Nao"><span class="check-label">Nao — tem interesse em conhecer?</span></label>
+          </div>
+          <input class="form-input" id="f_biogas_interesse" placeholder="Tem interesse? Como avalia?" style="margin-top:8px;">
+        </div>
+        <div style="background:#f5f0e8;border:1.5px dashed #8B4513;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#8B4513;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco VII</div>
+          <textarea class="form-textarea" id="f_memo_vii" rows="2" placeholder="Gestao de residuos: praticas observadas, consciencia ambiental..." style="background:rgba(255,255,255,0.7);border-color:#c8a87a;font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <!-- VIII. PERCEPÇÕES E EXPECTATIVAS -->
+      <div class="section-header"><div class="section-header-dot" style="background:var(--amber);"></div><div class="section-header-title">VIII — Percepcoes e Expectativas</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco VIII</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">23. Na sua opiniao, quais sao as principais causas da escassez hidrica na regiao?</label><textarea class="form-textarea" id="f_causas_escassez" rows="4" placeholder="Causas apontadas pelo participante..."></textarea></div>
+        <div class="form-group"><label class="form-label">24. O que poderia ajudar a melhorar a disponibilidade de agua na sua comunidade?</label><textarea class="form-textarea" id="f_melhorias_agua" rows="4" placeholder="Sugestoes do participante..."></textarea></div>
+        <div class="form-group"><label class="form-label">25. Gostaria de acrescentar alguma observacao?</label><textarea class="form-textarea" id="f_obs_final_ag" rows="3" placeholder="Consideracoes finais..."></textarea></div>
+        <div style="background:#f5f0fb;border:1.5px dashed #b39ddb;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#6a1b9a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco VIII</div>
+          <textarea class="form-textarea" id="f_memo_viii" rows="2" placeholder="Perspectiva de futuro, esperancas, resiliencia observada..." style="background:rgba(255,255,255,0.7);border-color:#b39ddb;font-size:13px;"></textarea>
+        </div>
+      </div>
+
+    </div><!-- /form-agricultor -->
+
+    <!-- FORMULÁRIO TÉCNICO -->
+    <div id="form-tecnico" style="display:none;">
+
+      <!-- IDENTIFICAÇÃO BÁSICA -->
+      <div class="card">
+        <div class="card-title"><span class="icon">🪪</span> Identificacao — Tecnico(a) Extensionista</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Codigo <span class="required">*</span></label><input class="form-input" id="f_codigo" placeholder="Ex: TE-001" oninput="updateProgress()"></div>
+          <div class="form-group"><label class="form-label">Data <span class="required">*</span></label><input class="form-input" type="date" id="f_data" oninput="updateProgress()"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Municipio <span class="required">*</span></label>
+          <select class="form-select" id="f_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Genero</label>
+          <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_genero')"><input type="radio" name="r_te_genero" value="Feminino"><span class="check-label">Feminino</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_genero')"><input type="radio" name="r_te_genero" value="Masculino"><span class="check-label">Masculino</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_genero')"><input type="radio" name="r_te_genero" value="Outro"><span class="check-label">Outro</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCO 1: PERFIL -->
+      <div class="section-header"><div class="section-header-dot"></div><div class="section-header-title">Bloco 1 — Perfil do Respondente</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">1. Instituicao de atuacao</label><input class="form-input" id="f_te_instituicao" placeholder="Ex: EMPAER, SEAF, Prefeitura Municipal..."></div>
+        <div class="form-group"><label class="form-label">2. Cargo / Funcao</label><input class="form-input" id="f_te_cargo" placeholder="Ex: Engenheiro Agronomo, Tecnico Agricola..."></div>
+        <div class="form-group"><label class="form-label">3. Tempo de atuacao com agricultura familiar (anos)</label><input class="form-input" id="f_te_tempo" placeholder="Ex: 8 anos"></div>
+        <div class="form-group"><label class="form-label">4. Municipios atendidos</label><textarea class="form-textarea" id="f_te_municipios" rows="2" placeholder="Liste os municipios atendidos..."></textarea></div>
+        <div class="form-group"><label class="form-label">5. Principais cadeias produtivas acompanhadas</label><input class="form-input" id="f_te_cadeias" placeholder="Ex: hortalicas, leite, mandioca, milho..."></div>
+      </div>
+
+      <!-- BLOCO 2: PERCEPÇÕES ESCASSEZ -->
+      <div class="section-header"><div class="section-header-dot" style="background:var(--teal2);"></div><div class="section-header-title">Bloco 2 — Percepcoes sobre Escassez Hidrica</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">6. Como voce avalia a disponibilidade hidrica atual nas propriedades assistidas?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_disponib')"><input type="radio" name="r_te_disponib" value="Muito_adequada">Muito adequada</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_disponib')"><input type="radio" name="r_te_disponib" value="Adequada">Adequada</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_disponib')"><input type="radio" name="r_te_disponib" value="Regular">Regular</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_disponib')"><input type="radio" name="r_te_disponib" value="Critica">Critica</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_disponib')"><input type="radio" name="r_te_disponib" value="Muito_critica">Muito critica</label>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">7. Na sua percepcao, a escassez hidrica tem se agravado nos ultimos anos?</label>
+          <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_agrav')"><input type="radio" name="r_te_agrav" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_agrav')"><input type="radio" name="r_te_agrav" value="Nao"><span class="check-label">Nao</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_agrav')"><input type="radio" name="r_te_agrav" value="Nao_sei_avaliar"><span class="check-label">Nao sei avaliar</span></label>
+          </div>
+          <textarea class="form-textarea" id="f_te_agrav_desc" rows="2" placeholder="Se sim, por que?" style="margin-top:8px;"></textarea>
+        </div>
+        <div class="form-group"><label class="form-label">8. Quais fatores voce considera mais determinantes para a reducao da agua disponivel?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Mudancas_climaticas">🌡️ Mudancas climaticas</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Desmatamento">🌳 Desmatamento</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Mau_uso_solo">🌾 Mau uso do solo</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Falta_infra_hidrica">🔧 Falta de infraestrutura hidrica</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Aumento_demanda">📈 Aumento da demanda</label>
+            <label class="check-item" onclick="toggleCheck(this)" id="opt_te_fator_outro"><input type="checkbox" value="Outros_fatores">➕ Outros</label>
+          </div>
+          <input class="form-input" id="f_te_fator_outro" placeholder="Especifique outros fatores..." style="margin-top:8px;display:none;">
+        </div>
+        <div style="background:#f0fafa;border:1.5px dashed var(--mint);border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco 2</div>
+          <textarea class="form-textarea" id="f_te_memo_2" rows="2" placeholder="Percepcao tecnica, postura profissional sobre escassez..." style="background:rgba(255,255,255,0.7);border-color:var(--mint);font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <!-- BLOCO 3: IMPACTOS -->
+      <div class="section-header"><div class="section-header-dot" style="background:var(--red);"></div><div class="section-header-title">Bloco 3 — Impactos na Producao e no Cotidiano Rural</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">9. Quais impactos da escassez hidrica voce observa com maior frequencia? (assinalar ate 3)</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Red_produtividade">📉 Reducao da produtividade agricola</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Perda_lavouras">🌾 Perda de lavouras</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Mortandade_animal">🐄 Mortandade animal</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Aumento_custos">💰 Aumento dos custos de producao</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Mudanca_cultura">🔄 Mudanca no tipo de cultura</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Exodo">🏃 Exodo ou abandono da atividade</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Conflitos_agua">⚡ Conflitos pelo uso da agua</label>
+            <label class="check-item" onclick="toggleCheck(this)" id="opt_te_imp_outro"><input type="checkbox" value="Outros_impactos">➕ Outros</label>
+          </div>
+          <input class="form-input" id="f_te_imp_outro" placeholder="Especifique outros impactos..." style="margin-top:8px;display:none;">
+        </div>
+        <div class="form-group"><label class="form-label">10. A escassez hidrica tem afetado a seguranca alimentar das familias?</label>
+          <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_segalim')"><input type="radio" name="r_te_segalim" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_segalim')"><input type="radio" name="r_te_segalim" value="Nao"><span class="check-label">Nao</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_segalim')"><input type="radio" name="r_te_segalim" value="Parcialmente"><span class="check-label">Parcialmente</span></label>
+          </div>
+          <textarea class="form-textarea" id="f_te_segalim_exp" rows="2" placeholder="Explique..." style="margin-top:8px;"></textarea>
+        </div>
+        <div style="background:#fff4f1;border:1.5px dashed var(--orange);border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#c05020;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco 3</div>
+          <textarea class="form-textarea" id="f_te_memo_3" rows="2" placeholder="Observacoes sobre impactos observados em campo..." style="background:rgba(255,255,255,0.7);border-color:var(--orange);font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <!-- BLOCO 4: MANEJO E TECNOLOGIAS -->
+      <div class="section-header"><div class="section-header-dot" style="background:var(--teal2);"></div><div class="section-header-title">Bloco 4 — Manejo Hidrico e Tecnologias</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">11. Quais praticas de manejo da agua sao mais utilizadas pelos agricultores assistidos?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Cap_chuva_te">🌧️ Captacao de agua da chuva</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Pocos_cacimbas_te">💧 Pocos artesianos ou cacimbas</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Gotejamento_te">💦 Irrigacao por gotejamento</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Aspersao_te">🚿 Irrigacao por aspersao</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Reuso_te">♻️ Reuso de agua</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Barraginhas_te">🏞️ Barraginhas</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Conservacao_solo_te">🌱 Praticas de conservacao do solo</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Sem_praticas_te">❌ Nao utilizam praticas sistematizadas</label>
+            <label class="check-item" onclick="toggleCheck(this)" id="opt_te_prat_outro"><input type="checkbox" value="Outros_praticas_te">➕ Outros</label>
+          </div>
+          <input class="form-input" id="f_te_prat_outro" placeholder="Especifique outras praticas..." style="margin-top:8px;display:none;">
+        </div>
+        <div class="form-group"><label class="form-label">12. A infraestrutura hidrica existente nas propriedades e:</label>
+          <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_infra')"><input type="radio" name="r_te_infra" value="Suficiente"><span class="check-label">Suficiente</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_infra')"><input type="radio" name="r_te_infra" value="Parcialmente_suficiente"><span class="check-label">Parcialmente suficiente</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_infra')"><input type="radio" name="r_te_infra" value="Insuficiente"><span class="check-label">Insuficiente</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_infra')"><input type="radio" name="r_te_infra" value="Inexistente"><span class="check-label">Inexistente</span></label>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">13. Que tecnologias ou solucoes voce considera prioritarias para minimizar os efeitos da escassez hidrica?</label><textarea class="form-textarea" id="f_te_tecnologias" rows="4" placeholder="Descreva as tecnologias e solucoes prioritarias..."></textarea></div>
+        <div style="background:#edfaf3;border:1.5px dashed #5cb87a;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#2e7d32;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco 4</div>
+          <textarea class="form-textarea" id="f_te_memo_4" rows="2" placeholder="Perspectiva tecnica sobre solucoes prioritarias..." style="background:rgba(255,255,255,0.7);border-color:#5cb87a;font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <!-- BLOCO 5: POLÍTICAS PÚBLICAS -->
+      <div class="section-header"><div class="section-header-dot" style="background:var(--amber);"></div><div class="section-header-title">Bloco 5 — Politicas Publicas, Acesso e Assistencia Tecnica</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">14. Como voce avalia o acesso dos agricultores familiares as politicas publicas relacionadas a recursos hidricos?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_politicas')"><input type="radio" name="r_te_politicas" value="muito_bom">⭐⭐⭐⭐⭐ Muito bom</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_politicas')"><input type="radio" name="r_te_politicas" value="bom">⭐⭐⭐⭐ Bom</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_politicas')"><input type="radio" name="r_te_politicas" value="regular">⭐⭐⭐ Regular</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_politicas')"><input type="radio" name="r_te_politicas" value="ruim">⭐⭐ Ruim</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_politicas')"><input type="radio" name="r_te_politicas" value="muito_ruim">⭐ Muito ruim</label>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">15. Quais sao as principais dificuldades para implementacao de praticas sustentaveis de manejo hidrico?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Falta_recursos_te">💸 Falta de recursos financeiros</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Falta_info_te">📚 Falta de informacao</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Falta_AT_te">🤝 Falta de assistencia tecnica continua</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Falta_equip_te">🔧 Falta de equipamentos ou infraestrutura</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Baixa_org_te">👥 Baixa organizacao social</label>
+            <label class="check-item" onclick="toggleCheck(this)" id="opt_te_dif_outro"><input type="checkbox" value="Outros_dif_te">➕ Outros</label>
+          </div>
+          <input class="form-input" id="f_te_dif_outro" placeholder="Especifique outras dificuldades..." style="margin-top:8px;display:none;">
+        </div>
+        <div class="form-group"><label class="form-label">16. Quais programas existem para a sua regiao de atuacao e quais sao eficazes?</label><textarea class="form-textarea" id="f_te_programas" rows="4" placeholder="Liste os programas existentes e avalie quais sao eficazes na pratica..."></textarea></div>
+        <div style="background:#f5f0fb;border:1.5px dashed #b39ddb;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#6a1b9a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco 5</div>
+          <textarea class="form-textarea" id="f_te_memo_5" rows="2" placeholder="Frustracoes institucionais, percepcoes sobre governanca..." style="background:rgba(255,255,255,0.7);border-color:#b39ddb;font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <!-- BLOCO 6: ASPECTOS AMBIENTAIS E RESÍDUOS -->
+      <div class="section-header"><div class="section-header-dot" style="background:#8B4513;"></div><div class="section-header-title">Bloco 6 — Aspectos Ambientais e Residuos</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">17a. Na sua avaliacao, o manejo inadequado dos residuos solidos e organicos interfere na qualidade dos recursos hidricos da regiao?</label>
+          <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_res_qualidade')"><input type="radio" name="r_te_res_qualidade" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_res_qualidade')"><input type="radio" name="r_te_res_qualidade" value="Nao"><span class="check-label">Nao</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_res_qualidade')"><input type="radio" name="r_te_res_qualidade" value="Parcialmente"><span class="check-label">Parcialmente</span></label>
+          </div>
+          <textarea class="form-textarea" id="f_te_res_qualidade_exp" rows="3" placeholder="Explique a relacao entre residuos e qualidade da agua..." style="margin-top:8px;"></textarea>
+        </div>
+        <div class="form-group"><label class="form-label">17b. Quais tipos de residuos sao mais comumente mal geridos nas propriedades?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Emb_agrotox_te">🧴 Embalagens de agrotoxicos</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Res_organicos_te">🍂 Residuos organicos da producao</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Esterco_dejetos_te">🐄 Esterco / Dejetos animais</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Res_domesticos_te">🏠 Residuos domesticos</label>
+            <label class="check-item" onclick="toggleCheck(this)" id="opt_te_res_outro"><input type="checkbox" value="Outros_res_te">➕ Outros</label>
+          </div>
+          <input class="form-input" id="f_te_res_outro" placeholder="Especifique outros residuos..." style="margin-top:8px;display:none;">
+        </div>
+        <div class="form-group"><label class="form-label">18. Que orientacoes tecnicas os agricultores mais necessitam sobre a gestao de residuos para nao contaminar os recursos hidricos?</label><textarea class="form-textarea" id="f_te_orientacoes_res" rows="4" placeholder="Orientacoes tecnicas mais necessarias sobre gestao de residuos..."></textarea></div>
+        <div style="background:#f5f0e8;border:1.5px dashed #8B4513;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#8B4513;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco 6</div>
+          <textarea class="form-textarea" id="f_te_memo_6" rows="2" placeholder="Observacoes ambientais de campo, impactos observados..." style="background:rgba(255,255,255,0.7);border-color:#c8a87a;font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <!-- BLOCO 7: SUGESTÕES E PERCEPÇÕES FINAIS -->
+      <div class="section-header"><div class="section-header-dot" style="background:var(--orange);"></div><div class="section-header-title">Bloco 7 — Sugestoes e Percepcoes Finais</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">20. Em sua opiniao, quais acoes ou programas poderiam fortalecer a resiliencia hidrica da agricultura familiar na regiao?</label><textarea class="form-textarea" id="f_te_acoes_resiliencia" rows="5" placeholder="Acoes, programas e iniciativas que o tecnico recomenda..."></textarea></div>
+        <div class="form-group"><label class="form-label">21. Deseja registrar alguma consideracao adicional sobre o tema?</label><textarea class="form-textarea" id="f_te_obs_final" rows="4" placeholder="Consideracoes finais do tecnico..."></textarea></div>
+        <div style="background:#f0fafa;border:1.5px dashed var(--mint);border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco 7</div>
+          <textarea class="form-textarea" id="f_te_memo_7" rows="2" placeholder="Perspectiva tecnica final, motivacao do respondente..." style="background:rgba(255,255,255,0.7);border-color:var(--mint);font-size:13px;"></textarea>
+        </div>
+      </div>
+
+    </div><!-- /form-tecnico -->
+
+    <!-- FORMULÁRIO REPRESENTANTE/PRESIDENTE COOPERATIVA -->
+    <div id="form-representante" style="display:none;">
+
+      <div class="card">
+        <div class="card-title"><span class="icon">🪪</span> Identificacao — Presidente de Cooperativa / Representante</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Codigo <span class="required">*</span></label><input class="form-input" id="f_codigo" placeholder="Ex: RE-001" oninput="updateProgress()"></div>
+          <div class="form-group"><label class="form-label">Data <span class="required">*</span></label><input class="form-input" type="date" id="f_data" oninput="updateProgress()"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Municipio <span class="required">*</span></label><select class="form-select" id="f_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select></div>
+          <div class="form-group"><label class="form-label">Tipo de organizacao</label><select class="form-select" id="f_org_tipo"><option value="">Selecione...</option><option>Cooperativa</option><option>Associacao de agricultores</option><option>Sindicato rural</option><option>Comite de bacia hidrografica</option><option>Outra</option></select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Numero aproximado de associados</label><input class="form-input" id="f_n_associados" placeholder="Ex: 45"></div>
+          <div class="form-group"><label class="form-label">Genero do representante</label><select class="form-select" id="f_genero"><option value="">Nao informado</option><option>Masculino</option><option>Feminino</option><option>Nao binario</option></select></div>
+        </div>
+      </div>
+
+      <div class="section-header"><div class="section-header-dot"></div><div class="section-header-title">Bloco R1 — Agua e Producao Coletiva</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">R1. Como a escassez hidrica afeta os associados/cooperados da organizacao?</label><textarea class="form-textarea" id="f_situacao_hidrica" rows="4" placeholder="Impactos coletivos observados..."></textarea></div>
+        <div class="form-group">
+          <label class="form-label">R2. A organizacao tomou ou planeja tomar acoes coletivas sobre gestao da agua?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="re_acao_armazenamento">🛢️ Projeto coletivo de armazenamento</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="re_acao_reuso">♻️ Sistema coletivo de reuso</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="re_acao_capacitacao">📚 Capacitacao dos associados</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="re_acao_parceria">🤝 Parcerias com orgaos publicos</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="re_sem_acao">❌ Ainda sem acoes coletivas</label>
+          </div>
+        </div>
+        <div style="background:#f0fafa;border:1.5px dashed var(--mint);border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — Bloco R1</div>
+          <textarea class="form-textarea" id="f_obs_b1" rows="3" placeholder="Observacoes sobre organizacao coletiva e agua..." style="background:rgba(255,255,255,0.7);border-color:var(--mint);font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <div class="section-header"><div class="section-header-dot" style="background:#8B4513;"></div><div class="section-header-title">Bloco R2 — Residuos Solidos Coletivos</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">R3. A organizacao tem iniciativas de gestao coletiva de residuos solidos?</label><textarea class="form-textarea" id="f_te_residuos" rows="3" placeholder="Programas de logistica reversa, compostagem coletiva, destinacao de embalagens..."></textarea></div>
+        <div class="form-group">
+          <label class="form-label">R4. Principais desafios coletivos em residuos solidos</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="re_res_logistica">🚛 Logistica de coleta em area rural</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="re_res_conscientizacao">📢 Conscientizacao dos associados</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="re_res_custo">💰 Custo do descarte adequado</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="re_res_legislacao">📜 Dificuldade de cumprir legislacao</label>
+          </div>
+        </div>
+        <div style="background:#f5f0e8;border:1.5px dashed #8B4513;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#8B4513;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — R2</div>
+          <textarea class="form-textarea" id="f_obs_b_res" rows="2" style="background:rgba(255,255,255,0.7);border-color:#c8a87a;font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <div class="section-header"><div class="section-header-dot" style="background:var(--orange);"></div><div class="section-header-title">Bloco R3 — Impactos Coletivos e Governanca</div></div>
+      <div class="card">
+        <div class="form-group"><label class="form-label">R5. Impactos da escassez hidrica na producao e comercializacao coletiva</label><textarea class="form-textarea" id="f_impactos" rows="4" placeholder="Reducoes de volume, dificuldades de comercializacao, endividamento dos associados..."></textarea></div>
+        <div class="form-group">
+          <label class="form-label">R6. Avaliacao do apoio institucional recebido (governo, ANA, SEMA-MT, prefeituras)</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="muito_bom">⭐⭐⭐⭐⭐ Muito satisfatorio</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="bom">⭐⭐⭐⭐ Satisfatorio</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="regular">⭐⭐⭐ Regular</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="ruim">⭐⭐ Insatisfatorio</label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_politicas')"><input type="radio" name="r_politicas" value="muito_ruim">⭐ Muito insatisfatorio</label>
+          </div>
+        </div>
+        <div class="form-group"><label class="form-label">R7. Propostas da organizacao para politicas publicas de agua e residuos</label><textarea class="form-textarea" id="f_sugestoes" rows="3" placeholder="O que a organizacao demanda das politicas publicas..."></textarea></div>
+        <div class="form-group"><label class="form-label">R8. Programas publicos que a organizacao considera eficazes</label><textarea class="form-textarea" id="f_programas" rows="3" placeholder="Programas que funcionaram para os associados..."></textarea></div>
+        <div style="background:#fff9ef;border:1.5px dashed var(--amber);border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:700;color:#c07c00;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo de Campo — R3</div>
+          <textarea class="form-textarea" id="f_obs_b2" rows="3" placeholder="Observacoes sobre governanca coletiva e organizacao..." style="background:rgba(255,255,255,0.7);border-color:var(--amber);font-size:13px;"></textarea>
+        </div>
+      </div>
+
+    </div><!-- /form-representante -->
+
+    <!-- BLOCO COMUM: AUDIO -->
+    <div id="bloco-audio-comum" style="display:none;">
+      <div class="section-header"><div class="section-header-dot" style="background:var(--red);"></div><div class="section-header-title">Gravacao de Audio (Offline)</div></div>
+      <div class="card">
+        <div class="alert alert-success" style="margin-bottom:12px;">✅ <strong>Gravacao 100% offline</strong> — funciona sem internet. O audio fica salvo no proprio dispositivo.</div>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Grave trechos da entrevista. O audio fica salvo localmente e pode ser exportado como arquivo quando houver internet.</p>
+        <div class="audio-recorder">
+          <div class="audio-controls">
+            <button class="btn-record idle" id="btnRecord" onclick="toggleRecord()">🎤</button>
+            <div>
+              <div class="audio-time" id="audioTime">00:00</div>
+              <div class="audio-status" id="audioStatus">Pronto para gravar</div>
+            </div>
+            <button class="btn-sm outline" onclick="saveAudio()" id="btnSaveAudio" style="display:none;">💾 Salvar audio</button>
+          </div>
+        </div>
+        <div class="audio-list" id="audioList" style="margin-top:12px;"></div>
+      </div>
     </div>
 
-    <!-- BLOCO 6: OBSERVACOES -->
-    <div class="card">
-      <div class="card-title"><span class="icon">📝</span> Observacoes e Memorandos da Pesquisadora</div>
-      <div class="form-group">
-        <label class="form-label">Notas de campo / observacoes gerais</label>
-        <textarea class="form-textarea" id="f_observacoes" placeholder="Registre contexto da entrevista, ambiente, linguagem corporal, informacoes relevantes nao capturadas nas perguntas, memos analiticos..." rows="5"></textarea>
+    <!-- BLOCO COMUM: OBSERVACOES E ETICA -->
+    <div id="bloco-obs-comum" style="display:none;">
+      <div class="card">
+        <div class="card-title"><span class="icon">📝</span> Observacoes Gerais e Categorias Analiticas</div>
+        <div class="form-group"><label class="form-label">Notas de campo gerais</label><textarea class="form-textarea" id="f_observacoes" rows="4" placeholder="Contexto, ambiente, linguagem corporal, memos analiticos..."></textarea></div>
+        <div class="form-group">
+          <label class="form-label">Categorias tematicas identificadas (Bardin, 2016)</label>
+          <div class="check-group">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="impactos_percebidos">Cat.1 Impactos percebidos da escassez</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="estrategias_adaptacao">Cat.2 Estrategias de adaptacao existentes</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="barreiras_solucoes">Cat.3 Barreiras a implementacao de solucoes</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="governanca_agua">Cat.4 Governanca e politicas hidricas</label>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Categorias tematicas identificadas</label>
+      <div class="card" style="border:2px solid var(--teal);background:var(--light);">
+        <div class="card-title"><span class="icon">✅</span> Conformidade Etica (CNS 510/2016)</div>
         <div class="check-group">
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="impactos_percebidos">Categoria 1: Impactos percebidos da escassez</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="estrategias_adaptacao">Categoria 2: Estrategias de adaptacao existentes</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="barreiras_solucoes">Categoria 3: Barreiras a implementacao de solucoes</label>
-          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="governanca_agua">Categoria 4: Governanca e politicas hidricas</label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="f_tcle_assinado"><span class="check-label"><strong>TCLE assinado</strong> pelo participante</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="f_audio_autorizado"><span class="check-label"><strong>Audio autorizado</strong> pelo participante</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="f_anonimato_garantido"><span class="check-label"><strong>Anonimato garantido</strong> por codigo de identificacao</span></label>
         </div>
       </div>
-    </div>
-
-    <!-- TCLE -->
-    <div class="card" style="border:2px solid var(--teal);background:var(--light);">
-      <div class="card-title"><span class="icon">✅</span> Consentimento e Conformidade Etica</div>
-      <div class="check-group">
-        <label class="check-item" onclick="toggleCheck(this)">
-          <input type="checkbox" id="f_tcle_assinado">
-          <span class="check-label"><strong>TCLE assinado</strong> — O Termo de Consentimento Livre e Esclarecido foi lido e assinado pelo participante</span>
-        </label>
-        <label class="check-item" onclick="toggleCheck(this)">
-          <input type="checkbox" id="f_audio_autorizado">
-          <span class="check-label"><strong>Audio autorizado</strong> — O participante autorizou a gravacao de audio da entrevista</span>
-        </label>
-        <label class="check-item" onclick="toggleCheck(this)">
-          <input type="checkbox" id="f_anonimato_garantido">
-          <span class="check-label"><strong>Anonimato garantido</strong> — O codigo de identificacao garante anonimato conforme Resolucao CNS n. 510/2016</span>
-        </label>
+      <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:8px;padding-bottom:40px;">
+        <button class="btn-sm outline" onclick="limparFormulario()" style="padding:14px 28px;font-size:15px;">🗑️ Limpar</button>
+        <button class="btn-sm primary" onclick="salvarEntrevista()" style="padding:14px 32px;font-size:15px;">💾 Salvar Entrevista</button>
       </div>
     </div>
+  </div><!-- /bloco-obs-comum -->
 
-    <!-- BOTAO SALVAR -->
-    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:8px;padding-bottom:40px;">
-      <button class="btn-sm outline" onclick="limparFormulario()" style="padding:14px 28px;font-size:15px;">🗑️ Limpar</button>
-      <button class="btn-sm primary" onclick="salvarEntrevista()" style="padding:14px 32px;font-size:15px;">💾 Salvar Entrevista</button>
-    </div>
-  </div>
+  </div><!-- /page-nova -->
 
   <!-- ROTEIRO -->
   <div class="page" id="page-roteiro">
@@ -1181,9 +1477,14 @@
     </div>
 
     <div class="export-card" style="background:linear-gradient(135deg, #c0392b, #e74c3c);">
-      <h3>📄 Relatorio de Campo</h3>
-      <p>Documento de texto com todas as respostas abertas e observacoes, formatado para analise de conteudo.</p>
-      <button class="btn-export" onclick="exportarRelatorio()">📥 Baixar TXT</button>
+      <h3>📄 Relatorio Geral de Campo</h3>
+      <p>Todas as entrevistas com respostas abertas, memos e categorias — formatado para analise de conteudo.</p>
+      <button class="btn-export" onclick="exportarRelatorio()">📥 Relatorio Geral TXT</button>
+      <button class="btn-export" onclick="exportarRelatorioAgricultores()">🌾 Agricultores TXT</button>
+      <button class="btn-export" onclick="exportarRelatorioTecnicos()">🔧 Tecnicos TXT</button>
+      <button class="btn-export" onclick="exportarRelatorioRepresentantes()">🏛️ Representantes TXT</button>
+      <button class="btn-export" onclick="exportarRelatorioResiduos()">🗑️ Residuos Solidos TXT</button>
+      <button class="btn-export" onclick="exportarRelatorioMemos()">📌 Memos de Campo TXT</button>
     </div>
 
     <div class="card">
@@ -1443,9 +1744,69 @@ function openNovaEntrevista() {
 
 // ===== FORM =====
 function onTipoChange(el) {
+  // Marca visualmente
   document.querySelectorAll('[name=tipo]').forEach(r => {
     r.closest('.check-item').classList.toggle('checked', r.checked);
   });
+  // Esconde todos os formularios
+  ['form-agricultor','form-tecnico','form-representante'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+  // Mostra o formulario correto
+  const tipo = document.querySelector('[name=tipo]:checked')?.value;
+  if (tipo) {
+    document.getElementById('form-' + tipo).style.display = 'block';
+    document.getElementById('bloco-audio-comum').style.display = 'block';
+    document.getElementById('bloco-obs-comum').style.display = 'block';
+    // Seta data de hoje
+    const d = new Date().toISOString().split('T')[0];
+    document.querySelectorAll('#form-' + tipo + ' [id="f_data"]').forEach(el => { if(!el.value) el.value = d; });
+  }
+  // Mostrar/esconder campo "Outros" nas fontes
+  setupOutrosListeners();
+  updateProgress();
+}
+
+function setupOutrosListeners() {
+  // Generic helper: checkbox value -> input id
+  const pairs = [
+    ['Outro_fonte',         'f_outros_fonte'],
+    ['Outras_estrategias',  'f_outras_estr_ag'],
+    ['Outros_residuos',     'f_outros_residuos_ag'],
+    ['Outro_destino',       'f_outro_destino_ag'],
+    ['Outros_fatores',      'f_te_fator_outro'],
+    ['Outros_impactos',     'f_te_imp_outro'],
+    ['Outros_praticas_te',  'f_te_prat_outro'],
+    ['Outros_dif_te',       'f_te_dif_outro'],
+    ['Outros_res_te',       'f_te_res_outro'],
+  ];
+  pairs.forEach(([val, inpId]) => {
+    const cb = document.querySelector('input[value="' + val + '"]');
+    const inp = document.getElementById(inpId);
+    if (cb && inp) {
+      cb.addEventListener('change', function() {
+        inp.style.display = this.checked ? 'block' : 'none';
+      });
+    }
+  });
+  // Poco caipira detalhes
+  const cbPoco = document.querySelector('input[value="Poco_caipira"]');
+  const blocoPoco = document.getElementById('bloco_poco_caipira');
+  if (cbPoco && blocoPoco) {
+    cbPoco.addEventListener('change', function() {
+      blocoPoco.style.display = this.checked ? 'block' : 'none';
+    });
+  }
+  // Coleta analise agua
+  const radiosAnalise = document.querySelectorAll('[name="r_coleta_analise"]');
+  const blocoAnalise = document.getElementById('bloco_analise_agua');
+  if (blocoAnalise && radiosAnalise.length) {
+    radiosAnalise.forEach(r => {
+      r.addEventListener('change', function() {
+        blocoAnalise.style.display = (this.value === 'Sim') ? 'block' : 'none';
+      });
+    });
+  }
 }
 
 function toggleCheck(el, type, name) {
@@ -1491,51 +1852,175 @@ function getAllCheckedBoxes() {
 }
 
 function salvarEntrevista() {
-  const codigo = (document.getElementById('f_codigo')?.value || '').trim();
   const tipo = document.querySelector('[name=tipo]:checked')?.value;
-  if(!codigo || !tipo) {
+  const getF = id => (document.getElementById(id)?.value || '').trim();
+  const getR = name => document.querySelector('[name='+name+']:checked')?.value || '';
+  const getCB = sel => Array.from(document.querySelectorAll(sel+':checked')).filter(e=>e.type==='checkbox').map(e=>e.value);
+
+  const codigoId = {agricultor:'f_codigo', tecnico:'f_codigo', representante:'f_codigo'};
+  const codigo = getF(codigoId[tipo] || 'f_codigo');
+
+  if (!codigo || !tipo) {
     showToast('Preencha o codigo e o tipo de participante!', true);
     return;
   }
 
-  const entrevista = {
+  const base = {
     id: editingId || Date.now().toString(),
     timestamp: new Date().toISOString(),
-    codigo,
-    tipo,
-    data: document.getElementById('f_data')?.value || '',
-    municipio: document.getElementById('f_municipio')?.value || '',
-    localidade: document.getElementById('f_localidade')?.value || '',
-    genero: document.getElementById('f_genero')?.value || '',
-    faixa_etaria: document.getElementById('f_idade')?.value || '',
-    fontes_agua: Array.from(document.querySelectorAll('#page-nova input[value="poco_artesiano"],[value="rio_corrego"],[value="chuva"],[value="lago_represa"],[value="rede_publica"],[value="compra_carro_pipa"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
-    irrigacao: Array.from(document.querySelectorAll('#page-nova input[value="gotejamento"],[value="aspersao"],[value="inundacao"],[value="sem_irrigacao"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
-    percepcao_chuva: getChecked('r_chuva')[0] || '',
-    situacao_hidrica: document.getElementById('f_situacao_hidrica')?.value || '',
-    obs_b1: document.getElementById('f_obs_b1')?.value || '',
-    impactos_marcados: Array.from(document.querySelectorAll('#page-nova input[value="reducao_produtividade"],[value="perda_lavouras"],[value="mortandade_animal"],[value="aumento_custos"],[value="mudanca_cultura"],[value="exodo"],[value="conflitos_agua"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
-    seguranca_alimentar: getChecked('r_segalim')[0] || '',
-    relato_impactos: document.getElementById('f_impactos')?.value || '',
-    obs_b2: document.getElementById('f_obs_b2')?.value || '',
-    estrategias: Array.from(document.querySelectorAll('#page-nova input[value="armazenamento"],[value="barraginha"],[value="reuso"],[value="culturas_resistentes"],[value="reducao_area"],[value="sem_estrategia"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
-    dificuldades: Array.from(document.querySelectorAll('#page-nova input[value="financeiro"],[value="informacao"],[value="assistencia"],[value="infraestrutura"],[value="organizacao_social"],[value="politicas_publicas"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
-    sugestoes: document.getElementById('f_sugestoes')?.value || '',
-    obs_b3: document.getElementById('f_obs_b3')?.value || '',
-    avaliacao_politicas: getChecked('r_politicas')[0] || '',
-    programas_eficazes: document.getElementById('f_programas')?.value || '',
-    obs_b4: document.getElementById('f_obs_b4')?.value || '',
-    observacoes: document.getElementById('f_observacoes')?.value || '',
-    categorias: Array.from(document.querySelectorAll('#page-nova input[value="impactos_percebidos"],[value="estrategias_adaptacao"],[value="barreiras_solucoes"],[value="governanca_agua"]')).filter(c=>c.checked&&c.type==='checkbox').map(c=>c.value),
-    tcle_assinado: document.getElementById('f_tcle_assinado')?.checked || false,
-    audio_autorizado: document.getElementById('f_audio_autorizado')?.checked || false,
+    codigo, tipo,
+    data:      getF('f_data'),
+    municipio: getF('f_municipio'),
+    tcle_assinado:       document.getElementById('f_tcle_assinado')?.checked || false,
+    audio_autorizado:    document.getElementById('f_audio_autorizado')?.checked || false,
     anonimato_garantido: document.getElementById('f_anonimato_garantido')?.checked || false,
-    audios: currentAudios.map(a=>({name:a.name, note:'Audio gravado em campo'})),
-    sincronizado: false
+    audios: currentAudios.map(a => ({ name: a.name })),
+    sincronizado: false,
+    categorias: getCB('#page-nova input[type=checkbox]').filter(v =>
+      ['impactos_percebidos','estrategias_adaptacao','barreiras_solucoes','governanca_agua'].includes(v)),
   };
 
-  if(editingId) {
-    const idx = entrevistas.findIndex(e=>e.id===editingId);
-    if(idx>=0) entrevistas[idx] = entrevista;
+  let especifico = {};
+
+  if (tipo === 'agricultor') {
+    especifico = {
+      // I
+      localidade:   getF('f_localidade'),
+      idade:        getF('f_ag_idade'),
+      genero:       getR('r_ag_genero'),
+      escolaridade: getF('f_ag_escolaridade'),
+      tempo_res:    getF('f_ag_tempo_res'),
+      // II
+      tamanho_prop:  getF('f_ag_tamanho'),
+      posse_terra:   getR('r_ag_posse'),
+      atividades:    getF('f_ag_atividades'),
+      num_pessoas:   getF('f_ag_pessoas'),
+      memo_ii:       getF('f_memo_ii'),
+      // III
+      fontes_agua: getCB('#form-agricultor input[type=checkbox]').filter(v =>
+        ['Rio','Nascentes','Corrego','Acude','Poco_artesiano','Poco_caipira','Outro_fonte'].includes(v)),
+      poco_tipo:          getR('r_poco_tipo'),
+      poco_profundidade:  getF('f_poco_profundidade'),
+      outro_fonte:        getF('f_outros_fonte'),
+      armazenamento:      getR('r_armazen'),
+      agua_suficiente:    getR('r_suficiente'),
+      agua_insuf_exp:     getF('f_suficiente_exp'),
+      reducao_agua:       getR('r_reducao_agua'),
+      reducao_agua_desc:  getF('f_reducao_agua_desc'),
+      memo_iii:           getF('f_memo_iii'),
+      // IV
+      coleta_analise:      getR('r_coleta_analise'),
+      periodicidade_coleta: getF('f_periodicidade_coleta'),
+      result_analise:      getF('f_result_analise'),
+      quem_analisa:        getF('f_quem_analisa'),
+      contaminacao:        getR('r_contaminacao'),
+      contaminacao_desc:   getF('f_contaminacao_desc'),
+      memo_iv:             getF('f_memo_iv'),
+      // V
+      perdas:         getR('r_perdas'),
+      perdas_desc:    getF('f_perdas_desc'),
+      reducao_renda:  getR('r_red_renda'),
+      memo_v:         getF('f_memo_v'),
+      // VI
+      estrategias: getCB('#form-agricultor input[type=checkbox]').filter(v =>
+        ['Reuso','Captacao_chuva','Irrigacao_economica','Mudanca_culturas','Reducao_area','Outras_estrategias'].includes(v)),
+      outras_estrategias: getF('f_outras_estr_ag'),
+      apoio_tecnico:      getR('r_apoio_tecnico'),
+      apoio_quem:         getF('f_apoio_quem'),
+      memo_vi:            getF('f_memo_vi'),
+      // VII
+      tipos_residuos: getCB('#form-agricultor input[type=checkbox]').filter(v =>
+        ['Restos_cultura','Embalagens_agrotox','Residuos_organicos','Residuos_animais','Lixo_domestico','Outros_residuos'].includes(v)),
+      outros_residuos: getF('f_outros_residuos_ag'),
+      destinacao_residuos: getCB('#form-agricultor input[type=checkbox]').filter(v =>
+        ['Queima','Enterra','Coleta_publica','Devolucao_posto','Compostagem','Reaproveitamento','Outro_destino'].includes(v)),
+      outro_destino:      getF('f_outro_destino_ag'),
+      dif_residuos:       getR('r_dif_residuos'),
+      dif_residuos_desc:  getF('f_dif_residuos'),
+      conhece_biogas:     getR('r_biogas'),
+      biogas_interesse:   getF('f_biogas_interesse'),
+      memo_vii:           getF('f_memo_vii'),
+      // VIII
+      causas_escassez: getF('f_causas_escassez'),
+      melhorias_agua:  getF('f_melhorias_agua'),
+      obs_final:       getF('f_obs_final_ag'),
+      memo_viii:       getF('f_memo_viii'),
+      // compat. analise
+      impactos_marcados: [], seguranca_alimentar: '', avaliacao_politicas: '',
+    };
+  } else if (tipo === 'tecnico') {
+    especifico = {
+      // B1
+      genero:           getR('r_te_genero'),
+      instituicao:      getF('f_te_instituicao'),
+      cargo:            getF('f_te_cargo'),
+      tempo_atuacao:    getF('f_te_tempo'),
+      municipios_atend: getF('f_te_municipios'),
+      cadeias:          getF('f_te_cadeias'),
+      // B2
+      disponibilidade:  getR('r_te_disponib'),
+      agravamento:      getR('r_te_agrav'),
+      agrav_desc:       getF('f_te_agrav_desc'),
+      fatores_reducao:  getCB('#form-tecnico input[type=checkbox]').filter(v =>
+        ['Mudancas_climaticas','Desmatamento','Mau_uso_solo','Falta_infra_hidrica','Aumento_demanda','Outros_fatores'].includes(v)),
+      outro_fator:      getF('f_te_fator_outro'),
+      memo_b2:          getF('f_te_memo_2'),
+      // B3
+      impactos_marcados: getCB('#form-tecnico input[type=checkbox]').filter(v =>
+        ['Red_produtividade','Perda_lavouras','Mortandade_animal','Aumento_custos','Mudanca_cultura','Exodo','Conflitos_agua','Outros_impactos'].includes(v)),
+      outro_impacto:    getF('f_te_imp_outro'),
+      seguranca_alimentar: getR('r_te_segalim'),
+      segalim_exp:      getF('f_te_segalim_exp'),
+      memo_b3:          getF('f_te_memo_3'),
+      // B4
+      praticas_manejo:  getCB('#form-tecnico input[type=checkbox]').filter(v =>
+        ['Cap_chuva_te','Pocos_cacimbas_te','Gotejamento_te','Aspersao_te','Reuso_te','Barraginhas_te','Conservacao_solo_te','Sem_praticas_te','Outros_praticas_te'].includes(v)),
+      outro_pratica:    getF('f_te_prat_outro'),
+      infraestrutura:   getR('r_te_infra'),
+      tecnologias:      getF('f_te_tecnologias'),
+      memo_b4:          getF('f_te_memo_4'),
+      // B5
+      avaliacao_politicas: getR('r_te_politicas'),
+      dificuldades:     getCB('#form-tecnico input[type=checkbox]').filter(v =>
+        ['Falta_recursos_te','Falta_info_te','Falta_AT_te','Falta_equip_te','Baixa_org_te','Outros_dif_te'].includes(v)),
+      outro_dif:        getF('f_te_dif_outro'),
+      programas:        getF('f_te_programas'),
+      memo_b5:          getF('f_te_memo_5'),
+      // B6
+      res_qualidade:    getR('r_te_res_qualidade'),
+      res_qual_exp:     getF('f_te_res_qualidade_exp'),
+      residuos_mal_geridos: getCB('#form-tecnico input[type=checkbox]').filter(v =>
+        ['Emb_agrotox_te','Res_organicos_te','Esterco_dejetos_te','Res_domesticos_te','Outros_res_te'].includes(v)),
+      outro_res_te:     getF('f_te_res_outro'),
+      orientacoes_res:  getF('f_te_orientacoes_res'),
+      memo_b6:          getF('f_te_memo_6'),
+      // B7
+      acoes_resiliencia: getF('f_te_acoes_resiliencia'),
+      obs_final:         getF('f_te_obs_final'),
+      memo_b7:           getF('f_te_memo_7'),
+    };
+  } else {
+    especifico = {
+      genero:          getR('r_te_genero'),
+      org_tipo:        getF('f_org_tipo'),
+      org_nome:        getF('f_re_org_nome'),
+      n_associados:    getF('f_re_associados'),
+      abrangencia:     getF('f_re_abrangencia'),
+      impacto_coletivo: getF('f_re_impacto'),
+      acoes_coletivas: getCB('#form-representante input[type=checkbox]'),
+      avaliacao_politicas: getR('r_re_apoio_inst'),
+      residuos_coletivos: getF('f_re_residuos'),
+      propostas:       getF('f_re_propostas'),
+      obs_final:       getF('f_re_obs_final'),
+      memo:            getF('f_re_memo'),
+    };
+  }
+
+  const entrevista = { ...base, ...especifico };
+
+  if (editingId) {
+    const idx = entrevistas.findIndex(e => e.id === editingId);
+    if (idx >= 0) entrevistas[idx] = entrevista;
   } else {
     entrevistas.unshift(entrevista);
   }
@@ -1581,9 +2066,18 @@ function limparFormulario() {
     else el.value = '';
   });
   document.querySelectorAll('#page-nova .check-item').forEach(el => el.classList.remove('checked'));
-  document.getElementById('audioList').innerHTML = '';
-  const d = new Date().toISOString().split('T')[0];
-  document.getElementById('f_data').value = d;
+  const audioList = document.getElementById('audioList');
+  if (audioList) audioList.innerHTML = '';
+  // Esconder todos os sub-formularios e blocos comuns
+  ['form-agricultor','form-tecnico','form-representante','bloco-audio-comum','bloco-obs-comum'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  // Esconder campos "outros"
+  ['f_outros_fonte','f_outros_residuo','f_outro_destino'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
   updateProgress();
 }
 
@@ -1732,7 +2226,9 @@ async function toggleRecord() {
       document.getElementById('audioStatus').textContent = 'Gravando...';
       document.getElementById('btnSaveAudio').style.display = 'inline-flex';
     } catch(err) {
-      showToast('Microfone nao disponivel neste dispositivo', true);
+      // getUserMedia funciona OFFLINE — nao precisa de internet
+      // Se falhar, pode ser permissao de microfone negada no navegador
+      showToast('Permissao de microfone negada. Va em Configuracoes do Chrome e permita o microfone.', true);
     }
   } else if(isRecording) {
     mediaRecorder.pause();
@@ -1826,20 +2322,198 @@ function exportarRelatorio() {
     linhas.push(`Tipo: ${e.tipo} | Data: ${e.data} | Municipio: ${e.municipio} | Localidade: ${e.localidade||'-'}`);
     linhas.push(`Genero: ${e.genero||'-'} | Faixa etaria: ${e.faixa_etaria||'-'}`);
     linhas.push(`TCLE assinado: ${e.tcle_assinado?'Sim':'Nao'}`);
-    if(e.situacao_hidrica) linhas.push(`\nSITUACAO HIDRICA:\n${e.situacao_hidrica}`);
-    if(e.obs_b1) linhas.push(`\n[MEMO B1 - Recursos Hidricos]:\n${e.obs_b1}`);
-    if(e.relato_impactos) linhas.push(`\nRELATO DE IMPACTOS:\n${e.relato_impactos}`);
-    if(e.obs_b2) linhas.push(`\n[MEMO B2 - Impactos]:\n${e.obs_b2}`);
-    if(e.sugestoes) linhas.push(`\nSUGESTOES DO PARTICIPANTE:\n${e.sugestoes}`);
-    if(e.obs_b3) linhas.push(`\n[MEMO B3 - Estrategias]:\n${e.obs_b3}`);
-    if(e.programas_eficazes) linhas.push(`\nPROGRAMAS EFICAZES:\n${e.programas_eficazes}`);
-    if(e.obs_b4) linhas.push(`\n[MEMO B4 - Politicas Publicas]:\n${e.obs_b4}`);
-    if(e.observacoes) linhas.push(`\nOBSERVACOES GERAIS:\n${e.observacoes}`);
+    if (e.tipo === 'agricultor') {
+      linhas.push(`Genero: ${e.genero||'-'} | Escolaridade: ${e.escolaridade||'-'} | Tamanho: ${e.tamanho_prop||'-'} | Posse: ${e.posse_terra||'-'}`);
+      if(e.atividades) linhas.push(`\nAtividades produtivas: ${e.atividades}`);
+      if(e.fontes_agua?.length) linhas.push(`\n[Q10] Fontes de agua: ${e.fontes_agua.join(', ')}${e.poco_tipo ? ' | Poco caipira: '+e.poco_tipo+(e.poco_profundidade?', prof.'+e.poco_profundidade:'') : ''}${e.outro_fonte?' | Outro: '+e.outro_fonte:''}`);
+      if(e.armazenamento) linhas.push(`\n[Q11] Armazenamento: ${e.armazenamento}`);
+      if(e.agua_suficiente) linhas.push(`\n[Q12] Agua suficiente: ${e.agua_suficiente}${e.agua_insuf_exp?' — '+e.agua_insuf_exp:''}`);
+      if(e.reducao_agua) linhas.push(`\n[Q13] Reducao agua nos ultimos anos: ${e.reducao_agua}${e.reducao_agua_desc?' — '+e.reducao_agua_desc:''}`);
+      if(e.memo_iii) linhas.push(`\n[MEMO III - Acesso Agua]: ${e.memo_iii}`);
+      if(e.coleta_analise) linhas.push(`\n[Q14] Coleta agua para analise: ${e.coleta_analise}${e.periodicidade_coleta?' | Period.: '+e.periodicidade_coleta:''}${e.quem_analisa?' | Quem: '+e.quem_analisa:''}`);
+      if(e.result_analise) linhas.push(`Resultados analise: ${e.result_analise}`);
+      if(e.contaminacao) linhas.push(`Contaminacao da agua: ${e.contaminacao}${e.contaminacao_desc?' — '+e.contaminacao_desc:''}`);
+      if(e.memo_iv) linhas.push(`\n[MEMO IV - Qualidade Agua]: ${e.memo_iv}`);
+      if(e.perdas) linhas.push(`\n[Q15] Perdas por escassez: ${e.perdas}${e.perdas_desc?' — '+e.perdas_desc:''}`);
+      if(e.reducao_renda) linhas.push(`[Q16] Reducao de renda: ${e.reducao_renda}`);
+      if(e.memo_v) linhas.push(`[MEMO V - Impactos]: ${e.memo_v}`);
+      if(e.estrategias?.length) linhas.push(`\n[Q17] Estrategias: ${e.estrategias.join(', ')}${e.outras_estrategias?' | '+e.outras_estrategias:''}`);
+      if(e.apoio_tecnico) linhas.push(`[Q18] Apoio tecnico: ${e.apoio_tecnico}${e.apoio_quem?' — '+e.apoio_quem:''}`);
+      if(e.memo_vi) linhas.push(`[MEMO VI - Estrategias]: ${e.memo_vi}`);
+      if(e.tipos_residuos?.length) linhas.push(`\n[Q19] Residuos gerados: ${e.tipos_residuos.join(', ')}${e.outros_residuos?' | '+e.outros_residuos:''}`);
+      if(e.destinacao_residuos?.length) linhas.push(`[Q20] Destinacao residuos: ${e.destinacao_residuos.join(', ')}${e.outro_destino?' | '+e.outro_destino:''}`);
+      if(e.dif_residuos) linhas.push(`[Q21] Dif. manejo residuos: ${e.dif_residuos}${e.dif_residuos_desc?' — '+e.dif_residuos_desc:''}`);
+      if(e.conhece_biogas) linhas.push(`[Q22] Conhece Biogas: ${e.conhece_biogas}${e.biogas_interesse?' — '+e.biogas_interesse:''}`);
+      if(e.memo_vii) linhas.push(`[MEMO VII - Residuos]: ${e.memo_vii}`);
+      if(e.causas_escassez) linhas.push(`\n[Q23] Causas da escassez:\n${e.causas_escassez}`);
+      if(e.melhorias_agua) linhas.push(`\n[Q24] Sugestoes melhoria agua:\n${e.melhorias_agua}`);
+      if(e.obs_final) linhas.push(`\n[Q25] Observacoes finais:\n${e.obs_final}`);
+      if(e.memo_viii) linhas.push(`\n[MEMO VIII - Percepcoes]: ${e.memo_viii}`);
+    } else if (e.tipo === 'tecnico') {
+      linhas.push(`Instituicao: ${e.instituicao||'-'} | Cargo: ${e.cargo||'-'} | Tempo: ${e.tempo_atuacao||'-'}`);
+      if(e.municipios_atend) linhas.push(`Municipios atendidos: ${e.municipios_atend}`);
+      if(e.cadeias) linhas.push(`Cadeias produtivas: ${e.cadeias}`);
+      if(e.disponibilidade) linhas.push(`\n[Q6] Disponibilidade hidrica: ${e.disponibilidade}`);
+      if(e.agravamento) linhas.push(`[Q7] Escassez agravada: ${e.agravamento}${e.agrav_desc?' — '+e.agrav_desc:''}`);
+      if(e.fatores_reducao?.length) linhas.push(`[Q8] Fatores de reducao: ${e.fatores_reducao.join(', ')}${e.outro_fator?' | '+e.outro_fator:''}`);
+      if(e.memo_b2) linhas.push(`[MEMO B2]: ${e.memo_b2}`);
+      if(e.impactos_marcados?.length) linhas.push(`\n[Q9] Impactos observados: ${e.impactos_marcados.join(', ')}${e.outro_impacto?' | '+e.outro_impacto:''}`);
+      if(e.seguranca_alimentar) linhas.push(`[Q10] Seg. alimentar: ${e.seguranca_alimentar}${e.segalim_exp?' — '+e.segalim_exp:''}`);
+      if(e.memo_b3) linhas.push(`[MEMO B3]: ${e.memo_b3}`);
+      if(e.praticas_manejo?.length) linhas.push(`\n[Q11] Praticas manejo: ${e.praticas_manejo.join(', ')}`);
+      if(e.infraestrutura) linhas.push(`[Q12] Infraestrutura: ${e.infraestrutura}`);
+      if(e.tecnologias) linhas.push(`\n[Q13] Tecnologias prioritarias:\n${e.tecnologias}`);
+      if(e.avaliacao_politicas) linhas.push(`\n[Q14] Avaliacao politicas: ${e.avaliacao_politicas}`);
+      if(e.dificuldades?.length) linhas.push(`[Q15] Dificuldades: ${e.dificuldades.join(', ')}`);
+      if(e.programas) linhas.push(`\n[Q16] Programas eficazes:\n${e.programas}`);
+      if(e.memo_b5) linhas.push(`[MEMO B5]: ${e.memo_b5}`);
+      if(e.res_qualidade) linhas.push(`\n[Q17a] Residuos interferem qualidade agua: ${e.res_qualidade}${e.res_qual_exp?' — '+e.res_qual_exp:''}`);
+      if(e.residuos_mal_geridos?.length) linhas.push(`[Q17b] Residuos mal geridos: ${e.residuos_mal_geridos.join(', ')}`);
+      if(e.orientacoes_res) linhas.push(`\n[Q18] Orientacoes sobre residuos:\n${e.orientacoes_res}`);
+      if(e.acoes_resiliencia) linhas.push(`\n[Q20] Acoes de resiliencia:\n${e.acoes_resiliencia}`);
+      if(e.obs_final) linhas.push(`\n[Q21] Consideracoes finais:\n${e.obs_final}`);
+      if(e.memo_b7) linhas.push(`[MEMO B7]: ${e.memo_b7}`);
+    } else {
+      if(e.impacto_coletivo) linhas.push(`\nImpactos coletivos:\n${e.impacto_coletivo}`);
+      if(e.avaliacao_politicas) linhas.push(`Apoio institucional: ${e.avaliacao_politicas}`);
+      if(e.residuos_coletivos) linhas.push(`Residuos coletivos:\n${e.residuos_coletivos}`);
+      if(e.propostas) linhas.push(`Propostas politicas:\n${e.propostas}`);
+      if(e.obs_final) linhas.push(`Observacoes: ${e.obs_final}`);
+    }
     if(e.categorias?.length) linhas.push(`\nCATEGORIAS: ${e.categorias.join(', ')}`);
     linhas.push('\n');
   });
   download('aquacampo_relatorio_' + new Date().toISOString().split('T')[0] + '.txt', linhas.join('\n'), 'text/plain;charset=utf-8');
   showToast('Relatorio exportado!');
+}
+
+function gerarTxtBase(lista, titulo, campos) {
+  const linhas = [
+    '====================================================',
+    titulo,
+    '====================================================',
+    'Pesquisadora: Maria Silvina da Cruz Goncalves',
+    'Orientador: Prof. Dr. Ernandes Sobreira Oliveira Junior',
+    'Instituicao: UNEMAT / ProfAgua — Caceres-MT',
+    'Gerado em: ' + new Date().toLocaleString('pt-BR'),
+    'Total: ' + lista.length + ' registro(s)',
+    '====================================================\n'
+  ];
+  lista.forEach((e, i) => {
+    linhas.push('--- ' + (i+1) + '. ' + e.codigo + ' | ' + e.tipo + ' | ' + e.municipio + ' | ' + e.data + ' ---');
+    campos.forEach(([label, fn]) => {
+      const val = fn(e);
+      if (val) linhas.push('\n' + label + ':\n' + val);
+    });
+    linhas.push('\n' + '─'.repeat(60) + '\n');
+  });
+  return linhas.join('\n');
+}
+
+function exportarRelatorioAgricultores() {
+  const lista = entrevistas.filter(e => e.tipo === 'agricultor');
+  if (!lista.length) { showToast('Nenhum agricultor registrado', true); return; }
+  const txt = gerarTxtBase(lista, 'RELATORIO — AGRICULTORES FAMILIARES', [
+    ['Genero / Faixa Etaria', e => [e.genero, e.faixa_etaria, e.escolaridade, e.tamanho_prop].filter(Boolean).join(' | ')],
+    ['Fontes de agua', e => (e.fontes_agua||[]).join(', ') + (e.outros_fonte ? ' / Outros: '+e.outros_fonte : '')],
+    ['Irrigacao', e => (e.irrigacao||[]).join(', ')],
+    ['Percepcao chuvas', e => e.percepcao_chuva],
+    ['Situacao hidrica', e => e.situacao_hidrica],
+    ['[MEMO B1 Hidrico]', e => e.obs_b1],
+    ['Residuos gerados', e => (e.tipos_residuos||[]).join(', ') + (e.outros_residuo ? ' / '+e.outros_residuo : '')],
+    ['Destinacao residuos', e => (e.destinacao_residuos||[]).join(', ') + (e.outro_destino ? ' / '+e.outro_destino : '')],
+    ['Dificuldades residuos', e => e.dif_residuos_desc],
+    ['[MEMO B2 Residuos]', e => e.obs_b_res],
+    ['Impactos marcados', e => (e.impactos_marcados||[]).join(', ')],
+    ['Seguranca alimentar', e => e.seguranca_alimentar],
+    ['Relato de impactos', e => e.relato_impactos],
+    ['[MEMO B3 Impactos]', e => e.obs_b2],
+    ['Estrategias', e => (e.estrategias||[]).join(', ')],
+    ['Dificuldades adaptacao', e => (e.dificuldades||[]).join(', ')],
+    ['Sugestoes', e => e.sugestoes],
+    ['[MEMO B4 Estrategias]', e => e.obs_b3],
+    ['Avaliacao politicas', e => e.avaliacao_politicas],
+    ['Programas eficazes', e => e.programas_eficazes],
+    ['[MEMO B5 Politicas]', e => e.obs_b4],
+    ['Observacoes gerais', e => e.observacoes],
+    ['Categorias tematicas', e => (e.categorias||[]).join(', ')],
+  ]);
+  download('aquacampo_agricultores_' + new Date().toISOString().split('T')[0] + '.txt', txt, 'text/plain;charset=utf-8');
+  showToast('Relatorio de agricultores exportado!');
+}
+
+function exportarRelatorioTecnicos() {
+  const lista = entrevistas.filter(e => e.tipo === 'tecnico');
+  if (!lista.length) { showToast('Nenhum tecnico registrado', true); return; }
+  const txt = gerarTxtBase(lista, 'RELATORIO — TECNICOS EXTENSIONISTAS', [
+    ['Instituicao / Tempo de atuacao', e => [e.instituicao, e.tempo_atuacao].filter(Boolean).join(' | ')],
+    ['Disponibilidade hidrica (avaliacao tecnica)', e => e.f_te_disponibilidade || e.situacao_hidrica],
+    ['Problemas hidricos observados', e => (e.tipos_residuos||[]).filter(v=>v.startsWith('te_')).join(', ')],
+    ['[MEMO T1]', e => e.obs_b1],
+    ['Gestao de residuos (observacao tecnica)', e => e.te_residuos],
+    ['[MEMO T2]', e => e.obs_b_res],
+    ['Impacto na assistencia tecnica', e => e.relato_impactos],
+    ['Tecnologias recomendadas', e => (e.estrategias||[]).filter(v=>v.startsWith('te_')).join(', ')],
+    ['Limitacoes para implementacao', e => e.sugestoes],
+    ['[MEMO T3]', e => e.obs_b2],
+    ['Avaliacao politicas publicas', e => e.avaliacao_politicas],
+    ['Sugestoes de melhoria', e => e.programas_eficazes],
+    ['[MEMO T4]', e => e.obs_b4],
+    ['Observacoes gerais', e => e.observacoes],
+    ['Categorias tematicas', e => (e.categorias||[]).join(', ')],
+  ]);
+  download('aquacampo_tecnicos_' + new Date().toISOString().split('T')[0] + '.txt', txt, 'text/plain;charset=utf-8');
+  showToast('Relatorio de tecnicos exportado!');
+}
+
+function exportarRelatorioRepresentantes() {
+  const lista = entrevistas.filter(e => e.tipo === 'representante');
+  if (!lista.length) { showToast('Nenhum representante registrado', true); return; }
+  const txt = gerarTxtBase(lista, 'RELATORIO — PRESIDENTES / REPRESENTANTES', [
+    ['Organizacao / Associados', e => [e.org_tipo, e.n_associados ? e.n_associados + ' associados' : ''].filter(Boolean).join(' | ')],
+    ['Impactos coletivos da escassez', e => e.situacao_hidrica],
+    ['Acoes coletivas de agua', e => (e.estrategias||[]).filter(v=>v.startsWith('re_')).join(', ')],
+    ['[MEMO R1]', e => e.obs_b1],
+    ['Gestao coletiva de residuos', e => e.te_residuos],
+    ['Desafios coletivos em residuos', e => (e.tipos_residuos||[]).filter(v=>v.startsWith('re_res')).join(', ')],
+    ['[MEMO R2]', e => e.obs_b_res],
+    ['Impactos na producao e comercializacao', e => e.relato_impactos],
+    ['Avaliacao apoio institucional', e => e.avaliacao_politicas],
+    ['Propostas para politicas publicas', e => e.sugestoes],
+    ['Programas eficazes', e => e.programas_eficazes],
+    ['[MEMO R3]', e => e.obs_b2],
+    ['Observacoes gerais', e => e.observacoes],
+    ['Categorias tematicas', e => (e.categorias||[]).join(', ')],
+  ]);
+  download('aquacampo_representantes_' + new Date().toISOString().split('T')[0] + '.txt', txt, 'text/plain;charset=utf-8');
+  showToast('Relatorio de representantes exportado!');
+}
+
+function exportarRelatorioResiduos() {
+  const txt = gerarTxtBase(entrevistas, 'RELATORIO — RESIDUOS SOLIDOS (TODOS OS PARTICIPANTES)', [
+    ['Tipo / Municipio', e => e.tipo + ' | ' + e.municipio],
+    ['Residuos gerados', e => (e.tipos_residuos||[]).join(', ') + (e.outros_residuo ? ' / '+e.outros_residuo : '')],
+    ['Destinacao final', e => (e.destinacao_residuos||[]).join(', ') + (e.outro_destino ? ' / '+e.outro_destino : '')],
+    ['Dificuldades de manejo', e => e.dif_residuos === 'sim_residuos' ? 'SIM: ' + (e.dif_residuos_desc||'(nao especificado)') : e.dif_residuos === 'nao_residuos' ? 'Nao' : ''],
+    ['Observacao residuos', e => e.obs_b_res],
+    ['Perspectiva tecnica (tecnicos)', e => e.te_residuos],
+  ]);
+  download('aquacampo_residuos_' + new Date().toISOString().split('T')[0] + '.txt', txt, 'text/plain;charset=utf-8');
+  showToast('Relatorio de residuos exportado!');
+}
+
+function exportarRelatorioMemos() {
+  const txt = gerarTxtBase(entrevistas, 'MEMOS DE CAMPO — TODAS AS ENTREVISTAS', [
+    ['Tipo / Municipio', e => e.tipo + ' | ' + e.municipio],
+    ['MEMO B1 — Recursos Hidricos', e => e.obs_b1],
+    ['MEMO B2 — Residuos Solidos', e => e.obs_b_res],
+    ['MEMO B3 — Impactos', e => e.obs_b2],
+    ['MEMO B4 — Estrategias', e => e.obs_b3],
+    ['MEMO B5 — Politicas Publicas', e => e.obs_b4],
+    ['OBSERVACOES GERAIS', e => e.observacoes],
+  ]);
+  download('aquacampo_memos_' + new Date().toISOString().split('T')[0] + '.txt', txt, 'text/plain;charset=utf-8');
+  showToast('Memos de campo exportados!');
 }
 
 function download(filename, content, type) {
