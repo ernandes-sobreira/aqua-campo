@@ -1863,12 +1863,15 @@ window.addEventListener('beforeunload', () => {
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  document.getElementById('tab-' + name).classList.add('active');
-  if(name === 'entrevistas') renderEntrevistas();
-  if(name === 'dashboard') renderDashboard();
-  if(name === 'export') {
-    document.getElementById('exportTotal').textContent = entrevistas.length;
+  const page = document.getElementById('page-' + name);
+  const tab  = document.getElementById('tab-' + name);
+  if (page) page.classList.add('active');
+  if (tab)  tab.classList.add('active');
+  if (name === 'entrevistas') renderEntrevistas();
+  if (name === 'painel' || name === 'dashboard') renderPainel();
+  if (name === 'exportar' || name === 'export') {
+    const el = document.getElementById('exportTotal');
+    if (el) el.textContent = entrevistas.length;
     updateSafetyStatus();
   }
 }

@@ -7,140 +7,131 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root {
-  --c1:#005F73; --c2:#0A9396; --c3:#94D2BD; --c4:#E9C46A;
-  --c5:#F4A261; --c6:#E76F51; --c7:#264653; --c8:#2A9D8F;
-  --bg:#f8fafb; --white:#fff; --g1:#f0f4f5; --g2:#e0e8ea;
-  --g3:#9eb5bb; --text:#1a2530; --t2:#4a6370; --r:14px;
-  --sh:0 2px 16px rgba(0,95,115,0.09);
+:root{
+  --c1:#005F73;--c2:#0A9396;--c3:#94D2BD;--c4:#E9C46A;--c5:#F4A261;
+  --c6:#E76F51;--c7:#264653;--c8:#2A9D8F;--bg:#f8fafb;--white:#fff;
+  --g1:#f0f4f5;--g2:#e0e8ea;--g3:#9eb5bb;--text:#1a2530;--t2:#4a6370;
+  --r:14px;--sh:0 2px 16px rgba(0,95,115,0.09);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);}
 
-/* HEADER */
-.hdr{background:linear-gradient(135deg,var(--c1),var(--c2));padding:22px 28px 18px;color:#fff;}
-.hdr-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;}
+.hdr{background:linear-gradient(135deg,var(--c1),var(--c2));padding:20px 24px 16px;color:#fff;}
+.hdr-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
 .hdr-brand{display:flex;align-items:center;gap:10px;}
-.hdr-logo{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:24px;}
+.hdr-logo{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px;}
 .hdr-title{font-family:'Playfair Display',serif;font-size:clamp(18px,4vw,26px);font-weight:700;line-height:1.1;}
 .hdr-title span{color:var(--c4);}
 .hdr-sub{font-size:11px;opacity:.72;margin-top:2px;}
-.btn-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.35);color:#fff;padding:8px 18px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;text-decoration:none;transition:background .18s;}
+.btn-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.35);color:#fff;padding:8px 16px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:5px;text-decoration:none;transition:.15s;}
 .btn-back:hover{background:rgba(255,255,255,.25);}
-.hdr-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:11px;opacity:.78;}
+.hdr-meta{font-size:11px;opacity:.75;display:flex;flex-wrap:wrap;gap:14px;}
 
-/* FILTER BAR */
-.filter-bar{background:var(--white);border-bottom:2px solid var(--g2);padding:14px 28px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:0;z-index:200;box-shadow:0 3px 12px rgba(0,95,115,.08);}
-.filter-bar-label{font-size:11px;font-weight:700;color:var(--c1);text-transform:uppercase;letter-spacing:1px;white-space:nowrap;}
-.filter-group{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
-.ftag{padding:5px 13px;border-radius:99px;border:1.5px solid var(--g2);background:var(--g1);font-size:12px;font-weight:600;color:var(--t2);cursor:pointer;transition:all .15s;white-space:nowrap;}
+/* IMPORTAR / AVISO */
+.import-banner{background:#fff3cd;border-bottom:2px solid #ffc107;padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.import-banner p{font-size:13px;color:#7a5500;flex:1;}
+.import-banner strong{color:#5a3e00;}
+.btn-import{background:var(--c1);color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;}
+
+/* FILTROS */
+.filter-bar{background:var(--white);border-bottom:2px solid var(--g2);padding:12px 20px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,95,115,.06);}
+.flabel{font-size:10px;font-weight:700;color:var(--c1);text-transform:uppercase;letter-spacing:1px;white-space:nowrap;}
+.ftag{padding:5px 12px;border-radius:99px;border:1.5px solid var(--g2);background:var(--g1);font-size:11px;font-weight:600;color:var(--t2);cursor:pointer;transition:.13s;white-space:nowrap;}
 .ftag:hover{border-color:var(--c2);color:var(--c2);}
 .ftag.on{background:var(--c2);border-color:var(--c2);color:#fff;}
-.ftag.on-amber{background:var(--c4);border-color:var(--c4);color:var(--c7);}
-.ftag.on-red{background:var(--c6);border-color:var(--c6);color:#fff;}
-.filter-divider{width:1px;height:24px;background:var(--g2);}
-.filter-info{font-size:12px;color:var(--t2);margin-left:auto;background:var(--g1);border:1px solid var(--g2);padding:5px 14px;border-radius:99px;white-space:nowrap;}
-.filter-info strong{color:var(--c1);}
-.btn-compare{padding:6px 16px;border-radius:99px;border:1.5px solid var(--c4);background:transparent;color:var(--c7);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;display:flex;align-items:center;gap:5px;}
-.btn-compare:hover,.btn-compare.on{background:var(--c4);color:var(--c7);}
+.fdiv{width:1px;height:20px;background:var(--g2);}
+.finfo{font-size:11px;color:var(--t2);margin-left:auto;background:var(--g1);border:1px solid var(--g2);padding:4px 12px;border-radius:99px;white-space:nowrap;}
+.finfo strong{color:var(--c1);}
 
-/* STATS BAR */
-.stats-bar{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;padding:16px 28px;background:var(--white);border-bottom:2px solid var(--g2);}
-.sp{background:var(--g1);border-radius:10px;padding:12px 14px;border:1.5px solid var(--g2);}
+/* STATS */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;padding:14px 20px;background:var(--white);border-bottom:2px solid var(--g2);}
+.sp{background:var(--g1);border-radius:10px;padding:12px 14px;border:1.5px solid var(--g2);text-align:center;}
 .sp-v{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--c1);line-height:1;}
-.sp-l{font-size:10px;color:var(--t2);font-weight:600;margin-top:3px;text-transform:uppercase;letter-spacing:.7px;}
-
-/* COMPARE BADGE */
-.cmp-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700;}
-.cmp-a{background:#e0f7fa;color:#00838f;}
-.cmp-b{background:#fff3e0;color:#e65100;}
+.sp-l{font-size:10px;color:var(--t2);font-weight:600;margin-top:3px;text-transform:uppercase;letter-spacing:.6px;}
 
 /* NAV */
-.nav-secs{background:var(--white);border-bottom:2px solid var(--g2);display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;box-shadow:0 2px 6px rgba(0,95,115,.04);}
-.ns{padding:12px 16px;font-size:12px;font-weight:600;color:var(--t2);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:all .15s;display:flex;align-items:center;gap:5px;}
-.ns.active{color:var(--c2);border-bottom-color:var(--c2);}
-.ns:hover:not(.active){color:var(--text);background:var(--g1);}
+.nav{background:var(--white);border-bottom:2px solid var(--g2);display:flex;padding:0 16px;overflow-x:auto;scrollbar-width:none;}
+.nt{padding:11px 14px;font-size:11px;font-weight:600;color:var(--t2);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:.13s;}
+.nt.active{color:var(--c2);border-bottom-color:var(--c2);}
+.nt:hover:not(.active){color:var(--text);background:var(--g1);}
 
 /* CONTENT */
-.content{max-width:1200px;margin:0 auto;padding:24px 20px 60px;}
+.content{max-width:1100px;margin:0 auto;padding:20px 16px 60px;}
 .sec{display:none;} .sec.active{display:block;}
-.sec-head{margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--g2);}
-.sec-head h2{font-family:'Playfair Display',serif;font-size:clamp(17px,3vw,22px);color:var(--c1);margin-bottom:4px;}
-.sec-head p{font-size:12px;color:var(--t2);line-height:1.6;}
+.sec-hdr{margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--g2);}
+.sec-hdr h2{font-family:'Playfair Display',serif;font-size:clamp(16px,3vw,22px);color:var(--c1);margin-bottom:4px;}
+.sec-hdr p{font-size:12px;color:var(--t2);line-height:1.6;}
 
-/* CHART GRID */
-.cgrid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(min(100%,460px),1fr));}
+/* CHARTS */
+.cgrid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));}
 .cgrid.single{grid-template-columns:1fr;}
-.cc{background:var(--white);border-radius:var(--r);border:1px solid var(--g2);padding:22px;box-shadow:var(--sh);}
-.cc-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--c1);margin-bottom:3px;}
-.cc-desc{font-size:11px;color:var(--t2);margin-bottom:14px;line-height:1.5;}
-.cw{position:relative;} .cw canvas{max-height:300px;} .cw.tall canvas{max-height:420px;}
-.insight{background:var(--g1);border-left:4px solid var(--c2);border-radius:0 8px 8px 0;padding:12px 14px;margin-top:12px;font-size:12px;color:var(--t2);line-height:1.65;}
+.cc{background:var(--white);border-radius:var(--r);border:1px solid var(--g2);padding:18px;box-shadow:var(--sh);}
+.cc-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;gap:8px;}
+.cc-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--c1);}
+.cc-desc{font-size:11px;color:var(--t2);margin-top:2px;line-height:1.4;}
+.cw canvas{max-height:300px;}
+.cw.tall canvas{max-height:420px;}
+
+/* DOWNLOAD BTN */
+.btn-dl{background:var(--g1);border:1.5px solid var(--g2);color:var(--t2);padding:5px 10px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;transition:.13s;flex-shrink:0;}
+.btn-dl:hover{background:var(--c1);color:#fff;border-color:var(--c1);}
+
+/* INSIGHT */
+.insight{background:var(--g1);border-left:4px solid var(--c2);border-radius:0 8px 8px 0;padding:11px 14px;margin-top:10px;font-size:12px;color:var(--t2);line-height:1.6;}
 .insight strong{color:var(--c1);}
 .insight.warn{border-left-color:var(--c5);background:#fff8f3;}
 .insight.good{border-left-color:var(--c8);background:#f0fafa;}
+.insight.note{border-left-color:var(--c4);background:#fff9ef;}
 
-/* STAT TEST BOX */
-.stat-test{background:linear-gradient(135deg,#f0faf9,#eaf4f4);border:1.5px solid var(--c3);border-radius:10px;padding:14px 16px;margin-top:12px;font-size:12px;}
-.stat-test-title{font-size:11px;font-weight:700;color:var(--c1);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
-.stat-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(10,147,150,.1);}
-.stat-row:last-child{border-bottom:none;}
-.stat-label{font-size:12px;color:var(--t2);}
-.stat-val{font-weight:700;font-size:12px;}
-.sig{color:#2e7d32;} .nosig{color:#e65100;} .marg{color:#f57f17;}
+/* VAZIO */
+.empty{text-align:center;padding:60px 20px;}
+.empty .icon{font-size:52px;margin-bottom:12px;}
+.empty h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--c1);margin-bottom:8px;}
+.empty p{font-size:13px;color:var(--t2);margin-bottom:16px;}
 
-/* LIKERT */
-.lrow{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.llabel{font-size:12px;color:var(--t2);min-width:120px;flex-shrink:0;}
-.lbw{flex:1;background:var(--g2);border-radius:99px;height:18px;overflow:hidden;}
-.lbf{height:100%;border-radius:99px;display:flex;align-items:center;justify-content:flex-end;padding-right:7px;font-size:10px;font-weight:700;color:#fff;min-width:20px;}
-.lpct{font-size:11px;font-weight:700;color:var(--c1);min-width:32px;text-align:right;}
-
-/* DATA TABLE */
+/* TABELA */
 .dt{width:100%;border-collapse:collapse;font-size:12px;}
-.dt th{background:var(--c1);color:#fff;padding:9px 12px;text-align:left;font-weight:600;font-size:11px;letter-spacing:.4px;text-transform:uppercase;}
-.dt td{padding:9px 12px;border-bottom:1px solid var(--g2);color:var(--t2);}
+.dt th{background:var(--c1);color:#fff;padding:8px 12px;text-align:left;font-weight:600;font-size:11px;letter-spacing:.4px;text-transform:uppercase;}
+.dt td{padding:8px 12px;border-bottom:1px solid var(--g2);color:var(--t2);}
 .dt tr:last-child td{border-bottom:none;}
 .dt tr:hover td{background:var(--g1);}
 .dt .num{font-weight:700;color:var(--c1);text-align:center;}
 .dt .pct{color:var(--c2);font-weight:600;text-align:center;}
 
-/* ANALYSIS CARD */
-.ac{background:var(--white);border-radius:var(--r);border:1px solid var(--g2);padding:22px;box-shadow:var(--sh);margin-bottom:18px;}
-.ac-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--c1);display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+/* LIKERT */
+.lrow{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.llabel{font-size:11px;color:var(--t2);min-width:130px;flex-shrink:0;}
+.lbw{flex:1;background:var(--g2);border-radius:99px;height:16px;overflow:hidden;}
+.lbf{height:100%;border-radius:99px;display:flex;align-items:center;padding-right:7px;justify-content:flex-end;font-size:10px;font-weight:700;color:#fff;min-width:18px;}
+.lpct{font-size:11px;font-weight:700;color:var(--c1);min-width:30px;text-align:right;}
 
-/* CATEGORY BLOCK */
-.catb{border:1.5px solid var(--g2);border-radius:10px;margin-bottom:12px;overflow:hidden;}
-.catb-hdr{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;background:var(--g1);}
-.catb-body{padding:14px 16px;font-size:12px;color:var(--t2);line-height:1.7;}
-.cat-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700;letter-spacing:.4px;}
-.cat-1{background:#e0f7fa;color:#00838f;} .cat-2{background:#fff8e1;color:#f57f17;}
-.cat-3{background:#fce4ec;color:#c62828;} .cat-4{background:#e8f5e9;color:#2e7d32;}
+/* STAT TEST */
+.stat-box{background:linear-gradient(135deg,#f0faf9,#eaf4f4);border:1.5px solid var(--c3);border-radius:10px;padding:14px 16px;margin-top:10px;}
+.stat-box-title{font-size:10px;font-weight:700;color:var(--c1);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(10,147,150,.1);font-size:11px;}
+.stat-row:last-child{border-bottom:none;}
+.stat-lbl{color:var(--t2);}
+.stat-val{font-weight:700;}
+.sig{color:#2e7d32;} .nosig{color:#e65100;} .marg{color:#f57f17;}
 
-/* COMPARE MODE */
-.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-@media(max-width:680px){.compare-grid{grid-template-columns:1fr;}}
-.compare-panel{border-radius:var(--r);padding:16px;border:2px solid;}
-.compare-panel.A{border-color:var(--c2);background:linear-gradient(135deg,#f0fafa,#fff);}
-.compare-panel.B{border-color:var(--c5);background:linear-gradient(135deg,#fff8f3,#fff);}
-.compare-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-.compare-panel.A .compare-label{color:var(--c2);}
-.compare-panel.B .compare-label{color:var(--c5);}
+/* SEM DADOS */
+.no-data{text-align:center;padding:40px 20px;font-size:13px;color:var(--g3);font-style:italic;}
 
-/* EMPTY */
-.empty{text-align:center;padding:70px 24px;}
-.empty .icon{font-size:56px;margin-bottom:14px;}
-.empty h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--c1);margin-bottom:8px;}
-.empty p{font-size:13px;color:var(--t2);margin-bottom:18px;}
-.upload-zone{border:2px dashed var(--c3);border-radius:var(--r);padding:28px 20px;text-align:center;background:var(--g1);cursor:pointer;transition:all .18s;margin-bottom:14px;}
-.upload-zone:hover{border-color:var(--c2);background:var(--white);}
-.upload-zone p{font-size:12px;color:var(--t2);margin-top:6px;}
+/* AC card */
+.ac{background:var(--white);border-radius:var(--r);border:1px solid var(--g2);padding:18px;box-shadow:var(--sh);margin-bottom:14px;}
+.ac-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--c1);display:flex;align-items:center;gap:7px;margin-bottom:14px;}
+.cat-b{border:1.5px solid var(--g2);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+.cat-h{padding:11px 14px;display:flex;align-items:center;justify-content:space-between;background:var(--g1);}
+.cat-body{padding:12px 14px;font-size:12px;color:var(--t2);line-height:1.6;}
+.cat-badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:99px;font-size:10px;font-weight:700;}
+.cat-1{background:#e0f7fa;color:#00838f;}.cat-2{background:#fff8e1;color:#f57f17;}
+.cat-3{background:#fce4ec;color:#c62828;}.cat-4{background:#e8f5e9;color:#2e7d32;}
 
 @media(max-width:600px){
-  .hdr{padding:18px 14px 14px;}
-  .filter-bar{padding:12px 14px;}
-  .stats-bar{padding:14px;grid-template-columns:1fr 1fr 1fr;}
-  .content{padding:18px 12px 60px;}
+  .hdr{padding:16px 14px 12px;}
+  .filter-bar{padding:10px 12px;}
+  .stats-bar{padding:12px;grid-template-columns:1fr 1fr 1fr;}
+  .content{padding:16px 12px 60px;}
 }
 </style>
 </head>
@@ -164,73 +155,30 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
 </div>
 
-<!-- FILTER BAR -->
-<div class="filter-bar" id="filterBar">
-  <span class="filter-bar-label">Filtros</span>
-
-  <div class="filter-group" id="fgTipo">
-    <span class="filter-bar-label" style="font-size:10px;color:var(--t2);">Tipo</span>
-    <button class="ftag on" onclick="toggleFilter('tipo','todos')">Todos</button>
-    <button class="ftag" onclick="toggleFilter('tipo','agricultor')">🌾 Agricultor</button>
-    <button class="ftag" onclick="toggleFilter('tipo','tecnico')">🔧 Técnico</button>
-    <button class="ftag" onclick="toggleFilter('tipo','representante')">🏛️ Representante</button>
-  </div>
-
-  <div class="filter-divider"></div>
-
-  <div class="filter-group" id="fgGenero">
-    <span class="filter-bar-label" style="font-size:10px;color:var(--t2);">Gênero</span>
-    <button class="ftag on" onclick="toggleFilter('genero','todos')">Todos</button>
-    <button class="ftag" onclick="toggleFilter('genero','Feminino')">♀ Feminino</button>
-    <button class="ftag" onclick="toggleFilter('genero','Masculino')">♂ Masculino</button>
-  </div>
-
-  <div class="filter-divider"></div>
-
-  <div class="filter-group" id="fgIdade">
-    <span class="filter-bar-label" style="font-size:10px;color:var(--t2);">Faixa etária</span>
-    <button class="ftag on" onclick="toggleFilter('idade','todos')">Todas</button>
-    <button class="ftag" onclick="toggleFilter('idade','jovem')">≤ 35 anos</button>
-    <button class="ftag" onclick="toggleFilter('idade','adulto')">36–55 anos</button>
-    <button class="ftag" onclick="toggleFilter('idade','senior')">≥ 56 anos</button>
-  </div>
-
-  <div class="filter-divider"></div>
-
-  <button class="btn-compare" id="btnCompare" onclick="toggleCompareMode()">⚡ Modo Comparação</button>
-
-  <div class="filter-info" id="filterInfo"><strong>0</strong> entrevistas</div>
+<!-- BANNER IMPORTAR -->
+<div class="import-banner" id="importBanner" style="display:none;">
+  <p><strong>⚠️ Exibindo dados de demonstração.</strong> Importe o arquivo JSON exportado pelo app para analisar seus dados reais.</p>
+  <label class="btn-import">📂 Importar JSON real <input type="file" accept=".json" style="display:none" onchange="importJSON(this)"></label>
 </div>
 
-<!-- COMPARE SELECTOR (hidden by default) -->
-<div id="compareSel" style="display:none;background:#fff8f3;border-bottom:2px solid var(--c5);padding:12px 28px;display:none;">
-  <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
-    <div>
-      <div style="font-size:11px;font-weight:700;color:var(--c2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Grupo A <span class="cmp-badge cmp-a">azul</span></div>
-      <div style="display:flex;flex-wrap:wrap;gap:5px;" id="cmpA">
-        <button class="ftag on" onclick="setCmpGroup('A','genero','Feminino')" id="cmpA-F">♀ Feminino</button>
-        <button class="ftag" onclick="setCmpGroup('A','genero','Masculino')" id="cmpA-M">♂ Masculino</button>
-        <button class="ftag" onclick="setCmpGroup('A','tipo','agricultor')" id="cmpA-ag">🌾 Agricultor</button>
-        <button class="ftag" onclick="setCmpGroup('A','tipo','tecnico')" id="cmpA-te">🔧 Técnico</button>
-        <button class="ftag" onclick="setCmpGroup('A','idade','jovem')" id="cmpA-jov">≤35 anos</button>
-        <button class="ftag" onclick="setCmpGroup('A','idade','senior')" id="cmpA-sen">≥56 anos</button>
-      </div>
-    </div>
-    <div>
-      <div style="font-size:11px;font-weight:700;color:var(--c5);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Grupo B <span class="cmp-badge cmp-b">laranja</span></div>
-      <div style="display:flex;flex-wrap:wrap;gap:5px;" id="cmpB">
-        <button class="ftag" onclick="setCmpGroup('B','genero','Feminino')" id="cmpB-F">♀ Feminino</button>
-        <button class="ftag on-amber" onclick="setCmpGroup('B','genero','Masculino')" id="cmpB-M">♂ Masculino</button>
-        <button class="ftag" onclick="setCmpGroup('B','tipo','agricultor')" id="cmpB-ag">🌾 Agricultor</button>
-        <button class="ftag" onclick="setCmpGroup('B','tipo','tecnico')" id="cmpB-te">🔧 Técnico</button>
-        <button class="ftag" onclick="setCmpGroup('B','idade','jovem')" id="cmpB-jov">≤35 anos</button>
-        <button class="ftag" onclick="setCmpGroup('B','idade','senior')" id="cmpB-sen">≥56 anos</button>
-      </div>
-    </div>
-  </div>
+<!-- FILTROS -->
+<div class="filter-bar">
+  <span class="flabel">Tipo</span>
+  <button class="ftag on" data-f="tipo" data-v="todos" onclick="setFilter(this,'tipo','todos')">Todos</button>
+  <button class="ftag" data-f="tipo" data-v="agricultor" onclick="setFilter(this,'tipo','agricultor')">🌾 Agricultor</button>
+  <button class="ftag" data-f="tipo" data-v="tecnico" onclick="setFilter(this,'tipo','tecnico')">🔧 Técnico</button>
+  <button class="ftag" data-f="tipo" data-v="representante" onclick="setFilter(this,'tipo','representante')">🏛️ Representante</button>
+  <div class="fdiv"></div>
+  <span class="flabel">Gênero</span>
+  <button class="ftag on" data-f="genero" data-v="todos" onclick="setFilter(this,'genero','todos')">Todos</button>
+  <button class="ftag" data-f="genero" data-v="Feminino" onclick="setFilter(this,'genero','Feminino')">♀ Feminino</button>
+  <button class="ftag" data-f="genero" data-v="Masculino" onclick="setFilter(this,'genero','Masculino')">♂ Masculino</button>
+  <div class="fdiv"></div>
+  <label class="btn-import" style="background:var(--c4);color:var(--c7);">📂 Importar JSON <input type="file" accept=".json" style="display:none" onchange="importJSON(this)"></label>
+  <span class="finfo" id="finfo"><strong>0</strong> entrevistas</span>
 </div>
 
-<!-- STATS BAR -->
+<!-- STATS -->
 <div class="stats-bar">
   <div class="sp"><div class="sp-v" id="st-n">0</div><div class="sp-l">Selecionados</div></div>
   <div class="sp"><div class="sp-v" id="st-total">0</div><div class="sp-l">Total geral</div></div>
@@ -241,872 +189,860 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <!-- NAV SECTIONS -->
-<div class="nav-secs">
-  <button class="ns active" onclick="showSec('perfil')" id="tab-perfil">👥 Perfil</button>
-  <button class="ns" onclick="showSec('agua')" id="tab-agua">💧 Hídrico</button>
-  <button class="ns" onclick="showSec('impactos')" id="tab-impactos">📉 Impactos</button>
-  <button class="ns" onclick="showSec('estrategias')" id="tab-estrategias">🛠️ Estratégias</button>
-  <button class="ns" onclick="showSec('politicas')" id="tab-politicas">🏛️ Políticas</button>
-  <button class="ns" onclick="showSec('qualitativo')" id="tab-qualitativo">📋 Conteúdo</button>
-  <button class="ns" onclick="showSec('estatistica')" id="tab-estatistica">🧮 Estatística</button>
-  <button class="ns" onclick="showSec('sintese')" id="tab-sintese">🔬 Síntese</button>
+<div class="nav">
+  <button class="nt active" onclick="showSec('perfil')" id="tab-perfil">👥 Perfil</button>
+  <button class="nt" onclick="showSec('agua')" id="tab-agua">💧 Água</button>
+  <button class="nt" onclick="showSec('impactos')" id="tab-impactos">📉 Impactos</button>
+  <button class="nt" onclick="showSec('estrategias')" id="tab-estrategias">🛠️ Estratégias</button>
+  <button class="nt" onclick="showSec('residuos')" id="tab-residuos">♻️ Resíduos</button>
+  <button class="nt" onclick="showSec('politicas')" id="tab-politicas">🏛️ Políticas</button>
+  <button class="nt" onclick="showSec('qualitativo')" id="tab-qualitativo">📋 Conteúdo</button>
+  <button class="nt" onclick="showSec('estatistica')" id="tab-estatistica">🧮 Estatística</button>
+  <button class="nt" onclick="showSec('sintese')" id="tab-sintese">🔬 Síntese</button>
 </div>
 
-<!-- MAIN CONTENT -->
 <div class="content">
 
+  <!-- EMPTY -->
   <div id="emptyState" class="empty" style="display:none;">
     <div class="icon">📂</div>
-    <h3>Nenhum dado encontrado</h3>
-    <p>Registre entrevistas no app ou importe o JSON exportado.</p>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--c2);color:#fff;padding:10px 24px;border-radius:99px;text-decoration:none;font-weight:600;font-size:13px;">← Ir para o app</a>
-      <label style="display:inline-flex;align-items:center;gap:6px;background:var(--c4);color:var(--c7);padding:10px 24px;border-radius:99px;font-weight:600;font-size:13px;cursor:pointer;">
-        📂 Importar JSON <input type="file" accept=".json" style="display:none" onchange="importJSON(this)">
-      </label>
-    </div>
+    <h3>Nenhum dado carregado</h3>
+    <p>Importe o arquivo JSON exportado pelo app AQUA-CAMPO para iniciar a análise com seus dados reais.</p>
+    <label class="btn-import" style="display:inline-flex;cursor:pointer;">📂 Importar JSON do app <input type="file" accept=".json" style="display:none" onchange="importJSON(this)"></label>
+    <br><br>
+    <a href="index.html" style="font-size:13px;color:var(--c2);">← Voltar ao app para registrar entrevistas</a>
   </div>
 
-  <div id="demoNotice" style="display:none;background:#fff8e1;border:1.5px solid var(--c4);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#7a5500;display:flex;align-items:center;gap:10px;">
-    ⚠️ <span><strong>Dados de demonstração.</strong> Importe o JSON real do app para análise com dados reais.
-    <label style="cursor:pointer;font-weight:700;color:var(--c1);margin-left:6px;">Importar agora <input type="file" accept=".json" style="display:none" onchange="importJSON(this)"></label></span>
-  </div>
-
-  <!-- ══ PERFIL ══ -->
+  <!-- PERFIL -->
   <div class="sec active" id="sec-perfil">
-    <div class="sec-head">
-      <h2>👥 Perfil dos Participantes</h2>
-      <p>Caracterização sociodemográfica. Use os filtros acima para visualizar subgrupos específicos.</p>
-    </div>
-    <div id="comparePanel-perfil"></div>
-    <div id="normalPanel-perfil">
-      <div class="cgrid">
-        <div class="cc"><div class="cc-title">Tipo de Participante</div><div class="cc-desc">Composição da amostra por categoria de ator social</div><div class="cw"><canvas id="ch-tipo"></canvas></div><div class="insight" id="ins-tipo"></div></div>
-        <div class="cc"><div class="cc-title">Distribuição por Gênero</div><div class="cc-desc">Representatividade de gênero na amostra filtrada</div><div class="cw"><canvas id="ch-genero"></canvas></div><div class="insight" id="ins-genero"></div></div>
-        <div class="cc"><div class="cc-title">Faixa Etária</div><div class="cc-desc">Perfil etário dos participantes selecionados</div><div class="cw"><canvas id="ch-idade"></canvas></div><div class="insight" id="ins-idade"></div></div>
-        <div class="cc"><div class="cc-title">Distribuição por Município</div><div class="cc-desc">Cobertura territorial na RMVRCE</div><div class="cw tall"><canvas id="ch-mun"></canvas></div><div class="insight" id="ins-mun"></div></div>
-      </div>
+    <div class="sec-hdr"><h2>👥 Perfil dos Participantes</h2><p>Distribuição sociodemográfica da amostra. OE1 — diagnóstico dos múltiplos usos da água na RMVRCE.</p></div>
+    <div class="cgrid">
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Tipo de Participante</div><div class="cc-desc">Composição da amostra por categoria de ator social</div></div><button class="btn-dl" onclick="dlChart('ch-tipo','tipo_participante')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-tipo"></canvas></div><div class="insight" id="ins-tipo"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Gênero</div><div class="cc-desc">Representatividade de gênero na amostra</div></div><button class="btn-dl" onclick="dlChart('ch-genero','genero')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-genero"></canvas></div><div class="insight" id="ins-genero"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Faixa Etária</div><div class="cc-desc">Perfil etário dos participantes</div></div><button class="btn-dl" onclick="dlChart('ch-idade','faixa_etaria')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-idade"></canvas></div><div class="insight" id="ins-idade"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Distribuição por Município</div><div class="cc-desc">Cobertura territorial na RMVRCE</div></div><button class="btn-dl" onclick="dlChart('ch-mun','municipios')">⬇ Baixar</button></div><div class="cw tall"><canvas id="ch-mun"></canvas></div><div class="insight" id="ins-mun"></div></div>
     </div>
   </div>
 
-  <!-- ══ HÍDRICO ══ -->
+  <!-- ÁGUA -->
   <div class="sec" id="sec-agua">
-    <div class="sec-head">
-      <h2>💧 Recursos Hídricos</h2>
-      <p>Fontes de água, irrigação e percepção climática. OE1 e OE2.</p>
-    </div>
-    <div id="comparePanel-agua"></div>
-    <div id="normalPanel-agua">
-      <div class="cgrid">
-        <div class="cc"><div class="cc-title">Fontes de Água Utilizadas</div><div class="cc-desc">% que utiliza cada fonte — múltiplas respostas</div><div class="cw tall"><canvas id="ch-fontes"></canvas></div><div class="insight" id="ins-fontes"></div></div>
-        <div class="cc"><div class="cc-title">Sistemas de Irrigação</div><div class="cc-desc">Tecnologias adotadas nas propriedades</div><div class="cw"><canvas id="ch-irrig"></canvas></div><div class="insight" id="ins-irrig"></div></div>
-        <div class="cc" style="grid-column:1/-1"><div class="cc-title">Percepção sobre Mudanças Pluviométricas (10 anos)</div><div class="cc-desc">Avaliação subjetiva das alterações no regime de chuvas</div><div class="cw"><canvas id="ch-chuva"></canvas></div><div class="insight" id="ins-chuva"></div></div>
-      </div>
+    <div class="sec-hdr"><h2>💧 Acesso e Uso da Água</h2><p>Fontes, armazenamento, tratamento, utilizações e percepção de mudanças. OE1 e OE2.</p></div>
+    <div class="cgrid">
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Fontes de Água</div><div class="cc-desc">% que utiliza cada fonte (múltipla escolha)</div></div><button class="btn-dl" onclick="dlChart('ch-fontes','fontes_agua')">⬇ Baixar</button></div><div class="cw tall"><canvas id="ch-fontes"></canvas></div><div class="insight" id="ins-fontes"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Armazenamento de Água</div><div class="cc-desc">Tipos de armazenamento presentes</div></div><button class="btn-dl" onclick="dlChart('ch-arm','armazenamento')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-arm"></canvas></div><div class="insight" id="ins-arm"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Tratamento da Água</div><div class="cc-desc">Práticas de tratamento adotadas</div></div><button class="btn-dl" onclick="dlChart('ch-trat','tratamento')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-trat"></canvas></div><div class="insight" id="ins-trat"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Utilizações da Água</div><div class="cc-desc">Finalidades do uso da água na propriedade</div></div><button class="btn-dl" onclick="dlChart('ch-usos','usos_agua')">⬇ Baixar</button></div><div class="cw tall"><canvas id="ch-usos"></canvas></div><div class="insight" id="ins-usos"></div></div>
+      <div class="cc" style="grid-column:1/-1"><div class="cc-hdr"><div><div class="cc-title">Suficiência e Redução da Disponibilidade Hídrica</div><div class="cc-desc">Percepção dos participantes sobre quantidade de água disponível</div></div><button class="btn-dl" onclick="dlChart('ch-suf','suficiencia_agua')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-suf"></canvas></div><div class="insight" id="ins-suf"></div></div>
     </div>
   </div>
 
-  <!-- ══ IMPACTOS ══ -->
+  <!-- IMPACTOS -->
   <div class="sec" id="sec-impactos">
-    <div class="sec-head">
-      <h2>📉 Impactos Socioeconômicos</h2>
-      <p>Efeitos da escassez na produção, renda e segurança alimentar. OE3.</p>
-    </div>
-    <div id="comparePanel-impactos"></div>
-    <div id="normalPanel-impactos">
-      <div class="cgrid">
-        <div class="cc" style="grid-column:1/-1"><div class="cc-title">Frequência dos Impactos Observados</div><div class="cc-desc">Ranking — até 3 respostas por participante</div><div class="cw tall"><canvas id="ch-imp"></canvas></div><div class="insight" id="ins-imp"></div></div>
-        <div class="cc"><div class="cc-title">Impacto na Segurança Alimentar</div><div class="cc-desc">Comprometimento da disponibilidade alimentar familiar</div><div class="cw"><canvas id="ch-segalim"></canvas></div><div class="insight" id="ins-segalim"></div></div>
-        <div class="cc"><div class="cc-title">Top 5 Impactos — % do grupo filtrado</div><div class="cc-desc">Visão proporcional dos impactos mais citados</div><div class="cw"><canvas id="ch-imp-pct"></canvas></div><div class="insight" id="ins-imp-pct"></div></div>
-      </div>
+    <div class="sec-hdr"><h2>📉 Impactos da Escassez Hídrica</h2><p>Efeitos na produção, renda e segurança alimentar. OE3.</p></div>
+    <div class="cgrid">
+      <div class="cc" style="grid-column:1/-1"><div class="cc-hdr"><div><div class="cc-title">Perdas por Escassez Hídrica</div><div class="cc-desc">Tipo de perdas reportadas pelos agricultores</div></div><button class="btn-dl" onclick="dlChart('ch-perdas','perdas')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-perdas"></canvas></div><div class="insight" id="ins-perdas"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Redução de Renda</div><div class="cc-desc">Impacto financeiro da escassez hídrica</div></div><button class="btn-dl" onclick="dlChart('ch-renda','reducao_renda')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-renda"></canvas></div><div class="insight" id="ins-renda"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Impactos Observados (Técnicos)</div><div class="cc-desc">Frequência dos impactos observados pelos técnicos extensionistas</div></div><button class="btn-dl" onclick="dlChart('ch-imp-te','impactos_tecnicos')">⬇ Baixar</button></div><div class="cw tall"><canvas id="ch-imp-te"></canvas></div><div class="insight" id="ins-imp-te"></div></div>
     </div>
   </div>
 
-  <!-- ══ ESTRATÉGIAS ══ -->
+  <!-- ESTRATÉGIAS -->
   <div class="sec" id="sec-estrategias">
-    <div class="sec-head">
-      <h2>🛠️ Estratégias de Adaptação</h2>
-      <p>Práticas e barreiras à adaptação hídrica. OE4.</p>
-    </div>
-    <div id="comparePanel-estrategias"></div>
-    <div id="normalPanel-estrategias">
-      <div class="cgrid">
-        <div class="cc"><div class="cc-title">Estratégias de Convivência com a Seca</div><div class="cc-desc">Práticas já adotadas pelo grupo selecionado</div><div class="cw tall"><canvas id="ch-estr"></canvas></div><div class="insight" id="ins-estr"></div></div>
-        <div class="cc"><div class="cc-title">Barreiras à Implementação</div><div class="cc-desc">Principais obstáculos identificados</div><div class="cw tall"><canvas id="ch-dif"></canvas></div><div class="insight" id="ins-dif"></div></div>
-      </div>
+    <div class="sec-hdr"><h2>🛠️ Estratégias de Adaptação</h2><p>Práticas adotadas e apoio técnico recebido. OE4.</p></div>
+    <div class="cgrid">
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Estratégias dos Agricultores</div><div class="cc-desc">Práticas adotadas para lidar com a escassez</div></div><button class="btn-dl" onclick="dlChart('ch-estr','estrategias')">⬇ Baixar</button></div><div class="cw tall"><canvas id="ch-estr"></canvas></div><div class="insight" id="ins-estr"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Apoio Técnico Recebido</div><div class="cc-desc">Acesso à orientação técnica sobre manejo da água</div></div><button class="btn-dl" onclick="dlChart('ch-apoio','apoio_tecnico')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-apoio"></canvas></div><div class="insight" id="ins-apoio"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Práticas de Manejo (Técnicos)</div><div class="cc-desc">Práticas observadas pelos técnicos nas propriedades assistidas</div></div><button class="btn-dl" onclick="dlChart('ch-manejo','manejo_te')">⬇ Baixar</button></div><div class="cw tall"><canvas id="ch-manejo"></canvas></div><div class="insight" id="ins-manejo"></div></div>
     </div>
   </div>
 
-  <!-- ══ POLÍTICAS ══ -->
+  <!-- RESÍDUOS -->
+  <div class="sec" id="sec-residuos">
+    <div class="sec-hdr"><h2>♻️ Resíduos e Sustentabilidade</h2><p>Tipos de resíduos, destinação final e gestão ambiental.</p></div>
+    <div class="cgrid">
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Tipos de Resíduos Gerados</div><div class="cc-desc">Categorias de resíduos presentes nas propriedades</div></div><button class="btn-dl" onclick="dlChart('ch-res','tipos_residuos')">⬇ Baixar</button></div><div class="cw tall"><canvas id="ch-res"></canvas></div><div class="insight" id="ins-res"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Destinação Final dos Resíduos</div><div class="cc-desc">Como os resíduos são descartados</div></div><button class="btn-dl" onclick="dlChart('ch-dest','destinacao')">⬇ Baixar</button></div><div class="cw tall"><canvas id="ch-dest"></canvas></div><div class="insight" id="ins-dest"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Dificuldades no Manejo de Resíduos</div><div class="cc-desc">Existência de obstáculos ao manejo adequado</div></div><button class="btn-dl" onclick="dlChart('ch-dif-res','dif_residuos')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-dif-res"></canvas></div><div class="insight" id="ins-dif-res"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Conhecimento sobre Biogás</div><div class="cc-desc">Familiaridade com tecnologia de biogás</div></div><button class="btn-dl" onclick="dlChart('ch-biogas','biogas')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-biogas"></canvas></div><div class="insight" id="ins-biogas"></div></div>
+    </div>
+  </div>
+
+  <!-- POLÍTICAS -->
   <div class="sec" id="sec-politicas">
-    <div class="sec-head">
-      <h2>🏛️ Políticas Públicas e Governança</h2>
-      <p>Avaliação institucional e acesso a programas de recursos hídricos. OE4.</p>
-    </div>
-    <div id="comparePanel-politicas"></div>
-    <div id="normalPanel-politicas">
-      <div class="cgrid single">
-        <div class="cc"><div class="cc-title">Avaliação do Acesso às Políticas — Escala Likert</div><div class="cc-desc">Distribuição das avaliações no grupo selecionado</div><div id="ch-likert"></div><div class="insight" id="ins-likert"></div></div>
-        <div class="cc"><div class="cc-title">Distribuição por Score de Avaliação</div><div class="cc-desc">Pontuação 1 (muito ruim) a 5 (muito bom)</div><div class="cw"><canvas id="ch-polscore"></canvas></div><div class="insight" id="ins-polscore"></div></div>
-      </div>
+    <div class="sec-hdr"><h2>🏛️ Políticas Públicas e Assistência Técnica</h2><p>Avaliação institucional pelos técnicos extensionistas. OE4.</p></div>
+    <div class="cgrid single">
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Avaliação do Acesso às Políticas Públicas — Escala Likert</div><div class="cc-desc">Avaliação pelos técnicos: 1=Muito ruim → 5=Muito bom</div></div><button class="btn-dl" onclick="dlChart('ch-pol','avaliacao_politicas')">⬇ Baixar</button></div><div id="ch-likert"></div><div class="insight" id="ins-pol"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Dificuldades para Práticas Sustentáveis</div><div class="cc-desc">Principais obstáculos identificados pelos técnicos</div></div><button class="btn-dl" onclick="dlChart('ch-dif-te','dificuldades_te')">⬇ Baixar</button></div><div class="cw tall"><canvas id="ch-dif-te"></canvas></div><div class="insight" id="ins-dif-te"></div></div>
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Infraestrutura Hídrica nas Propriedades</div><div class="cc-desc">Avaliação da infraestrutura existente pelos técnicos</div></div><button class="btn-dl" onclick="dlChart('ch-infra','infraestrutura')">⬇ Baixar</button></div><div class="cw"><canvas id="ch-infra"></canvas></div><div class="insight" id="ins-infra"></div></div>
     </div>
   </div>
 
-  <!-- ══ CONTEÚDO ══ -->
+  <!-- ANÁLISE DE CONTEÚDO -->
   <div class="sec" id="sec-qualitativo">
-    <div class="sec-head">
-      <h2>📋 Análise de Conteúdo — Bardin (2016)</h2>
-      <p>Categorização temática das respostas abertas. Frequência e co-ocorrência por subgrupo.</p>
-    </div>
+    <div class="sec-hdr"><h2>📋 Análise de Conteúdo — Bardin (2016)</h2><p>Categorização temática das respostas abertas. Frequência por categoria e tipo de participante.</p></div>
     <div id="ch-categorias"></div>
-    <div class="ac" style="margin-top:16px;">
-      <div class="ac-title"><span>🔗</span> Co-ocorrência de Categorias</div>
-      <div class="cw"><canvas id="ch-cooc"></canvas></div>
-      <div class="insight" id="ins-cooc"></div>
-    </div>
-    <div class="ac">
-      <div class="ac-title"><span>📊</span> Tabela: Categorias × Tipo de Participante</div>
+    <div class="ac" style="margin-top:14px;">
+      <div class="ac-title"><span>📊</span> Frequência por Categoria × Tipo de Participante</div>
       <div style="overflow-x:auto;"><table class="dt" id="tb-cat"></table></div>
     </div>
   </div>
 
-  <!-- ══ ESTATÍSTICA ══ -->
+  <!-- ESTATÍSTICA -->
   <div class="sec" id="sec-estatistica">
-    <div class="sec-head">
+    <div class="sec-hdr">
       <h2>🧮 Testes Estatísticos</h2>
-      <p>Testes de qui-quadrado (χ²), Fisher exact e Mann-Whitney para comparações entre subgrupos. Significância: p &lt; 0.05.</p>
+      <p>Qui-quadrado (χ²) e Mann-Whitney U para comparações entre subgrupos. Nível de significância: α = 0,05.<br>
+      <small style="color:var(--c5);">⚠️ Testes requerem n ≥ 5 por célula para validade estatística. Com amostras pequenas, resultados são exploratórios.</small></p>
     </div>
     <div id="statsTests"></div>
   </div>
 
-  <!-- ══ SÍNTESE ══ -->
+  <!-- SÍNTESE -->
   <div class="sec" id="sec-sintese">
-    <div class="sec-head">
-      <h2>🔬 Síntese — Objetivos do Projeto</h2>
-      <p>Triangulação quantitativa-qualitativa alinhada aos objetivos específicos.</p>
-    </div>
-    <div class="cgrid single" style="margin-bottom:18px;">
-      <div class="cc">
-        <div class="cc-title">Radar de Vulnerabilidade Hídrica Multidimensional</div>
-        <div class="cc-desc">Índice composto por dimensão — escores normalizados 0–100. Grupo filtrado vs. total geral.</div>
-        <div class="cw" style="max-width:480px;margin:0 auto;"><canvas id="ch-radar"></canvas></div>
-        <div class="insight" id="ins-radar"></div>
-      </div>
+    <div class="sec-hdr"><h2>🔬 Síntese por Objetivo Específico</h2><p>Triangulação quantitativa-qualitativa alinhada aos objetivos da pesquisa.</p></div>
+    <div class="cgrid single" style="margin-bottom:16px;">
+      <div class="cc"><div class="cc-hdr"><div><div class="cc-title">Radar de Vulnerabilidade Hídrica Multidimensional</div><div class="cc-desc">Índice composto normalizado (0–100) — baseado apenas nos dados reais coletados</div></div><button class="btn-dl" onclick="dlChart('ch-radar','radar_vulnerabilidade')">⬇ Baixar</button></div><div class="cw" style="max-width:480px;margin:0 auto;"><canvas id="ch-radar"></canvas></div><div class="insight" id="ins-radar"></div></div>
     </div>
     <div id="sinteseOE"></div>
-    <div class="ac">
-      <div class="ac-title"><span>📋</span> Resumo por Município</div>
-      <div style="overflow-x:auto;"><table class="dt" id="tb-mun"></table></div>
-    </div>
+    <div class="ac"><div class="ac-title"><span>📋</span> Resumo por Município</div><div style="overflow-x:auto;"><table class="dt" id="tb-mun"></table></div></div>
   </div>
 
 </div><!-- /content -->
 
 <script>
-// ══════════════════════════════════════════
-// PALETA NATURE
-// ══════════════════════════════════════════
-const P = {
-  a:'#005F73',b:'#0A9396',c:'#94D2BD',d:'#E9C46A',
-  e:'#F4A261',f:'#E76F51',g:'#264653',h:'#2A9D8F',
-  i:'#7B2D8B',j:'#1A6B9A'
-};
-const PAL = Object.values(P);
+// ══════════════════════════════════════════════════════════
+// PALETA NATURE — sem dados inventados, sem demos
+// ══════════════════════════════════════════════════════════
+const P = ['#005F73','#0A9396','#94D2BD','#E9C46A','#F4A261','#E76F51','#264653','#2A9D8F','#7B2D8B','#1A6B9A'];
 
 Chart.defaults.font.family = "'DM Sans',sans-serif";
 Chart.defaults.font.size = 12;
 Chart.defaults.color = '#4a6370';
 Chart.defaults.plugins.legend.labels.boxWidth = 12;
-Chart.defaults.plugins.legend.labels.padding = 14;
+Chart.defaults.plugins.legend.labels.padding = 12;
 Chart.defaults.plugins.tooltip.backgroundColor = '#1a2530';
 Chart.defaults.plugins.tooltip.padding = 10;
 Chart.defaults.plugins.tooltip.cornerRadius = 8;
 
-// ══════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════
-let ALL = [];        // todos os dados
-let DATA = [];       // dados filtrados
-let isDemo = false;
-let compareMode = false;
-let cmpA = { field:'genero', val:'Feminino' };
-let cmpB = { field:'genero', val:'Masculino' };
+// ══════════════════════════════════════════════════════════
+// STATE — sem dados de demonstração
+// ══════════════════════════════════════════════════════════
+let ALL = [];
+let DATA = [];
+let filters = { tipo: 'todos', genero: 'todos' };
+const charts = {};
 
-let filters = { tipo:'todos', genero:'todos', idade:'todos' };
-
-const LABELS = {
-  agricultor:'Agricultor(a) Familiar', tecnico:'Técnico(a) Extensionista', representante:'Representante',
-  poco_artesiano:'Poço artesiano', rio_corrego:'Rio/córrego', chuva:'Captação de chuva',
-  lago_represa:'Lago/represa', rede_publica:'Rede pública', compra_carro_pipa:'Carro-pipa',
-  gotejamento:'Gotejamento', aspersao:'Aspersão', inundacao:'Inundação', sem_irrigacao:'Sem irrigação',
-  muito_menos:'Muito menos chuva', pouco_menos:'Um pouco menos', igual:'Sem mudanças', mais_irregular:'Mais irregular',
-  reducao_produtividade:'Red. produtividade', perda_lavouras:'Perda lavouras',
-  mortandade_animal:'Mortandade animal', aumento_custos:'Aumento custos',
-  mudanca_cultura:'Mudança de cultura', exodo:'Êxodo/abandono', conflitos_agua:'Conflitos pela água',
-  sim:'Sim, significativo', parcialmente:'Parcialmente', nao:'Não afeta',
-  armazenamento:'Armazenamento/cisternas', barraginha:'Barraginhas', reuso:'Reuso de água',
-  culturas_resistentes:'Culturas resistentes', reducao_area:'Redução área', sem_estrategia:'Sem estratégia',
-  financeiro:'Recursos financeiros', informacao:'Informação técnica', assistencia:'Assistência técnica',
-  infraestrutura:'Infraestrutura', organizacao_social:'Organização social', politicas_publicas:'Políticas públicas',
-  muito_bom:'Muito bom', bom:'Bom', regular:'Regular', ruim:'Ruim', muito_ruim:'Muito ruim',
-  impactos_percebidos:'Cat.1 Impactos percebidos', estrategias_adaptacao:'Cat.2 Estratégias adaptação',
-  barreiras_solucoes:'Cat.3 Barreiras às soluções', governanca_agua:'Cat.4 Governança hídrica'
-};
-const L = k => LABELS[k] || k;
-
-// ══════════════════════════════════════════
-// DEMO DATA
-// ══════════════════════════════════════════
-function getDemo() {
-  const d = [
-    {tipo:'agricultor',genero:'Masculino',faixa_etaria:'46-55 anos',municipio:'Poconé',fontes_agua:['poco_artesiano','rio_corrego'],irrigacao:['gotejamento'],percepcao_chuva:'muito_menos',impactos_marcados:['reducao_produtividade','perda_lavouras','aumento_custos'],seguranca_alimentar:'sim',estrategias:['armazenamento','barraginha'],dificuldades:['financeiro','assistencia'],avaliacao_politicas:'ruim',categorias:['impactos_percebidos','barreiras_solucoes'],tcle_assinado:true},
-    {tipo:'agricultor',genero:'Feminino',faixa_etaria:'36-45 anos',municipio:'Cuiabá',fontes_agua:['chuva','poco_artesiano'],irrigacao:['aspersao'],percepcao_chuva:'muito_menos',impactos_marcados:['reducao_produtividade','mudanca_cultura'],seguranca_alimentar:'sim',estrategias:['culturas_resistentes'],dificuldades:['financeiro'],avaliacao_politicas:'muito_ruim',categorias:['impactos_percebidos'],tcle_assinado:true},
-    {tipo:'agricultor',genero:'Masculino',faixa_etaria:'56-65 anos',municipio:'Santo Antonio do Leverger',fontes_agua:['rio_corrego'],irrigacao:['sem_irrigacao'],percepcao_chuva:'mais_irregular',impactos_marcados:['perda_lavouras','mortandade_animal','exodo'],seguranca_alimentar:'sim',estrategias:['sem_estrategia'],dificuldades:['informacao','financeiro'],avaliacao_politicas:'muito_ruim',categorias:['impactos_percebidos','estrategias_adaptacao'],tcle_assinado:true},
-    {tipo:'agricultor',genero:'Feminino',faixa_etaria:'26-35 anos',municipio:'Barão de Melgaço',fontes_agua:['poco_artesiano'],irrigacao:['inundacao'],percepcao_chuva:'muito_menos',impactos_marcados:['reducao_produtividade','aumento_custos'],seguranca_alimentar:'parcialmente',estrategias:['armazenamento'],dificuldades:['infraestrutura'],avaliacao_politicas:'regular',categorias:['estrategias_adaptacao'],tcle_assinado:true},
-    {tipo:'agricultor',genero:'Masculino',faixa_etaria:'46-55 anos',municipio:'Várzea Grande',fontes_agua:['rede_publica','chuva'],irrigacao:['gotejamento'],percepcao_chuva:'pouco_menos',impactos_marcados:['conflitos_agua','reducao_produtividade'],seguranca_alimentar:'nao',estrategias:['reuso','armazenamento'],dificuldades:['financeiro','politicas_publicas'],avaliacao_politicas:'muito_ruim',categorias:['governanca_agua','barreiras_solucoes'],tcle_assinado:true},
-    {tipo:'tecnico',genero:'Feminino',faixa_etaria:'36-45 anos',municipio:'Chapada dos Guimarães',fontes_agua:['rio_corrego','poco_artesiano'],irrigacao:['aspersao'],percepcao_chuva:'mais_irregular',impactos_marcados:['reducao_produtividade','mudanca_cultura','aumento_custos'],seguranca_alimentar:'parcialmente',estrategias:['barraginha','culturas_resistentes'],dificuldades:['organizacao_social'],avaliacao_politicas:'regular',categorias:['governanca_agua'],tcle_assinado:true},
-    {tipo:'tecnico',genero:'Masculino',faixa_etaria:'26-35 anos',municipio:'Nossa Sra. do Livramento',fontes_agua:['poco_artesiano'],irrigacao:['sem_irrigacao'],percepcao_chuva:'muito_menos',impactos_marcados:['perda_lavouras','exodo'],seguranca_alimentar:'sim',estrategias:['sem_estrategia'],dificuldades:['financeiro','informacao'],avaliacao_politicas:'ruim',categorias:['impactos_percebidos','estrategias_adaptacao'],tcle_assinado:true},
-    {tipo:'representante',genero:'Masculino',faixa_etaria:'56-65 anos',municipio:'Jangada',fontes_agua:['chuva','rio_corrego'],irrigacao:['gotejamento'],percepcao_chuva:'muito_menos',impactos_marcados:['reducao_produtividade','conflitos_agua','aumento_custos'],seguranca_alimentar:'sim',estrategias:['armazenamento','reuso'],dificuldades:['infraestrutura','assistencia'],avaliacao_politicas:'muito_ruim',categorias:['barreiras_solucoes','governanca_agua'],tcle_assinado:true},
-    {tipo:'agricultor',genero:'Feminino',faixa_etaria:'46-55 anos',municipio:'Poconé',fontes_agua:['poco_artesiano'],irrigacao:['sem_irrigacao'],percepcao_chuva:'muito_menos',impactos_marcados:['reducao_produtividade','perda_lavouras'],seguranca_alimentar:'sim',estrategias:['armazenamento'],dificuldades:['financeiro','assistencia'],avaliacao_politicas:'ruim',categorias:['impactos_percebidos','barreiras_solucoes'],tcle_assinado:true},
-    {tipo:'agricultor',genero:'Masculino',faixa_etaria:'36-45 anos',municipio:'Nobres',fontes_agua:['rio_corrego'],irrigacao:['aspersao'],percepcao_chuva:'mais_irregular',impactos_marcados:['aumento_custos','mudanca_cultura'],seguranca_alimentar:'parcialmente',estrategias:['culturas_resistentes','barraginha'],dificuldades:['informacao'],avaliacao_politicas:'regular',categorias:['estrategias_adaptacao'],tcle_assinado:true},
-    {tipo:'agricultor',genero:'Feminino',faixa_etaria:'56-65 anos',municipio:'Acorizal',fontes_agua:['chuva'],irrigacao:['sem_irrigacao'],percepcao_chuva:'muito_menos',impactos_marcados:['perda_lavouras','exodo'],seguranca_alimentar:'sim',estrategias:['sem_estrategia'],dificuldades:['financeiro','politicas_publicas'],avaliacao_politicas:'muito_ruim',categorias:['impactos_percebidos','governanca_agua'],tcle_assinado:true},
-    {tipo:'tecnico',genero:'Feminino',faixa_etaria:'26-35 anos',municipio:'Cuiabá',fontes_agua:['rede_publica'],irrigacao:['gotejamento'],percepcao_chuva:'pouco_menos',impactos_marcados:['reducao_produtividade'],seguranca_alimentar:'nao',estrategias:['reuso'],dificuldades:['organizacao_social','financeiro'],avaliacao_politicas:'bom',categorias:['governanca_agua'],tcle_assinado:true}
-  ].map((x,i)=>({...x,id:'demo_'+i,codigo:'DEMO-'+(i+1).toString().padStart(2,'0'),data:'2025-09-'+String(i+1).padStart(2,'0')}));
-  return d;
-}
-
-// ══════════════════════════════════════════
-// LOAD & FILTER
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+// LOAD — localStorage do app AQUA-CAMPO
+// ══════════════════════════════════════════════════════════
 function loadData() {
   try {
-    const raw = localStorage.getItem('aquacampo_entrevistas');
-    if (raw) { const p = JSON.parse(raw); if (Array.isArray(p)&&p.length>0){ALL=p;isDemo=false;return;} }
-  } catch(e){}
-  ALL = getDemo(); isDemo = true;
+    const raw = localStorage.getItem('aqc_ev') || localStorage.getItem('aquacampo_entrevistas');
+    if (raw) {
+      const p = JSON.parse(raw);
+      if (Array.isArray(p) && p.length > 0) {
+        ALL = p;
+        return;
+      }
+    }
+  } catch(e) {}
+  ALL = [];
 }
 
 function importJSON(inp) {
-  const f = inp.files[0]; if(!f)return;
+  const f = inp.files[0]; if (!f) return;
   const r = new FileReader();
   r.onload = e => {
     try {
       const p = JSON.parse(e.target.result);
-      const d = Array.isArray(p)?p:(p.entrevistas||[]);
-      if(d.length>0){ALL=d;isDemo=false;localStorage.setItem('aquacampo_entrevistas',JSON.stringify(d));applyFilters();}
-    } catch(err){alert('Arquivo inválido');}
-    inp.value='';
+      const d = Array.isArray(p) ? p : (p.entrevistas || []);
+      if (d.length > 0) {
+        ALL = d;
+        localStorage.setItem('aqc_ev', JSON.stringify(d));
+        document.getElementById('importBanner').style.display = 'none';
+        applyFilters();
+        alert('✅ ' + d.length + ' entrevistas carregadas com sucesso!');
+      } else {
+        alert('Arquivo sem entrevistas.');
+      }
+    } catch(err) { alert('Arquivo inválido.'); }
+    inp.value = '';
   };
   r.readAsText(f);
 }
 
-function idadeGroup(faixa) {
-  if(!faixa) return null;
-  if(['Ate 25 anos','26-35 anos'].includes(faixa)) return 'jovem';
-  if(['36-45 anos','46-55 anos'].includes(faixa)) return 'adulto';
-  if(['56-65 anos','Acima de 65 anos'].includes(faixa)) return 'senior';
-  return null;
+// ══════════════════════════════════════════════════════════
+// FILTROS
+// ══════════════════════════════════════════════════════════
+function setFilter(btn, dim, val) {
+  filters[dim] = val;
+  document.querySelectorAll(`.ftag[data-f="${dim}"]`).forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  applyFilters();
 }
 
 function applyFilters() {
   DATA = ALL.filter(d => {
-    if(filters.tipo!=='todos' && d.tipo!==filters.tipo) return false;
-    if(filters.genero!=='todos' && d.genero!==filters.genero) return false;
-    if(filters.idade!=='todos' && idadeGroup(d.faixa_etaria)!==filters.idade) return false;
+    if (filters.tipo !== 'todos' && d.tipo !== filters.tipo) return false;
+    if (filters.genero !== 'todos' && d.genero !== filters.genero) return false;
     return true;
   });
   renderAll();
 }
 
-function getGroup(field, val) {
-  return ALL.filter(d => {
-    if(field==='tipo') return d.tipo===val;
-    if(field==='genero') return d.genero===val;
-    if(field==='idade') return idadeGroup(d.faixa_etaria)===val;
-    return true;
-  });
-}
-
-function toggleFilter(dim, val) {
-  filters[dim] = val;
-  document.querySelectorAll('#fg'+dim.charAt(0).toUpperCase()+dim.slice(1)+' .ftag').forEach(b=>{
-    b.classList.remove('on');
-    if(b.textContent.trim().toLowerCase().includes(val==='todos'?'todo':val.toLowerCase().replace('_',' ').substring(0,4))) b.classList.add('on');
-  });
-  // simpler: match by onclick
-  document.querySelectorAll('#fg'+cap(dim)+' .ftag').forEach(b=>{
-    const oc = b.getAttribute('onclick')||'';
-    b.classList.toggle('on', oc.includes("'"+val+"'"));
-  });
-  applyFilters();
-}
-function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
-
-function toggleCompareMode() {
-  compareMode = !compareMode;
-  document.getElementById('btnCompare').classList.toggle('on', compareMode);
-  document.getElementById('compareSel').style.display = compareMode ? 'block' : 'none';
-  renderAll();
-}
-
-function setCmpGroup(grp, field, val) {
-  if(grp==='A') cmpA={field,val};
-  else cmpB={field,val};
-  document.querySelectorAll(`#cmp${grp} .ftag`).forEach(b=>{
-    const oc=b.getAttribute('onclick')||'';
-    b.classList.remove('on','on-amber');
-    if(oc.includes("'"+field+"','"+val+"'")) b.classList.add(grp==='A'?'on':'on-amber');
-  });
-  renderAll();
-}
-
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // HELPERS
-// ══════════════════════════════════════════
-const cnt = (arr,k,v) => arr.filter(d=>d[k]===v).length;
-const cntA = (arr,f,v) => arr.filter(d=>(d[f]||[]).includes(v)).length;
-const pct = (n,t) => t===0?0:Math.round(n/t*100);
-const avg = arr => arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0;
+// ══════════════════════════════════════════════════════════
+const cnt  = (arr, k, v) => arr.filter(d => d[k] === v).length;
+const cntA = (arr, f, v) => arr.filter(d => (d[f] || []).includes(v)).length;
+const pct  = (n, t) => t === 0 ? 0 : Math.round(n / t * 100);
 
-function mkBar(id,labels,data,colors,maxVal) {
-  const ctx=document.getElementById(id); if(!ctx)return;
-  const ex=Chart.getChart(ctx); if(ex)ex.destroy();
-  return new Chart(ctx,{type:'bar',data:{labels,datasets:[{data,backgroundColor:colors||PAL,borderRadius:5,borderSkipped:false,borderWidth:0}]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.raw} (${pct(c.raw,DATA.length)}%)`}}},scales:{x:{beginAtZero:true,max:maxVal||Math.max(...data,1)+1,grid:{color:'#e8eef0'},ticks:{stepSize:1,font:{size:11}}},y:{grid:{display:false},ticks:{font:{size:11}}}},layout:{padding:{right:8}}}});
-}
-function mkDonut(id,labels,data,colors) {
-  const ctx=document.getElementById(id); if(!ctx)return;
-  const ex=Chart.getChart(ctx); if(ex)ex.destroy();
-  const t=data.reduce((a,b)=>a+b,0);
-  return new Chart(ctx,{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors||PAL,borderWidth:3,borderColor:'#fff',hoverOffset:5}]},options:{responsive:true,cutout:'60%',plugins:{legend:{position:'right',labels:{font:{size:11},padding:10}},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.raw} (${pct(c.raw,t)}%)`}}}}});
-}
-function mkGrouped(id,labels,datasets) {
-  const ctx=document.getElementById(id); if(!ctx)return;
-  const ex=Chart.getChart(ctx); if(ex)ex.destroy();
-  return new Chart(ctx,{type:'bar',data:{labels,datasets},options:{responsive:true,plugins:{legend:{position:'top'}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{beginAtZero:true,grid:{color:'#e8eef0'},ticks:{stepSize:1,font:{size:11}}}},layout:{padding:6}}});
-}
-function mkRadar(id,labels,datasets) {
-  const ctx=document.getElementById(id); if(!ctx)return;
-  const ex=Chart.getChart(ctx); if(ex)ex.destroy();
-  return new Chart(ctx,{type:'radar',data:{labels,datasets},options:{responsive:true,plugins:{legend:{position:'top'}},scales:{r:{beginAtZero:true,max:100,grid:{color:'#e8eef0'},pointLabels:{font:{size:11}},ticks:{stepSize:25,font:{size:9}}}}}});
-}
-
-function insBox(id,html,cls='') {
-  const el=document.getElementById(id); if(el) el.innerHTML=html; if(cls) el.className='insight '+cls;
-}
-
-// ══════════════════════════════════════════
-// COMPARE PANEL builder
-// ══════════════════════════════════════════
-function buildComparePanels(secId, renderFn) {
-  const panel = document.getElementById('comparePanel-'+secId);
-  const normal = document.getElementById('normalPanel-'+secId);
-  if(!panel||!normal) return;
-  if(!compareMode){panel.innerHTML='';normal.style.display='block';return;}
-  normal.style.display='none';
-  const gA = getGroup(cmpA.field, cmpA.val);
-  const gB = getGroup(cmpB.field, cmpB.val);
-  const labelA = cap(cmpA.val.replace('_',' '))+' (n='+gA.length+')';
-  const labelB = cap(cmpB.val.replace('_',' '))+' (n='+gB.length+')';
-  panel.innerHTML = `
-    <div style="margin-bottom:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-      <span class="cmp-badge cmp-a">Grupo A: ${labelA}</span>
-      <span style="color:var(--g3);">vs.</span>
-      <span class="cmp-badge cmp-b">Grupo B: ${labelB}</span>
-    </div>
-    <div class="compare-grid">
-      <div class="compare-panel A"><div class="compare-label">Grupo A — ${labelA}</div><div id="cmpPanel-A-${secId}"></div></div>
-      <div class="compare-panel B"><div class="compare-label">Grupo B — ${labelB}</div><div id="cmpPanel-B-${secId}"></div></div>
-    </div>
-  `;
-  renderFn(gA, 'A', secId);
-  renderFn(gB, 'B', secId);
-}
-
-// ══════════════════════════════════════════
-// CHI-SQUARE & FISHER
-// ══════════════════════════════════════════
-function chiSquare(observed) {
-  // observed: 2D array [row][col]
-  const rowSums = observed.map(r=>r.reduce((a,b)=>a+b,0));
-  const colSums = observed[0].map((_,j)=>observed.reduce((a,r)=>a+r[j],0));
-  const n = rowSums.reduce((a,b)=>a+b,0);
-  if(n===0) return {chi2:0,df:0,p:1,valid:false};
-  let chi2=0;
-  observed.forEach((row,i)=>row.forEach((obs,j)=>{
-    const exp=rowSums[i]*colSums[j]/n;
-    if(exp>0) chi2+=Math.pow(obs-exp,2)/exp;
-  }));
-  const df=(observed.length-1)*(observed[0].length-1);
-  const p=chiPval(chi2,df);
-  const valid=colSums.every(c=>c>=1)&&rowSums.every(r=>r>=1);
-  return{chi2:+chi2.toFixed(3),df,p:+p.toFixed(4),valid};
-}
-
-// Chi2 p-value approximation (Wilson-Hilferty)
-function chiPval(x,k) {
-  if(k<=0||x<0) return 1;
-  // Regularized incomplete gamma
-  return 1-gammainc(k/2, x/2);
-}
-function gammainc(a,x) {
-  if(x<0) return 0;
-  if(x===0) return 0;
-  if(x<a+1) {
-    let term=1/a, sum=term;
-    for(let n=1;n<200;n++){term*=x/(a+n);sum+=term;if(Math.abs(term)<1e-10)break;}
-    return sum*Math.exp(-x+a*Math.log(x)-lgamma(a));
-  } else {
-    let f=1,C=1,D=1/(1+x-a),delta;
-    C=D; let res=D;
-    for(let i=1;i<200;i++){
-      const an=-i*(i-a); C=1+(an/C); D=1+an*D; if(Math.abs(C)<1e-30)C=1e-30; if(Math.abs(D)<1e-30)D=1e-30;
-      C=1/C; D=1/D; delta=C*D; res*=delta; if(Math.abs(delta-1)<1e-10)break;
+function mkBar(id, labels, data, colors, maxV) {
+  const ctx = document.getElementById(id); if (!ctx) return;
+  if (charts[id]) charts[id].destroy();
+  charts[id] = new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets: [{ data, backgroundColor: colors || P, borderRadius: 5, borderSkipped: false, borderWidth: 0 }] },
+    options: {
+      indexAxis: 'y', responsive: true,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.raw} (${pct(c.raw, DATA.length)}%)` } } },
+      scales: {
+        x: { beginAtZero: true, max: maxV || Math.max(...data, 1) + 1, grid: { color: '#e8eef0' }, ticks: { stepSize: 1, font: { size: 11 } } },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
     }
-    return 1-res*Math.exp(-x+a*Math.log(x)-lgamma(a));
-  }
-}
-function lgamma(x){
-  const c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,0.1208650973866179e-2,-0.5395239384953e-5];
-  let y=x,tmp=x+5.5,ser=1.000000000190015;
-  tmp-=(x+0.5)*Math.log(tmp);
-  c.forEach((v,i)=>{y++;ser+=v/y;});
-  return -tmp+Math.log(2.5066282746310005*ser/x);
+  });
 }
 
-function sigLabel(p) {
-  if(p<0.001) return '<span class="sig">p < 0.001 ***</span>';
-  if(p<0.01)  return '<span class="sig">p = '+p.toFixed(3)+' **</span>';
-  if(p<0.05)  return '<span class="sig">p = '+p.toFixed(3)+' *</span>';
-  if(p<0.10)  return '<span class="marg">p = '+p.toFixed(3)+' †</span>';
-  return '<span class="nosig">p = '+p.toFixed(3)+' n.s.</span>';
+function mkDonut(id, labels, data, colors) {
+  const ctx = document.getElementById(id); if (!ctx) return;
+  if (charts[id]) charts[id].destroy();
+  const t = data.reduce((a, b) => a + b, 0);
+  charts[id] = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data, backgroundColor: colors || P, borderWidth: 3, borderColor: '#fff', hoverOffset: 5 }] },
+    options: { responsive: true, cutout: '60%', plugins: { legend: { position: 'right', labels: { font: { size: 11 }, padding: 10 } }, tooltip: { callbacks: { label: c => ` ${c.label}: ${c.raw} (${pct(c.raw, t)}%)` } } } }
+  });
 }
 
-function mannWhitneyU(a, b) {
-  // Returns U statistic and approximate p-value (normal approximation)
-  const n1=a.length, n2=b.length;
-  if(!n1||!n2) return {U:0,p:1,valid:false};
-  let U1=0;
-  a.forEach(x=>b.forEach(y=>{if(x>y)U1++;else if(x===y)U1+=0.5;}));
-  const U2=n1*n2-U1, U=Math.min(U1,U2);
-  const mU=n1*n2/2, sU=Math.sqrt(n1*n2*(n1+n2+1)/12);
-  const z=(U-mU)/sU;
-  const p=2*(1-phi(Math.abs(z)));
-  return{U:+U.toFixed(1),z:+z.toFixed(3),p:+p.toFixed(4),valid:true};
-}
-function phi(x){return 0.5*(1+erf(x/Math.sqrt(2)));}
-function erf(x){
-  const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
-  const t=1/(1+p*Math.abs(x));
-  const y=1-(((((a5*t+a4)*t+a3)*t+a2)*t+a1)*t)*Math.exp(-x*x);
-  return Math.sign(x)*y;
+function mkGrouped(id, labels, datasets) {
+  const ctx = document.getElementById(id); if (!ctx) return;
+  if (charts[id]) charts[id].destroy();
+  charts[id] = new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets },
+    options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { beginAtZero: true, grid: { color: '#e8eef0' }, ticks: { stepSize: 1, font: { size: 11 } } } } }
+  });
 }
 
-// ══════════════════════════════════════════
+function mkRadar(id, labels, datasets) {
+  const ctx = document.getElementById(id); if (!ctx) return;
+  if (charts[id]) charts[id].destroy();
+  charts[id] = new Chart(ctx, {
+    type: 'radar',
+    data: { labels, datasets },
+    options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { r: { beginAtZero: true, max: 100, grid: { color: '#e8eef0' }, pointLabels: { font: { size: 11 } }, ticks: { stepSize: 25, font: { size: 9 } } } } }
+  });
+}
+
+function ins(id, html, cls = '') {
+  const el = document.getElementById(id);
+  if (el) { el.innerHTML = html; el.className = 'insight' + (cls ? ' ' + cls : ''); }
+}
+
+function noData(id, msg = 'Dados insuficientes para este gráfico com os filtros atuais.') {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = `<div class="no-data">${msg}</div>`;
+}
+
+// ══════════════════════════════════════════════════════════
+// DOWNLOAD DE GRÁFICOS
+// ══════════════════════════════════════════════════════════
+function dlChart(canvasId, filename) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) { alert('Gráfico não disponível.'); return; }
+  // Cria canvas temporário com fundo branco
+  const tmp = document.createElement('canvas');
+  tmp.width = canvas.width; tmp.height = canvas.height;
+  const ctx = tmp.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, tmp.width, tmp.height);
+  ctx.drawImage(canvas, 0, 0);
+  const a = document.createElement('a');
+  a.href = tmp.toDataURL('image/png');
+  a.download = `aquacampo_${filename}_${new Date().toISOString().split('T')[0]}.png`;
+  a.click();
+}
+
+// ══════════════════════════════════════════════════════════
 // NAV
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 function showSec(name) {
-  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.ns').forEach(t=>t.classList.remove('active'));
-  document.getElementById('sec-'+name).classList.add('active');
-  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nt').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
 }
 
-// ══════════════════════════════════════════
-// RENDER ALL
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+// RENDER PRINCIPAL
+// ══════════════════════════════════════════════════════════
 function renderAll() {
-  const N=DATA.length, NA=ALL.length;
-  document.getElementById('emptyState').style.display = NA===0?'block':'none';
-  document.getElementById('demoNotice').style.display = isDemo?'flex':'none';
-  if(NA===0) return;
+  const N = DATA.length;
+  const NA = ALL.length;
 
-  const nFem = cnt(DATA,'genero','Feminino');
-  const muns = [...new Set(DATA.map(d=>d.municipio).filter(Boolean))];
+  // Sem dados
+  if (NA === 0) {
+    document.getElementById('emptyState').style.display = 'block';
+    document.getElementById('importBanner').style.display = 'none';
+    return;
+  }
+  document.getElementById('emptyState').style.display = 'none';
+
+  // Stats
+  const muns = [...new Set(DATA.map(d => d.municipio).filter(Boolean))];
+  const nFem = cnt(DATA, 'genero', 'Feminino');
   document.getElementById('st-n').textContent = N;
   document.getElementById('st-total').textContent = NA;
-  document.getElementById('st-ag').textContent = cnt(DATA,'tipo','agricultor');
-  document.getElementById('st-te').textContent = cnt(DATA,'tipo','tecnico');
+  document.getElementById('st-ag').textContent = cnt(DATA, 'tipo', 'agricultor');
+  document.getElementById('st-te').textContent = cnt(DATA, 'tipo', 'tecnico');
   document.getElementById('st-mun').textContent = muns.length;
-  document.getElementById('st-fem').textContent = pct(nFem,N)+'%';
-  document.getElementById('filterInfo').innerHTML = `<strong>${N}</strong> de ${NA} entrevistas`;
+  document.getElementById('st-fem').textContent = pct(nFem, N) + '%';
+  document.getElementById('finfo').innerHTML = `<strong>${N}</strong> de ${NA}`;
 
-  if(compareMode) {
-    renderComparePerfil(); renderCompareAgua(); renderCompareImpactos();
-    renderCompareEstr(); renderComparePol();
-  } else {
-    renderPerfil(DATA); renderAgua(DATA); renderImpactos(DATA);
-    renderEstr(DATA); renderPol(DATA);
-  }
-  renderQual(DATA);
+  renderPerfil(N, muns);
+  renderAgua(N);
+  renderImpactos(N);
+  renderEstrategias(N);
+  renderResiduos(N);
+  renderPoliticas(N);
+  renderQual(N);
   renderStat();
-  renderSintese(DATA);
+  renderSintese(N, muns);
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // PERFIL
-// ══════════════════════════════════════════
-function renderPerfil(D) {
-  const N=D.length;
-  mkDonut('ch-tipo',[L('agricultor'),L('tecnico'),L('representante')],[cnt(D,'tipo','agricultor'),cnt(D,'tipo','tecnico'),cnt(D,'tipo','representante')],[P.a,P.d,P.c]);
-  insBox('ins-tipo',`<strong>Amostra filtrada:</strong> ${cnt(D,'tipo','agricultor')} agricultores, ${cnt(D,'tipo','tecnico')} técnicos, ${cnt(D,'tipo','representante')} representantes (n=${N}).`);
+// ══════════════════════════════════════════════════════════
+function renderPerfil(N, muns) {
+  if (!N) { ['ch-tipo','ch-genero','ch-idade','ch-mun'].forEach(id => noData(id)); return; }
 
-  const genKeys=['Feminino','Masculino','Não binario'];
-  const gVals=genKeys.map(g=>cnt(D,'genero',g));
-  mkDonut('ch-genero',genKeys,gVals,[P.e,P.b,P.c]);
-  const domG=genKeys[gVals.indexOf(Math.max(...gVals))];
-  insBox('ins-genero',`<strong>Gênero predominante:</strong> ${domG} (${pct(Math.max(...gVals),N)}%). A perspectiva de gênero é central para identificar assimetrias no acesso à água e às políticas públicas.`);
+  // Tipo
+  const nAg = cnt(DATA,'tipo','agricultor'), nTe = cnt(DATA,'tipo','tecnico'), nRe = cnt(DATA,'tipo','representante');
+  if (nAg+nTe+nRe > 0) mkDonut('ch-tipo',['Agricultor(a) Familiar','Técnico(a) Extensionista','Representante'],[nAg,nTe,nRe],['#005F73','#E9C46A','#94D2BD']);
+  else noData('ch-tipo');
+  ins('ins-tipo', `<strong>n = ${N}:</strong> ${nAg} agricultor${nAg!==1?'es':''} (${pct(nAg,N)}%), ${nTe} técnico${nTe!==1?'s':''} (${pct(nTe,N)}%), ${nRe} representante${nRe!==1?'s':''} (${pct(nRe,N)}%).`);
 
-  const faixas=['Ate 25 anos','26-35 anos','36-45 anos','46-55 anos','56-65 anos','Acima de 65 anos'];
-  mkBar('ch-idade',faixas,faixas.map(f=>cnt(D,'faixa_etaria',f)),[P.a,P.b,P.h,P.c,P.d,P.e],N);
-  insBox('ins-idade','Distribuição etária da amostra filtrada. Faixas de maior experiência tendem a relatar mudanças climáticas com maior profundidade histórica.');
+  // Gênero
+  const gVals = ['Feminino','Masculino','Outro'].map(g => cnt(DATA,'genero',g)).filter((_,i,a) => a.some(v=>v>0));
+  const gLabs = ['Feminino','Masculino','Outro'].filter((_,i) => ['Feminino','Masculino','Outro'].map(g=>cnt(DATA,'genero',g))[i] > 0);
+  if (gLabs.length) mkDonut('ch-genero', gLabs, gLabs.map(g=>cnt(DATA,'genero',g)), ['#F4A261','#0A9396','#94D2BD']);
+  else noData('ch-genero','Gênero não informado nos registros.');
+  const domG = gLabs.reduce((a,b) => cnt(DATA,'genero',a) >= cnt(DATA,'genero',b) ? a : b, gLabs[0] || '-');
+  ins('ins-genero', `<strong>Predominância:</strong> ${domG} (${pct(cnt(DATA,'genero',domG),N)}%). A perspectiva de gênero é relevante para identificar assimetrias no acesso à água e políticas públicas.`);
 
-  const munC=[...new Set(D.map(d=>d.municipio).filter(Boolean))].map(m=>({m,n:cnt(D,'municipio',m)})).sort((a,b)=>b.n-a.n);
-  mkBar('ch-mun',munC.map(x=>x.m),munC.map(x=>x.n),munC.map((_,i)=>PAL[i%PAL.length]),N);
-  insBox('ins-mun',`<strong>Cobertura:</strong> ${munC.length} município(s) representado(s). ${munC[0]?.m||''} lidera com ${munC[0]?.n||0} entrevistas.`);
+  // Faixa etária — usa campo 'idade' (texto livre) ou 'faixa_etaria'
+  const idadeVals = DATA.map(d => d.faixa_etaria || d.idade || '').filter(Boolean);
+  if (idadeVals.length) {
+    // Agrupa por décadas se forem números
+    const grupos = {};
+    idadeVals.forEach(v => { grupos[v] = (grupos[v]||0)+1; });
+    const sortedG = Object.entries(grupos).sort((a,b) => b[1]-a[1]);
+    mkBar('ch-idade', sortedG.map(x=>x[0]), sortedG.map(x=>x[1]), P, N);
+    ins('ins-idade', `Distribuição etária de ${idadeVals.length} participante${idadeVals.length!==1?'s':''} com idade informada (n total = ${N}).`);
+  } else noData('ch-idade','Idade não informada nos registros.');
+
+  // Município
+  if (muns.length) {
+    const munC = muns.map(m => ({ m, n: cnt(DATA,'municipio',m) })).sort((a,b)=>b.n-a.n);
+    mkBar('ch-mun', munC.map(x=>x.m), munC.map(x=>x.n), munC.map((_,i)=>P[i%P.length]), N);
+    ins('ins-mun', `<strong>${muns.length} município${muns.length!==1?'s':''}</strong> da RMVRCE representados. ${munC[0]?.m||''} com maior concentração (${munC[0]?.n||0} entrevistas).`);
+  } else noData('ch-mun','Municípios não informados.');
 }
 
-function renderComparePerfil() {
-  buildComparePanels('perfil',(D,grp,sec)=>{
-    const p=document.getElementById('cmpPanel-'+grp+'-'+sec); if(!p)return;
-    const N=D.length;
-    const ag=cnt(D,'tipo','agricultor'),te=cnt(D,'tipo','tecnico'),re=cnt(D,'tipo','representante');
-    const fem=cnt(D,'genero','Feminino'),masc=cnt(D,'genero','Masculino');
-    p.innerHTML=`
-      <div style="font-size:12px;color:var(--t2);margin-bottom:8px;">n = <strong>${N}</strong></div>
-      <div style="font-size:12px;margin-bottom:4px;">🌾 Agricultores: <strong>${ag}</strong> (${pct(ag,N)}%)</div>
-      <div style="font-size:12px;margin-bottom:4px;">🔧 Técnicos: <strong>${te}</strong> (${pct(te,N)}%)</div>
-      <div style="font-size:12px;margin-bottom:12px;">🏛️ Representantes: <strong>${re}</strong> (${pct(re,N)}%)</div>
-      <div style="font-size:12px;margin-bottom:4px;">♀ Feminino: <strong>${fem}</strong> (${pct(fem,N)}%)</div>
-      <div style="font-size:12px;margin-bottom:12px;">♂ Masculino: <strong>${masc}</strong> (${pct(masc,N)}%)</div>
-      ${N===0?'<div style="color:var(--c6);font-size:12px;">⚠️ Nenhum dado neste grupo com os filtros atuais.</div>':''}
-    `;
-  });
-}
-
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // ÁGUA
-// ══════════════════════════════════════════
-function renderAgua(D) {
-  const N=D.length;
-  const fK=['poco_artesiano','rio_corrego','chuva','lago_represa','rede_publica','compra_carro_pipa'];
-  mkBar('ch-fontes',fK.map(L),fK.map(k=>cntA(D,'fontes_agua',k)),[P.a,P.b,P.j,P.h,P.c,P.e],N);
-  insBox('ins-fontes',`<strong>Fonte mais citada:</strong> ${L(fK[fK.map(k=>cntA(D,'fontes_agua',k)).indexOf(Math.max(...fK.map(k=>cntA(D,'fontes_agua',k))))])}.`);
+// ══════════════════════════════════════════════════════════
+function renderAgua(N) {
+  if (!N) return;
+  const ag = DATA.filter(d => d.tipo === 'agricultor');
+  const nAg = ag.length;
 
-  const iK=['gotejamento','aspersao','inundacao','sem_irrigacao'];
-  mkDonut('ch-irrig',iK.map(L),iK.map(k=>cntA(D,'irrigacao',k)),[P.a,P.d,P.c,P.f]);
-  insBox('ins-irrig',`<strong>Sem irrigação formal:</strong> ${pct(cntA(D,'irrigacao','sem_irrigacao'),N)}% — indicador de vulnerabilidade à variabilidade hídrica.`);
+  // Fontes
+  const fonteKeys = ['Rio','Nascentes','Corrego','Acude','Poco_artesiano','Poco_caipira','Cisterna','Caminhao-pipa','Vizinho','Outro_fonte'];
+  const fonteLabs = ['Rio','Nascentes','Córrego','Açude','Poço Artesiano','Poço Caipira','Cisterna','Caminhão-pipa','Vizinho','Outro'];
+  const fonteVals = fonteKeys.map(k => cntA(ag,'fontes_agua',k));
+  const fonteFilter = fonteVals.map((v,i)=>({l:fonteLabs[i],v})).filter(x=>x.v>0);
+  if (fonteFilter.length && nAg > 0) {
+    mkBar('ch-fontes', fonteFilter.map(x=>x.l), fonteFilter.map(x=>x.v), P, nAg);
+    const topF = fonteFilter.sort((a,b)=>b.v-a.v)[0];
+    ins('ins-fontes', `<strong>Base: ${nAg} agricultor${nAg!==1?'es':''}.</strong> Fonte mais citada: ${topF.l} (${pct(topF.v,nAg)}%). Cada participante pode indicar múltiplas fontes.`);
+  } else noData('ch-fontes', nAg === 0 ? 'Sem agricultores nos filtros.' : 'Fontes de água não informadas.');
 
-  const cK=['muito_menos','mais_irregular','pouco_menos','igual'];
-  mkGrouped('ch-chuva',cK.map(L),[{label:'Nº participantes',data:cK.map(k=>cnt(D,'percepcao_chuva',k)),backgroundColor:[P.f,P.e,P.d,P.h],borderRadius:5,borderSkipped:false,borderWidth:0}]);
-  const mm=pct(cnt(D,'percepcao_chuva','muito_menos')+cnt(D,'percepcao_chuva','mais_irregular'),N);
-  insBox('ins-chuva',`<strong>${mm}%</strong> percebe deterioração hídrica significativa (muito menos chuva + mais irregular), convergindo com dados instrumentais da ANA (2023) para a Bacia do Rio Cuiabá.`);
+  // Armazenamento
+  const armKeys = ['Cisterna','Cx_elevada','Sem_armazen','Outro_armazen'];
+  const armLabs = ['Cisterna','Caixa d\'água elevada','Sem armazenamento','Outro'];
+  const armVals = armKeys.map(k => cntA(ag,'armazenamento',k));
+  const armFilter = armVals.map((v,i)=>({l:armLabs[i],v})).filter(x=>x.v>0);
+  if (armFilter.length && nAg > 0) {
+    mkDonut('ch-arm', armFilter.map(x=>x.l), armFilter.map(x=>x.v), ['#005F73','#0A9396','#E76F51','#E9C46A']);
+    const semArm = cnt(ag.filter(d=>!d.armazenamento?.length||d.armazenamento.includes('Sem_armazen')),'tipo','agricultor');
+    ins('ins-arm', `Tipos de armazenamento presentes nas propriedades (n=${nAg} agricultores). Pode marcar mais de um tipo.`);
+  } else noData('ch-arm', nAg === 0 ? 'Sem agricultores.' : 'Armazenamento não informado.');
+
+  // Tratamento
+  const tratKeys = ['Trat_decantacao','Trat_filtracao','Trat_cloracao','Trat_outro','Trat_nao'];
+  const tratLabs = ['Decantação','Filtração','Cloração','Outro tratamento','Não realiza'];
+  const tratVals = tratKeys.map(k => cntA(ag,'tratamento_agua',k));
+  const tratFilter = tratVals.map((v,i)=>({l:tratLabs[i],v})).filter(x=>x.v>0);
+  if (tratFilter.length && nAg > 0) {
+    mkDonut('ch-trat', tratFilter.map(x=>x.l), tratFilter.map(x=>x.v), ['#005F73','#0A9396','#94D2BD','#E9C46A','#E76F51']);
+    const semTrat = cntA(ag,'tratamento_agua','Trat_nao');
+    ins('ins-trat', `<strong>${pct(semTrat,nAg)}% não realiza tratamento</strong> da água coletada — dado relevante para avaliação de riscos sanitários e qualidade da água consumida.`,'warn');
+  } else noData('ch-trat', nAg === 0 ? 'Sem agricultores.' : 'Tratamento não informado.');
+
+  // Usos
+  const usoKeys = ['Uso_beber','Uso_banho','Uso_cozinha','Uso_animal','Uso_irrig_manual','Uso_gotejamento','Uso_aspersao'];
+  const usoLabs = ['Beber','Banho','Cozinha/limpeza','Dessedentação animal','Irrigação manual','Gotejamento','Aspersão'];
+  const usoVals = usoKeys.map(k => cntA(ag,'usos_agua',k));
+  const usoFilter = usoVals.map((v,i)=>({l:usoLabs[i],v})).filter(x=>x.v>0);
+  if (usoFilter.length && nAg > 0) {
+    mkBar('ch-usos', usoFilter.map(x=>x.l), usoFilter.map(x=>x.v), P, nAg);
+    ins('ins-usos', `Múltiplos usos da água documentados. Dados relevantes para o Objetivo Específico 1: diagnóstico dos múltiplos usos da água na RMVRCE.`);
+  } else noData('ch-usos', nAg === 0 ? 'Sem agricultores.' : 'Utilizações não informadas.');
+
+  // Suficiência + Redução
+  const sufSim = cnt(ag,'agua_suficiente','Sim'), sufNao = cnt(ag,'agua_suficiente','Nao');
+  const redSim = cnt(ag,'reducao_agua','Sim'), redNao = cnt(ag,'reducao_agua','Nao');
+  if ((sufSim+sufNao+redSim+redNao) > 0 && nAg > 0) {
+    mkGrouped('ch-suf',['Água suficiente (Sim)','Água suficiente (Não)','Redução nos últ. anos (Sim)','Redução nos últ. anos (Não)'],[{
+      label:'N de participantes',
+      data:[sufSim,sufNao,redSim,redNao],
+      backgroundColor:['#2A9D8F','#E76F51','#E76F51','#2A9D8F'],
+      borderRadius:5, borderSkipped:false, borderWidth:0
+    }]);
+    ins('ins-suf', `<strong>Suficiência hídrica:</strong> ${pct(sufSim,nAg)}% relatam água suficiente. <strong>Redução histórica:</strong> ${pct(redSim,nAg)}% percebem redução nos últimos anos — dado convergente com registros hidrológicos da Bacia do Rio Cuiabá.`);
+  } else noData('ch-suf','Dados de suficiência não informados.');
 }
 
-function renderCompareAgua() {
-  buildComparePanels('agua',(D,grp,sec)=>{
-    const p=document.getElementById('cmpPanel-'+grp+'-'+sec); if(!p)return;
-    const N=D.length; if(!N){p.innerHTML='<div style="font-size:12px;color:var(--c6);">Grupo vazio</div>';return;}
-    const mm=pct(cnt(D,'percepcao_chuva','muito_menos'),N);
-    const si=pct(cntA(D,'irrigacao','sem_irrigacao'),N);
-    const pa=pct(cntA(D,'fontes_agua','poco_artesiano'),N);
-    p.innerHTML=`
-      <div style="font-size:12px;color:var(--t2);margin-bottom:8px;">n = <strong>${N}</strong></div>
-      <div class="lrow"><div class="llabel">Muito menos chuva</div><div class="lbw"><div class="lbf" style="width:${mm}%;background:${grp==='A'?P.b:P.e};">${mm>8?mm+'%':''}</div></div><div class="lpct">${mm}%</div></div>
-      <div class="lrow"><div class="llabel">Sem irrigação</div><div class="lbw"><div class="lbf" style="width:${si}%;background:${grp==='A'?P.b:P.e};">${si>8?si+'%':''}</div></div><div class="lpct">${si}%</div></div>
-      <div class="lrow"><div class="llabel">Usa poço artesiano</div><div class="lbw"><div class="lbf" style="width:${pa}%;background:${grp==='A'?P.b:P.e};">${pa>8?pa+'%':''}</div></div><div class="lpct">${pa}%</div></div>
-    `;
-  });
-}
-
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // IMPACTOS
-// ══════════════════════════════════════════
-function renderImpactos(D) {
-  const N=D.length;
-  const iK=['reducao_produtividade','perda_lavouras','aumento_custos','mudanca_cultura','mortandade_animal','conflitos_agua','exodo'];
-  const iV=iK.map(k=>cntA(D,'impactos_marcados',k));
-  mkBar('ch-imp',iK.map(L),iV,[P.f,P.e,P.d,P.b,P.c,P.g,P.i],N);
-  const top=iK[iV.indexOf(Math.max(...iV))];
-  insBox('ins-imp',`<strong>Impacto dominante:</strong> ${L(top)} (${pct(Math.max(...iV),N)}%). A co-ocorrência entre redução de produtividade e aumento de custos caracteriza um ciclo de vulnerabilidade econômica estrutural.`);
+// ══════════════════════════════════════════════════════════
+function renderImpactos(N) {
+  if (!N) return;
+  const ag = DATA.filter(d => d.tipo === 'agricultor');
+  const te = DATA.filter(d => d.tipo === 'tecnico');
+  const nAg = ag.length, nTe = te.length;
 
-  mkDonut('ch-segalim',['Sim','Parcialmente','Não'],[cnt(D,'seguranca_alimentar','sim'),cnt(D,'seguranca_alimentar','parcialmente'),cnt(D,'seguranca_alimentar','nao')],[P.f,P.d,P.h]);
-  const simP=pct(cnt(D,'seguranca_alimentar','sim'),N);
-  insBox('ins-segalim',`<strong>${simP}%</strong> relatam comprometimento direto da segurança alimentar — dado crítico para o ODS 2 (Fome Zero).`,'warn');
+  // Perdas (agricultores)
+  if (nAg > 0) {
+    const perdaKeys = ['Sim_Cultura','Sim_Animais','Sim_Ambos','Nao'];
+    const perdaLabs = ['Perdas de cultura','Perdas de animais','Cultura e animais','Sem perdas'];
+    const perdaVals = perdaKeys.map(k => cnt(ag,'perdas',k));
+    const perdaF = perdaVals.map((v,i)=>({l:perdaLabs[i],v})).filter(x=>x.v>0);
+    if (perdaF.length) {
+      mkDonut('ch-perdas', perdaF.map(x=>x.l), perdaF.map(x=>x.v), ['#E76F51','#F4A261','#E9C46A','#2A9D8F']);
+      const comPerda = perdaVals[0]+perdaVals[1]+perdaVals[2];
+      ins('ins-perdas', `<strong>${pct(comPerda,nAg)}% dos agricultores (n=${nAg}) reportaram perdas</strong> de cultura e/ou animais devido à escassez hídrica.`,'warn');
+    } else noData('ch-perdas','Dados de perdas não informados.');
 
-  const top5=iK.slice(0,5);
-  mkGrouped('ch-imp-pct',top5.map(L),[{label:'% do grupo',data:top5.map(k=>pct(cntA(D,'impactos_marcados',k),N)),backgroundColor:[P.f,P.e,P.d,P.b,P.c],borderRadius:5,borderSkipped:false,borderWidth:0}]);
-  insBox('ins-imp-pct','Proporção dos 5 principais impactos em relação ao total do grupo selecionado.');
+    // Redução de renda
+    const rendaSim = cnt(ag,'reducao_renda','Sim'), rendaNao = cnt(ag,'reducao_renda','Nao');
+    if (rendaSim+rendaNao > 0) {
+      mkDonut('ch-renda',['Sim — houve redução','Não houve redução'],[rendaSim,rendaNao],['#E76F51','#2A9D8F']);
+      ins('ins-renda', `<strong>${pct(rendaSim,nAg)}% dos agricultores</strong> relataram redução de renda diretamente associada à escassez hídrica (n=${nAg}).`);
+    } else noData('ch-renda','Dados de renda não informados.');
+  } else {
+    noData('ch-perdas','Sem agricultores nos dados selecionados.');
+    noData('ch-renda','Sem agricultores nos dados selecionados.');
+  }
+
+  // Impactos observados — técnicos
+  if (nTe > 0) {
+    const impKeys = ['Red_produtividade','Perda_lavouras','Mortandade_animal','Aumento_custos','Mudanca_cultura','Exodo','Conflitos_agua','Outros_impactos'];
+    const impLabs = ['Red. produtividade','Perda lavouras','Mortandade animal','Aumento custos','Mudança cultura','Êxodo/abandono','Conflitos pela água','Outros'];
+    const impVals = impKeys.map(k => cntA(te,'impactos_marcados',k));
+    const impF = impVals.map((v,i)=>({l:impLabs[i],v})).filter(x=>x.v>0);
+    if (impF.length) {
+      mkBar('ch-imp-te', impF.map(x=>x.l), impF.map(x=>x.v), P, nTe);
+      const top = impF.sort((a,b)=>b.v-a.v)[0];
+      ins('ins-imp-te', `<strong>Perspectiva técnica (n=${nTe}).</strong> Impacto mais frequente: ${top.l} (${pct(top.v,nTe)}%). Técnicos podem assinalar até 3 opções.`);
+    } else noData('ch-imp-te','Impactos não informados pelos técnicos.');
+  } else noData('ch-imp-te','Sem técnicos nos dados selecionados.');
 }
 
-function renderCompareImpactos() {
-  buildComparePanels('impactos',(D,grp,sec)=>{
-    const p=document.getElementById('cmpPanel-'+grp+'-'+sec); if(!p)return;
-    const N=D.length; if(!N){p.innerHTML='<div style="font-size:12px;color:var(--c6);">Grupo vazio</div>';return;}
-    const iK=['reducao_produtividade','perda_lavouras','aumento_custos','exodo','conflitos_agua'];
-    const col=grp==='A'?P.b:P.e;
-    p.innerHTML=`<div style="font-size:12px;color:var(--t2);margin-bottom:10px;">n = <strong>${N}</strong></div>`+
-      iK.map(k=>{const v=pct(cntA(D,'impactos_marcados',k),N);return`<div class="lrow"><div class="llabel" style="min-width:110px;">${L(k)}</div><div class="lbw"><div class="lbf" style="width:${v}%;background:${col};">${v>8?v+'%':''}</div></div><div class="lpct">${v}%</div></div>`;}).join('');
-  });
-}
-
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // ESTRATÉGIAS
-// ══════════════════════════════════════════
-function renderEstr(D) {
-  const N=D.length;
-  const eK=['armazenamento','barraginha','culturas_resistentes','reuso','reducao_area','sem_estrategia'];
-  mkBar('ch-estr',eK.map(L),eK.map(k=>cntA(D,'estrategias',k)),[P.a,P.b,P.h,P.c,P.d,P.f],N);
-  insBox('ins-estr',`<strong>Lacuna adaptativa:</strong> ${pct(cntA(D,'estrategias','sem_estrategia'),N)}% sem estratégias definidas. O armazenamento prevalece como adaptação reativa/emergencial.`);
+// ══════════════════════════════════════════════════════════
+function renderEstrategias(N) {
+  if (!N) return;
+  const ag = DATA.filter(d => d.tipo === 'agricultor');
+  const te = DATA.filter(d => d.tipo === 'tecnico');
+  const nAg = ag.length, nTe = te.length;
 
-  const dK=['financeiro','informacao','assistencia','infraestrutura','organizacao_social','politicas_publicas'];
-  mkBar('ch-dif',dK.map(L),dK.map(k=>cntA(D,'dificuldades',k)),[P.f,P.e,P.d,P.g,P.i,P.a],N);
-  const td=dK.map(k=>cntA(D,'dificuldades',k));
-  insBox('ins-dif',`<strong>Barreira estrutural principal:</strong> ${L(dK[td.indexOf(Math.max(...td))])} (${pct(Math.max(...td),N)}%). Convergência entre restrição financeira e déficit de assistência técnica aponta para falha sistêmica de governança.`);
+  if (nAg > 0) {
+    const eKeys = ['Reuso','Captacao_chuva','Irrigacao_economica','Mudanca_culturas','Reducao_area','Cisterna_reserv','Barraginha','Outras_estrategias'];
+    const eLabs = ['Reuso de água','Captação de chuva','Irrigação econômica','Mudança culturas','Redução de área','Cisternas/reserv.','Barraginhas','Outras'];
+    const eVals = eKeys.map(k => cntA(ag,'estrategias',k));
+    const eF = eVals.map((v,i)=>({l:eLabs[i],v})).filter(x=>x.v>0);
+    if (eF.length) {
+      mkBar('ch-estr', eF.map(x=>x.l), eF.map(x=>x.v), P, nAg);
+      ins('ins-estr', `Estratégias adotadas pelos agricultores (n=${nAg}) para convivência com a escassez. Múltiplas respostas permitidas.`);
+    } else noData('ch-estr','Estratégias não informadas.');
+
+    const apoioSim = cnt(ag,'apoio_tecnico','Sim'), apoioNao = cnt(ag,'apoio_tecnico','Nao');
+    if (apoioSim+apoioNao > 0) {
+      mkDonut('ch-apoio',['Recebeu apoio técnico','Não recebeu apoio'],[apoioSim,apoioNao],['#005F73','#E76F51']);
+      ins('ins-apoio', `<strong>${pct(apoioNao,nAg)}% sem acesso</strong> a apoio técnico sobre manejo da água (n=${nAg}) — indicador crítico para formulação de políticas de extensão rural.`,'warn');
+    } else noData('ch-apoio','Apoio técnico não informado.');
+  } else {
+    noData('ch-estr','Sem agricultores nos dados selecionados.');
+    noData('ch-apoio','Sem agricultores nos dados selecionados.');
+  }
+
+  if (nTe > 0) {
+    const mKeys = ['Cap_chuva_te','Pocos_cacimbas_te','Gotejamento_te','Aspersao_te','Reuso_te','Barraginhas_te','Conservacao_solo_te','Sem_praticas_te'];
+    const mLabs = ['Captação chuva','Poços/cacimbas','Gotejamento','Aspersão','Reuso','Barraginhas','Conservação solo','Sem práticas'];
+    const mVals = mKeys.map(k => cntA(te,'praticas_manejo',k));
+    const mF = mVals.map((v,i)=>({l:mLabs[i],v})).filter(x=>x.v>0);
+    if (mF.length) {
+      mkBar('ch-manejo', mF.map(x=>x.l), mF.map(x=>x.v), P, nTe);
+      ins('ins-manejo', `Práticas observadas pelos técnicos (n=${nTe}) nas propriedades assistidas.`);
+    } else noData('ch-manejo','Práticas não informadas pelos técnicos.');
+  } else noData('ch-manejo','Sem técnicos nos dados selecionados.');
 }
 
-function renderCompareEstr() {
-  buildComparePanels('estrategias',(D,grp,sec)=>{
-    const p=document.getElementById('cmpPanel-'+grp+'-'+sec); if(!p)return;
-    const N=D.length; if(!N){p.innerHTML='<div style="font-size:12px;color:var(--c6);">Grupo vazio</div>';return;}
-    const col=grp==='A'?P.b:P.e;
-    const eK=['armazenamento','sem_estrategia','culturas_resistentes'];
-    const dK=['financeiro','assistencia'];
-    p.innerHTML=`<div style="font-size:12px;color:var(--t2);margin-bottom:10px;">n = <strong>${N}</strong></div>
-      <div style="font-size:11px;font-weight:700;color:var(--c1);margin-bottom:6px;text-transform:uppercase;">Estratégias</div>`+
-      eK.map(k=>{const v=pct(cntA(D,'estrategias',k),N);return`<div class="lrow"><div class="llabel" style="min-width:110px;">${L(k)}</div><div class="lbw"><div class="lbf" style="width:${v}%;background:${col};">${v>8?v+'%':''}</div></div><div class="lpct">${v}%</div></div>`;}).join('')+
-      `<div style="font-size:11px;font-weight:700;color:var(--c1);margin:10px 0 6px;text-transform:uppercase;">Barreiras</div>`+
-      dK.map(k=>{const v=pct(cntA(D,'dificuldades',k),N);return`<div class="lrow"><div class="llabel" style="min-width:110px;">${L(k)}</div><div class="lbw"><div class="lbf" style="width:${v}%;background:${P.f};">${v>8?v+'%':''}</div></div><div class="lpct">${v}%</div></div>`;}).join('');
-  });
+// ══════════════════════════════════════════════════════════
+// RESÍDUOS
+// ══════════════════════════════════════════════════════════
+function renderResiduos(N) {
+  if (!N) return;
+  const ag = DATA.filter(d => d.tipo === 'agricultor');
+  const nAg = ag.length;
+
+  if (nAg > 0) {
+    const rKeys = ['Restos_cultura','Embalagens_agrotox','Residuos_organicos','Residuos_animais','Lixo_domestico','Outros_residuos'];
+    const rLabs = ['Restos de cultura','Embalagens agrotóxicos','Resíduos orgânicos','Resíduos animais','Lixo doméstico','Outros'];
+    const rVals = rKeys.map(k => cntA(ag,'tipos_residuos',k));
+    const rF = rVals.map((v,i)=>({l:rLabs[i],v})).filter(x=>x.v>0);
+    if (rF.length) { mkBar('ch-res', rF.map(x=>x.l), rF.map(x=>x.v), P, nAg); ins('ins-res', `Tipos de resíduos presentes nas propriedades (n=${nAg}). Múltiplas respostas. Embalagens de agrotóxicos representam risco direto de contaminação hídrica.`,'warn'); }
+    else noData('ch-res','Resíduos não informados.');
+
+    const dKeys = ['Queima','Enterra','Coleta_publica','Devolucao_posto','Compostagem','Reaproveitamento','Outro_destino'];
+    const dLabs = ['Queima','Enterra','Coleta pública','Devolução posto','Compostagem','Reaproveitamento','Outro'];
+    const dVals = dKeys.map(k => cntA(ag,'destinacao_residuos',k));
+    const dF = dVals.map((v,i)=>({l:dLabs[i],v})).filter(x=>x.v>0);
+    if (dF.length) {
+      mkBar('ch-dest', dF.map(x=>x.l), dF.map(x=>x.v), P, nAg);
+      const queima = cntA(ag,'destinacao_residuos','Queima'), enterra = cntA(ag,'destinacao_residuos','Enterra');
+      ins('ins-dest', `<strong>Práticas inadequadas:</strong> queima (${pct(queima,nAg)}%) e enterramento (${pct(enterra,nAg)}%) comprometem solo e recursos hídricos. Devolução em posto é a prática correta para embalagens de agrotóxicos.`,'warn');
+    } else noData('ch-dest','Destinação não informada.');
+
+    const difSim = cnt(ag,'dif_residuos','Sim'), difNao = cnt(ag,'dif_residuos','Nao');
+    if (difSim+difNao > 0) {
+      mkDonut('ch-dif-res',['Sim — há dificuldades','Não há dificuldades'],[difSim,difNao],['#E76F51','#2A9D8F']);
+      ins('ins-dif-res', `<strong>${pct(difSim,nAg)}%</strong> relatam dificuldades no manejo adequado dos resíduos (n=${nAg}).`);
+    } else noData('ch-dif-res','Dificuldades não informadas.');
+
+    const bgSim = cnt(ag,'conhece_biogas','Sim'), bgNao = cnt(ag,'conhece_biogas','Nao');
+    if (bgSim+bgNao > 0) {
+      mkDonut('ch-biogas',['Conhece biogás','Não conhece'],[bgSim,bgNao],['#005F73','#E9C46A']);
+      ins('ins-biogas', `${pct(bgNao,nAg)}% não conhecem a tecnologia de biogás — potencial de capacitação e aproveitamento de resíduos orgânicos.`,'note');
+    } else noData('ch-biogas','Dados de biogás não informados.');
+  } else ['ch-res','ch-dest','ch-dif-res','ch-biogas'].forEach(id => noData(id,'Sem agricultores nos dados selecionados.'));
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // POLÍTICAS
-// ══════════════════════════════════════════
-function renderPol(D) {
-  const N=D.length;
-  const pK=['muito_bom','bom','regular','ruim','muito_ruim'];
-  const pV=pK.map(k=>cnt(D,'avaliacao_politicas',k));
-  const pC=[P.h,P.c,P.d,P.e,P.f];
-  document.getElementById('ch-likert').innerHTML=pK.map((k,i)=>{
-    const v=pct(pV[i],N);
-    return`<div class="lrow"><div class="llabel">${L(k)}</div><div class="lbw"><div class="lbf" style="width:${v}%;background:${pC[i]};">${pV[i]>0?pV[i]:''}</div></div><div class="lpct">${v}%</div></div>`;
-  }).join('');
-  const neg=pct(pV[3]+pV[4],N);
-  insBox('ins-likert',`<strong>${neg}%</strong> avalia o acesso às políticas como ruim ou muito ruim. Esse dado é estruturante para o Objetivo Específico 4.`,'warn');
+// ══════════════════════════════════════════════════════════
+function renderPoliticas(N) {
+  if (!N) return;
+  const te = DATA.filter(d => d.tipo === 'tecnico');
+  const nTe = te.length;
 
-  const scoreMap={muito_bom:5,bom:4,regular:3,ruim:2,muito_ruim:1};
-  const tipos=['agricultor','tecnico','representante'];
-  const medias=tipos.map(t=>{const s=D.filter(d=>d.tipo===t&&d.avaliacao_politicas);return s.length?+(s.reduce((a,d)=>a+(scoreMap[d.avaliacao_politicas]||0),0)/s.length).toFixed(2):0;});
-  mkGrouped('ch-polscore',tipos.map(L),[{label:'Média (1–5)',data:medias,backgroundColor:[P.a,P.d,P.c],borderRadius:5,borderSkipped:false,borderWidth:0}]);
-  insBox('ins-polscore','Média ponderada por tipo de participante. Divergências revelam assimetrias de experiência com o aparato institucional.');
+  if (nTe > 0) {
+    const polKeys = ['muito_bom','bom','regular','ruim','muito_ruim'];
+    const polLabs = ['Muito bom','Bom','Regular','Ruim','Muito ruim'];
+    const polVals = polKeys.map(k => cnt(te,'avaliacao_politicas',k));
+    const polColors = ['#2A9D8F','#94D2BD','#E9C46A','#F4A261','#E76F51'];
+    const div = document.getElementById('ch-likert');
+    if (div) div.innerHTML = polKeys.map((k,i) => {
+      const v = pct(polVals[i],nTe);
+      return `<div class="lrow"><div class="llabel">${polLabs[i]}</div><div class="lbw"><div class="lbf" style="width:${v}%;background:${polColors[i]}">${polVals[i]>0?polVals[i]:''}</div></div><div class="lpct">${v}%</div></div>`;
+    }).join('');
+    const neg = polVals[3]+polVals[4];
+    ins('ins-pol', `<strong>Base: ${nTe} técnico${nTe!==1?'s':''}.</strong> ${pct(neg,nTe)}% avalia como ruim ou muito ruim. Escala Likert 1–5.`,'warn');
+
+    // Dificuldades
+    const dKeys = ['Falta_recursos_te','Falta_info_te','Falta_AT_te','Falta_equip_te','Baixa_org_te','Outros_dif_te'];
+    const dLabs = ['Recursos financeiros','Informação','Assist. técnica','Equipamentos','Org. social','Outros'];
+    const dVals = dKeys.map(k => cntA(te,'dificuldades',k));
+    const dF = dVals.map((v,i)=>({l:dLabs[i],v})).filter(x=>x.v>0);
+    if (dF.length) { mkBar('ch-dif-te', dF.map(x=>x.l), dF.map(x=>x.v), P, nTe); ins('ins-dif-te', `Principais dificuldades para práticas sustentáveis de manejo hídrico, na perspectiva dos técnicos (n=${nTe}).`); }
+    else noData('ch-dif-te','Dificuldades não informadas pelos técnicos.');
+
+    // Infraestrutura
+    const infKeys = ['Suficiente','Parcialmente_suficiente','Insuficiente','Inexistente'];
+    const infVals = infKeys.map(k => cnt(te,'infraestrutura',k));
+    const infF = infVals.map((v,i)=>({l:infKeys[i].replace('_',' '),v})).filter(x=>x.v>0);
+    if (infF.length) { mkDonut('ch-infra', infF.map(x=>x.l), infF.map(x=>x.v), ['#2A9D8F','#E9C46A','#F4A261','#E76F51']); ins('ins-infra', `Avaliação da infraestrutura hídrica nas propriedades assistidas, segundo os técnicos (n=${nTe}).`); }
+    else noData('ch-infra','Infraestrutura não avaliada pelos técnicos.');
+  } else {
+    ['ch-dif-te','ch-infra'].forEach(id => noData(id,'Sem técnicos nos dados selecionados.'));
+    const div = document.getElementById('ch-likert');
+    if (div) div.innerHTML = '<div class="no-data">Sem técnicos nos dados selecionados.</div>';
+    ins('ins-pol','');
+  }
 }
 
-function renderComparePol() {
-  buildComparePanels('politicas',(D,grp,sec)=>{
-    const p=document.getElementById('cmpPanel-'+grp+'-'+sec); if(!p)return;
-    const N=D.length; if(!N){p.innerHTML='<div style="font-size:12px;color:var(--c6);">Grupo vazio</div>';return;}
-    const scoreMap={muito_bom:5,bom:4,regular:3,ruim:2,muito_ruim:1};
-    const scores=D.filter(d=>d.avaliacao_politicas).map(d=>scoreMap[d.avaliacao_politicas]||0);
-    const med=scores.length?+(scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(2):0;
-    const neg=pct(cnt(D,'avaliacao_politicas','ruim')+cnt(D,'avaliacao_politicas','muito_ruim'),N);
-    const pK=['muito_bom','bom','regular','ruim','muito_ruim'];
-    const pC=[P.h,P.c,P.d,P.e,P.f];
-    const col=grp==='A'?P.b:P.e;
-    p.innerHTML=`<div style="font-size:12px;color:var(--t2);margin-bottom:8px;">n = <strong>${N}</strong> | Média: <strong style="color:var(--c1);">${med}</strong> / 5</div>`+
-      pK.map((k,i)=>{const v=pct(cnt(D,'avaliacao_politicas',k),N);return`<div class="lrow"><div class="llabel">${L(k)}</div><div class="lbw"><div class="lbf" style="width:${v}%;background:${pC[i]};">${v>8?v+'%':''}</div></div><div class="lpct">${v}%</div></div>`;}).join('')+
-      `<div style="margin-top:10px;font-size:12px;color:var(--c6);font-weight:700;">⚠️ Avaliação negativa: ${neg}%</div>`;
-  });
-}
-
-// ══════════════════════════════════════════
-// QUALITATIVO
-// ══════════════════════════════════════════
-function renderQual(D) {
-  const N=D.length;
-  const catK=['impactos_percebidos','estrategias_adaptacao','barreiras_solucoes','governanca_agua'];
-  const catC=[P.f,P.h,P.e,P.i];
-  const catDesc={
-    impactos_percebidos:'Narrativas sobre efeitos observados da escassez na produção, renda e cotidiano.',
-    estrategias_adaptacao:'Práticas e inovações adotadas para convivência com a variabilidade hídrica.',
-    barreiras_solucoes:'Obstáculos estruturais, financeiros e institucionais que bloqueiam soluções.',
-    governanca_agua:'Percepções sobre políticas públicas, gestão institucional e acesso a programas.'
+// ══════════════════════════════════════════════════════════
+// ANÁLISE DE CONTEÚDO
+// ══════════════════════════════════════════════════════════
+function renderQual(N) {
+  if (!N) return;
+  const catKeys = ['impactos_percebidos','estrategias_adaptacao','barreiras_solucoes','governanca_agua'];
+  const catColors = ['#E76F51','#2A9D8F','#F4A261','#7B2D8B'];
+  const catDesc = {
+    impactos_percebidos: 'Narrativas sobre efeitos observados da escassez hídrica na produção, renda e cotidiano.',
+    estrategias_adaptacao: 'Relatos de práticas e inovações para convivência com a variabilidade hídrica.',
+    barreiras_solucoes: 'Obstáculos estruturais, financeiros e institucionais que impedem a implementação de soluções.',
+    governanca_agua: 'Percepções sobre políticas públicas, gestão institucional e acesso a programas.'
   };
-  const div=document.getElementById('ch-categorias');
-  div.innerHTML=catK.map((k,i)=>{
-    const n=cntA(D,'categorias',k),p2=pct(n,N);
-    const sub=['agricultor','tecnico','representante'].map(t=>{const s=D.filter(d=>d.tipo===t);return`<span style="font-size:11px;color:var(--t2);">${L(t).split(' ')[0]}: <strong>${cntA(s,'categorias',k)}</strong></span>`;}).join(' | ');
-    return`<div class="catb"><div class="catb-hdr">
-      <div style="display:flex;align-items:center;gap:8px;"><span class="cat-badge cat-${i+1}">Cat.${i+1}</span><span style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--c1);">${L(k).replace(/Cat\.\d+ /,'')}</span></div>
-      <span style="font-size:18px;font-weight:700;color:${catC[i]};">${p2}%</span></div>
-      <div class="catb-body"><p style="margin-bottom:8px;">${catDesc[k]}</p>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="flex:1;background:var(--g2);border-radius:99px;height:10px;overflow:hidden;"><div style="width:${p2}%;height:100%;background:${catC[i]};border-radius:99px;"></div></div><span style="font-size:11px;font-weight:700;color:${catC[i]};">${n}/${N}</span></div>
+  const catLabel = {impactos_percebidos:'Impactos percebidos',estrategias_adaptacao:'Estratégias de adaptação',barreiras_solucoes:'Barreiras às soluções',governanca_agua:'Governança hídrica'};
+
+  const div = document.getElementById('ch-categorias');
+  if (!div) return;
+  div.innerHTML = catKeys.map((k,i) => {
+    const n = cntA(DATA,'categorias',k), p = pct(n,N);
+    const sub = ['agricultor','tecnico','representante'].map(t => {
+      const s = DATA.filter(d=>d.tipo===t);
+      const ns = cntA(s,'categorias',k);
+      return s.length > 0 ? `<span style="font-size:10px;color:var(--t2);">${t}: <strong>${ns}/${s.length}</strong></span>` : '';
+    }).filter(Boolean).join(' &nbsp;|&nbsp; ');
+    return `<div class="cat-b"><div class="cat-h">
+      <div style="display:flex;align-items:center;gap:8px;"><span class="cat-badge cat-${i+1}">Cat.${i+1}</span><span style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--c1);">${catLabel[k]}</span></div>
+      <span style="font-size:18px;font-weight:700;color:${catColors[i]};">${p}%</span></div>
+      <div class="cat-body"><p style="margin-bottom:7px;">${catDesc[k]}</p>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><div style="flex:1;background:var(--g2);border-radius:99px;height:9px;overflow:hidden;"><div style="width:${p}%;height:100%;background:${catColors[i]};border-radius:99px;"></div></div><span style="font-size:10px;font-weight:700;color:${catColors[i]};">${n}/${N}</span></div>
       <div>${sub}</div></div></div>`;
   }).join('');
 
-  // Co-ocorrência
-  const pairs=[];
-  for(let i=0;i<catK.length;i++) for(let j=i+1;j<catK.length;j++){
-    const n=D.filter(d=>((d.categorias||[]).includes(catK[i])&&(d.categorias||[]).includes(catK[j]))).length;
-    pairs.push({a:catK[i],b:catK[j],n});
-  }
-  const ctx=document.getElementById('ch-cooc'); if(ctx){const ex=Chart.getChart(ctx);if(ex)ex.destroy();
-  new Chart(ctx,{type:'bar',data:{labels:pairs.map(p=>L(p.a).replace(/Cat\.\d+ /,'').substring(0,12)+'×'+L(p.b).replace(/Cat\.\d+ /,'').substring(0,12)),datasets:[{data:pairs.map(p=>p.n),backgroundColor:PAL,borderRadius:5,borderSkipped:false,borderWidth:0}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{beginAtZero:true,grid:{color:'#e8eef0'},ticks:{stepSize:1}}}}});}
-  const topP=pairs.sort((a,b)=>b.n-a.n)[0];
-  insBox('ins-cooc',`<strong>Par mais frequente:</strong> ${topP?L(topP.a).replace(/Cat\.\d+ /,'')+' + '+L(topP.b).replace(/Cat\.\d+ /,'')+' ('+topP.n+' casos)':'-'}. A co-ocorrência orienta a codificação axial (Bardin, 2016).`);
-
   // Tabela
-  const tb=document.getElementById('tb-cat'); if(!tb)return;
-  const tipos=['agricultor','tecnico','representante'];
-  tb.innerHTML=`<tr><th>Categoria</th>${tipos.map(t=>`<th style="text-align:center;">${L(t).split(' ')[0]}</th>`).join('')}<th style="text-align:center;">Total</th><th style="text-align:center;">%</th></tr>`+
-    catK.map((k,i)=>{const tots=tipos.map(t=>cntA(D.filter(d=>d.tipo===t),'categorias',k));const total=cntA(D,'categorias',k);
-    return`<tr><td><span class="cat-badge cat-${i+1}">${L(k).replace(/Cat\.\d+ /,'')}</span></td>${tots.map(n=>`<td class="num">${n}</td>`).join('')}<td class="num">${total}</td><td class="pct">${pct(total,N)}%</td></tr>`;}).join('');
-}
-
-// ══════════════════════════════════════════
-// TESTES ESTATÍSTICOS
-// ══════════════════════════════════════════
-function renderStat() {
-  const div=document.getElementById('statsTests'); if(!div)return;
-  const NA=ALL.length;
-  if(NA<4){div.innerHTML='<div class="insight warn">⚠️ Amostra insuficiente para testes estatísticos robustos (n < 4). Os testes serão disponibilizados com mais dados.</div>';return;}
-
-  const scoreMap={muito_bom:5,bom:4,regular:3,ruim:2,muito_ruim:1};
-  const masc=ALL.filter(d=>d.genero==='Masculino');
-  const fem=ALL.filter(d=>d.genero==='Feminino');
-  const ag=ALL.filter(d=>d.tipo==='agricultor');
-  const te=ALL.filter(d=>d.tipo==='tecnico');
-  const jovens=ALL.filter(d=>idadeGroup(d.faixa_etaria)==='jovem');
-  const senior=ALL.filter(d=>idadeGroup(d.faixa_etaria)==='senior');
-
-  function secImpChiSq(gA,gB,labelA,labelB) {
-    const keys=['reducao_produtividade','perda_lavouras','aumento_custos','exodo'];
-    return keys.map(k=>{
-      const nA=cntA(gA,'impactos_marcados',k),nB=cntA(gB,'impactos_marcados',k);
-      const obs=[[nA,gA.length-nA],[nB,gB.length-nB]];
-      const r=chiSquare(obs);
-      return`<div class="stat-row"><div class="stat-label">${L(k)}: ${labelA}=${nA}/${gA.length} vs ${labelB}=${nB}/${gB.length}</div><div class="stat-val">χ²=${r.chi2}, df=${r.df} ${sigLabel(r.p)}</div></div>`;
+  const tb = document.getElementById('tb-cat');
+  if (!tb) return;
+  const tipos = ['agricultor','tecnico','representante'];
+  const nPorTipo = tipos.map(t => DATA.filter(d=>d.tipo===t).length);
+  tb.innerHTML = `<tr><th>Categoria</th>${tipos.map((t,i)=>`<th style="text-align:center;">${t.charAt(0).toUpperCase()+t.slice(1)} (n=${nPorTipo[i]})</th>`).join('')}<th style="text-align:center;">Total</th><th style="text-align:center;">%</th></tr>`
+    + catKeys.map((k,i) => {
+      const tots = tipos.map((t,j) => cntA(DATA.filter(d=>d.tipo===t),'categorias',k));
+      const total = cntA(DATA,'categorias',k);
+      return `<tr><td><span class="cat-badge cat-${i+1}">${catLabel[k]}</span></td>${tots.map(n=>`<td class="num">${n}</td>`).join('')}<td class="num">${total}</td><td class="pct">${pct(total,N)}%</td></tr>`;
     }).join('');
-  }
-
-  function mwPol(gA,gB,labelA,labelB) {
-    const sA=gA.filter(d=>d.avaliacao_politicas).map(d=>scoreMap[d.avaliacao_politicas]||0);
-    const sB=gB.filter(d=>d.avaliacao_politicas).map(d=>scoreMap[d.avaliacao_politicas]||0);
-    if(!sA.length||!sB.length) return '<div class="stat-row"><div class="stat-label">Dados insuficientes</div><div class="stat-val">—</div></div>';
-    const mA=+(avg(sA)).toFixed(2), mB=+(avg(sB)).toFixed(2);
-    const r=mannWhitneyU(sA,sB);
-    return`<div class="stat-row"><div class="stat-label">${labelA}: M=${mA} vs ${labelB}: M=${mB}</div><div class="stat-val">U=${r.U}, z=${r.z} ${sigLabel(r.p)}</div></div>`;
-  }
-
-  function chiSegAlim(gA,gB,labelA,labelB) {
-    const obs=[[cnt(gA,'seguranca_alimentar','sim'),cnt(gA,'seguranca_alimentar','nao')+cnt(gA,'seguranca_alimentar','parcialmente')],[cnt(gB,'seguranca_alimentar','sim'),cnt(gB,'seguranca_alimentar','nao')+cnt(gB,'seguranca_alimentar','parcialmente')]];
-    const r=chiSquare(obs);
-    return`<div class="stat-row"><div class="stat-label">Seg. alimentar afetada — ${labelA}: ${obs[0][0]}/${gA.length} vs ${labelB}: ${obs[1][0]}/${gB.length}</div><div class="stat-val">χ²=${r.chi2} ${sigLabel(r.p)}</div></div>`;
-  }
-
-  const blocks=[
-    {
-      title:'♀ Feminino vs. ♂ Masculino — Impactos na Produção',
-      subtitle:'Teste χ² de independência: distribuição de impactos por gênero',
-      content: fem.length&&masc.length ? secImpChiSq(fem,masc,'Fem','Masc') : '<div class="stat-row"><div>Dados insuficientes</div></div>'
-    },
-    {
-      title:'♀ Feminino vs. ♂ Masculino — Avaliação de Políticas Públicas',
-      subtitle:'Teste Mann-Whitney U: score Likert de avaliação institucional por gênero',
-      content: fem.length&&masc.length ? mwPol(fem,masc,'Feminino','Masculino') : '<div class="stat-row"><div>Dados insuficientes</div></div>'
-    },
-    {
-      title:'♀ Feminino vs. ♂ Masculino — Segurança Alimentar',
-      subtitle:'Teste χ²: comprometimento da segurança alimentar por gênero',
-      content: fem.length&&masc.length ? chiSegAlim(fem,masc,'Feminino','Masculino') : '<div class="stat-row"><div>Dados insuficientes</div></div>'
-    },
-    {
-      title:'🌾 Agricultores vs. 🔧 Técnicos — Impactos Percebidos',
-      subtitle:'Teste χ²: diferenças na percepção de impactos por tipo de participante',
-      content: ag.length&&te.length ? secImpChiSq(ag,te,'Agric.','Téc.') : '<div class="stat-row"><div>Dados insuficientes</div></div>'
-    },
-    {
-      title:'🌾 Agricultores vs. 🔧 Técnicos — Avaliação de Políticas',
-      subtitle:'Teste Mann-Whitney U: score Likert por tipo de participante',
-      content: ag.length&&te.length ? mwPol(ag,te,'Agricultores','Técnicos') : '<div class="stat-row"><div>Dados insuficientes</div></div>'
-    },
-    {
-      title:'👶 Jovens (≤35) vs. 👴 Idosos (≥56) — Impactos e Estratégias',
-      subtitle:'Teste χ²: diferenças geracionais na percepção de impactos',
-      content: jovens.length&&senior.length ? secImpChiSq(jovens,senior,'Jovens','Senior') : '<div class="stat-row"><div>Dados insuficientes (necessário ≥1 em cada grupo)</div></div>'
-    }
-  ];
-
-  div.innerHTML=blocks.map(b=>`
-    <div class="ac">
-      <div class="ac-title"><span>🧮</span>${b.title}</div>
-      <div style="font-size:11px;color:var(--t2);margin-bottom:10px;font-style:italic;">${b.subtitle}</div>
-      <div class="stat-test">
-        <div class="stat-test-title">📊 Resultados</div>
-        ${b.content}
-      </div>
-      <div style="margin-top:8px;font-size:11px;color:var(--g3);">*** p&lt;0.001 &nbsp;|&nbsp; ** p&lt;0.01 &nbsp;|&nbsp; * p&lt;0.05 &nbsp;|&nbsp; † p&lt;0.10 (marginal) &nbsp;|&nbsp; n.s. não significativo</div>
-    </div>
-  `).join('');
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+// TESTES ESTATÍSTICOS
+// ══════════════════════════════════════════════════════════
+function chiSq(obs) {
+  const rowS = obs.map(r=>r.reduce((a,b)=>a+b,0));
+  const colS = obs[0].map((_,j)=>obs.reduce((a,r)=>a+r[j],0));
+  const n = rowS.reduce((a,b)=>a+b,0);
+  if (!n) return {chi2:0,df:0,p:1,valid:false,warn:'n=0'};
+  const minExp = Math.min(...obs.map((r,i)=>r.map((_,j)=>rowS[i]*colS[j]/n)).flat());
+  let chi2=0;
+  obs.forEach((r,i)=>r.forEach((v,j)=>{const e=rowS[i]*colS[j]/n;if(e>0)chi2+=Math.pow(v-e,2)/e;}));
+  const df=(obs.length-1)*(obs[0].length-1);
+  const p=chiPval(chi2,df);
+  return{chi2:+chi2.toFixed(3),df,p:+p.toFixed(4),valid:minExp>=5,minExp:+minExp.toFixed(1)};
+}
+function chiPval(x,k){if(k<=0||x<0)return 1;return 1-gammainc(k/2,x/2);}
+function gammainc(a,x){if(x<=0)return 0;if(x<a+1){let t=1/a,s=t;for(let n=1;n<200;n++){t*=x/(a+n);s+=t;if(Math.abs(t)<1e-10)break;}return s*Math.exp(-x+a*Math.log(x)-lgamma(a));}else{let f=1,C=1,D=1/(1+x-a),res=D;C=D;for(let i=1;i<200;i++){const an=-i*(i-a);C=1+an/C;D=1+an*D;if(Math.abs(C)<1e-30)C=1e-30;if(Math.abs(D)<1e-30)D=1e-30;C=1/C;D=1/D;const d=C*D;res*=d;if(Math.abs(d-1)<1e-10)break;}return 1-res*Math.exp(-x+a*Math.log(x)-lgamma(a));}}
+function lgamma(x){const c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,.1208650973866179e-2,-.5395239384953e-5];let y=x,tmp=x+5.5,ser=1.000000000190015;tmp-=(x+.5)*Math.log(tmp);c.forEach((v,i)=>{y++;ser+=v/y;});return -tmp+Math.log(2.5066282746310005*ser/x);}
+function sigLabel(p,valid){
+  const warn = valid ? '' : ' <span style="color:var(--c5);font-size:9px;">(n insuf.)</span>';
+  if(p<0.001)return`<span class="sig">p < 0,001 ***${warn}</span>`;
+  if(p<0.01)return`<span class="sig">p = ${p.toFixed(3)} **${warn}</span>`;
+  if(p<0.05)return`<span class="sig">p = ${p.toFixed(3)} *${warn}</span>`;
+  if(p<0.10)return`<span class="marg">p = ${p.toFixed(3)} †${warn}</span>`;
+  return`<span class="nosig">p = ${p.toFixed(3)} n.s.${warn}</span>`;
+}
+
+function renderStat() {
+  const div = document.getElementById('statsTests');
+  if (!div) return;
+  const ag = DATA.filter(d=>d.tipo==='agricultor');
+  const te = DATA.filter(d=>d.tipo==='tecnico');
+  const fem = DATA.filter(d=>d.genero==='Feminino');
+  const masc = DATA.filter(d=>d.genero==='Masculino');
+  const nAg=ag.length,nTe=te.length,nFem=fem.length,nMasc=masc.length;
+
+  if (DATA.length < 3) {
+    div.innerHTML = `<div class="ac"><div class="ac-title">🧮 Testes Estatísticos</div><div class="insight warn">Amostra atual (n=${DATA.length}) insuficiente para testes estatísticos. Mínimo recomendado: n ≥ 5 por grupo comparado. Os testes ficam disponíveis automaticamente conforme a coleta de dados avança.</div></div>`;
+    return;
+  }
+
+  function testBlock(title, subtitle, rows) {
+    return `<div class="ac"><div class="ac-title"><span>🧮</span>${title}</div>
+      <div style="font-size:11px;color:var(--t2);margin-bottom:10px;font-style:italic;">${subtitle}</div>
+      <div class="stat-box"><div class="stat-box-title">Resultados</div>
+        ${rows.map(r=>`<div class="stat-row"><div class="stat-lbl">${r.label}</div><div class="stat-val">${r.val}</div></div>`).join('')}
+      </div>
+      <div style="margin-top:7px;font-size:10px;color:var(--g3);">*** p&lt;0,001 &nbsp;** p&lt;0,01 &nbsp;* p&lt;0,05 &nbsp;† p&lt;0,10 marginal &nbsp;n.s. não significativo</div>
+    </div>`;
+  }
+
+  const blocks = [];
+
+  // Teste 1: Gênero × Perdas
+  if (nFem >= 2 && nMasc >= 2) {
+    const fPerd = cnt(fem,'perdas','Nao'), mPerd = cnt(masc,'perdas','Nao');
+    const fComP = nFem-fPerd, mComP = nMasc-mPerd;
+    if (fPerd+mPerd+fComP+mComP > 0) {
+      const r = chiSq([[fComP,fPerd],[mComP,mPerd]]);
+      blocks.push(testBlock(
+        '♀ Feminino vs. ♂ Masculino — Perdas por escassez',
+        'Teste χ² de independência: existe associação entre gênero e ocorrência de perdas?',
+        [
+          {label:`Feminino: perdas ${fComP}/${nFem} (${pct(fComP,nFem)}%) | Masculino: perdas ${mComP}/${nMasc} (${pct(mComP,nMasc)}%)`,
+           val:`χ² = ${r.chi2}, df=${r.df} — ${sigLabel(r.p,r.valid)}`},
+          {label:'Frequência esperada mínima',val:r.minExp >= 5 ? `${r.minExp} ✓` : `${r.minExp} ⚠️ abaixo de 5`}
+        ]));
+    }
+  }
+
+  // Teste 2: Gênero × Apoio técnico
+  if (nFem >= 2 && nMasc >= 2) {
+    const femAg = fem.filter(d=>d.tipo==='agricultor'), mascAg = masc.filter(d=>d.tipo==='agricultor');
+    if (femAg.length >= 2 && mascAg.length >= 2) {
+      const fAp = cnt(femAg,'apoio_tecnico','Sim'), mAp = cnt(mascAg,'apoio_tecnico','Sim');
+      if (fAp+mAp > 0) {
+        const r = chiSq([[fAp,femAg.length-fAp],[mAp,mascAg.length-mAp]]);
+        blocks.push(testBlock(
+          '♀ Feminino vs. ♂ Masculino — Acesso a Apoio Técnico',
+          'Teste χ²: existe diferença de gênero no acesso à orientação técnica sobre manejo da água?',
+          [{label:`Feminino: ${fAp}/${femAg.length} com apoio (${pct(fAp,femAg.length)}%) | Masculino: ${mAp}/${mascAg.length} (${pct(mAp,mascAg.length)}%)`,
+            val:`χ² = ${r.chi2}, df=${r.df} — ${sigLabel(r.p,r.valid)}`}]));
+      }
+    }
+  }
+
+  // Teste 3: Agricultor × Técnico — percepção de escassez agravada
+  if (nAg >= 2 && nTe >= 2) {
+    const agRed = cnt(ag,'reducao_agua','Sim'), teAgrav = cnt(te,'agravamento','Sim');
+    const agNao = cnt(ag,'reducao_agua','Nao'), teNao = cnt(te,'agravamento','Nao');
+    if (agRed+teAgrav+agNao+teNao > 0) {
+      const r = chiSq([[agRed,agNao],[teAgrav,teNao]]);
+      blocks.push(testBlock(
+        '🌾 Agricultores vs. 🔧 Técnicos — Percepção de Escassez',
+        'Teste χ²: convergência entre agricultores (Q15: redução hídrica) e técnicos (Q7: escassez agravada)?',
+        [{label:`Agricultores: ${agRed}/${nAg} relatam redução (${pct(agRed,nAg)}%) | Técnicos: ${teAgrav}/${nTe} (${pct(teAgrav,nTe)}%)`,
+          val:`χ² = ${r.chi2}, df=${r.df} — ${sigLabel(r.p,r.valid)}`}]));
+    }
+  }
+
+  if (blocks.length === 0) {
+    div.innerHTML = `<div class="ac"><div class="ac-title">🧮 Testes Estatísticos</div><div class="insight note">Com os filtros atuais (n=${DATA.length}), não há grupos com tamanho suficiente para comparações. Remova filtros ou adicione mais entrevistas.</div></div>`;
+  } else {
+    div.innerHTML = blocks.join('');
+  }
+}
+
+// ══════════════════════════════════════════════════════════
 // SÍNTESE
-// ══════════════════════════════════════════
-function renderSintese(D) {
-  const N=D.length;
-  const dimScore=(vals,maxP)=>Math.min(100,Math.round(vals.reduce((a,b)=>a+b,0)/(maxP*N)*100));
-  const allScore=(vals,maxP)=>Math.min(100,Math.round(vals.reduce((a,b)=>a+b,0)/(maxP*ALL.length)*100));
+// ══════════════════════════════════════════════════════════
+function renderSintese(N, muns) {
+  if (!N) return;
+  const ag = DATA.filter(d=>d.tipo==='agricultor');
+  const te = DATA.filter(d=>d.tipo==='tecnico');
+  const nAg = ag.length, nTe = te.length;
 
-  const dims=['Exposição\nHídrica','Impactos\nProdutivos','Déficit\nAdaptativo','Excl.\nInstitucional','Inseg.\nAlimentar'];
-  const filt=[
-    dimScore([cntA(D,'fontes_agua','chuva'),cntA(D,'fontes_agua','compra_carro_pipa'),cntA(D,'irrigacao','sem_irrigacao')],3),
-    dimScore([cntA(D,'impactos_marcados','reducao_produtividade'),cntA(D,'impactos_marcados','perda_lavouras'),cntA(D,'impactos_marcados','exodo')],3),
-    dimScore([cntA(D,'estrategias','sem_estrategia'),cntA(D,'dificuldades','financeiro'),cntA(D,'dificuldades','informacao')],3),
-    dimScore([cnt(D,'avaliacao_politicas','ruim')+cnt(D,'avaliacao_politicas','muito_ruim'),cntA(D,'dificuldades','politicas_publicas'),cntA(D,'dificuldades','assistencia')],3),
-    dimScore([cnt(D,'seguranca_alimentar','sim')*2,cnt(D,'seguranca_alimentar','parcialmente')],3)
+  // Radar — só calcula dimensões com dados reais
+  const safe = (n,d) => d>0 ? Math.min(100,Math.round(n/d*100)) : null;
+  const dims = [
+    {label:'Escassez\nPercebida', val: safe(cnt(ag,'reducao_agua','Sim')+cnt(te,'agravamento','Sim'), nAg+nTe)},
+    {label:'Perdas\nProdutivas', val: safe(ag.filter(d=>d.perdas&&d.perdas!=='Nao').length, nAg)},
+    {label:'Déficit\nAdaptativo', val: safe(cntA(ag,'estrategias','Sem_estrategia')+cnt(ag,'apoio_tecnico','Nao'), nAg*2)},
+    {label:'Excl.\nInstitucional', val: safe(cnt(te,'avaliacao_politicas','ruim')+cnt(te,'avaliacao_politicas','muito_ruim'), nTe)},
+    {label:'Prob. Resíduos', val: safe(cntA(ag,'destinacao_residuos','Queima')+cntA(ag,'destinacao_residuos','Enterra'), nAg)},
   ];
-  const all=[
-    allScore([cntA(ALL,'fontes_agua','chuva'),cntA(ALL,'fontes_agua','compra_carro_pipa'),cntA(ALL,'irrigacao','sem_irrigacao')],3),
-    allScore([cntA(ALL,'impactos_marcados','reducao_produtividade'),cntA(ALL,'impactos_marcados','perda_lavouras'),cntA(ALL,'impactos_marcados','exodo')],3),
-    allScore([cntA(ALL,'estrategias','sem_estrategia'),cntA(ALL,'dificuldades','financeiro'),cntA(ALL,'dificuldades','informacao')],3),
-    allScore([cnt(ALL,'avaliacao_politicas','ruim')+cnt(ALL,'avaliacao_politicas','muito_ruim'),cntA(ALL,'dificuldades','politicas_publicas'),cntA(ALL,'dificuldades','assistencia')],3),
-    allScore([cnt(ALL,'seguranca_alimentar','sim')*2,cnt(ALL,'seguranca_alimentar','parcialmente')],3)
+  const validDims = dims.filter(d => d.val !== null);
+  if (validDims.length >= 3) {
+    mkRadar('ch-radar', validDims.map(d=>d.label), [{
+      label:'Índice (%)',
+      data: validDims.map(d=>d.val),
+      backgroundColor:'#E76F5130',
+      borderColor:'#E76F51',
+      borderWidth:2.5,
+      pointBackgroundColor:'#E76F51',
+      pointRadius:4
+    }]);
+    const maxDim = validDims.reduce((a,b)=>b.val>a.val?b:a);
+    ins('ins-radar', `Radar construído com dados reais (${validDims.length} dimensões calculadas). Dimensão mais crítica: <strong>${maxDim.label.replace('\\n',' ')}</strong> (${maxDim.val}%). Dimensões sem dados suficientes foram omitidas.`);
+  } else {
+    noData('ch-radar', 'Dados insuficientes para o radar. Adicione mais entrevistas.');
+  }
+
+  // OEs
+  const oes = [
+    {num:'OE1',title:'Diagnóstico dos múltiplos usos da água',cor:'#005F73',findings:[
+      nAg>0?`${pct(cntA(ag,'usos_agua','Uso_beber'),nAg)}% usam a mesma fonte para consumo humano`:'Sem dados de agricultores',
+      nAg>0?`${pct(cntA(ag,'usos_agua','Uso_animal'),nAg)}% usam para dessedentação animal`:'',
+      nAg>0?`${pct(cntA(ag,'usos_agua','Uso_irrig_manual')+cntA(ag,'usos_agua','Uso_gotejamento')+cntA(ag,'usos_agua','Uso_aspersao'),nAg)}% usam para irrigação (alguma forma)`:'',
+      `${muns.length} município(s) coberto(s) na RMVRCE`,
+    ].filter(Boolean)},
+    {num:'OE2',title:'Diagnóstico da demanda hídrica',cor:'#1A6B9A',findings:[
+      nAg>0?`${pct(cnt(ag,'reducao_agua','Sim'),nAg)}% dos agricultores relatam redução hídrica nos últimos anos`:'Sem dados de agricultores',
+      nTe>0?`${pct(cnt(te,'agravamento','Sim'),nTe)}% dos técnicos confirmam agravamento da escassez`:'Sem dados de técnicos',
+      nAg>0?`${pct(cntA(ag,'fontes_agua','Poco_artesiano'),nAg)}% dependem de poço artesiano`:'',
+    ].filter(Boolean)},
+    {num:'OE3',title:'Impactos socioeconômicos da escassez',cor:'#E76F51',findings:[
+      nAg>0?`${pct(ag.filter(d=>d.perdas&&d.perdas!=='Nao').length,nAg)}% sofreram perdas de cultura e/ou animais`:'Sem dados de agricultores',
+      nAg>0?`${pct(cnt(ag,'reducao_renda','Sim'),nAg)}% com redução de renda documentada`:'',
+      nAg>0?`${pct(cntA(ag,'destinacao_residuos','Queima'),nAg)}% queimam resíduos — risco de contaminação hídrica`:'',
+    ].filter(Boolean)},
+    {num:'OE4',title:'Alternativas para gestão sustentável',cor:'#2A9D8F',findings:[
+      nTe>0?`${pct(cnt(te,'avaliacao_politicas','ruim')+cnt(te,'avaliacao_politicas','muito_ruim'),nTe)}% dos técnicos avaliam negativamente o acesso a políticas`:'Sem dados de técnicos',
+      nAg>0?`${pct(cnt(ag,'apoio_tecnico','Nao'),nAg)}% dos agricultores sem acesso a apoio técnico`:'',
+      nAg>0?`${pct(cntA(ag,'conhece_biogas','Nao'),nAg)}% não conhecem tecnologia de biogás`:'',
+    ].filter(Boolean)},
   ];
 
-  mkRadar('ch-radar',dims,[
-    {label:'Grupo filtrado (n='+N+')',data:filt,backgroundColor:P.f+'28',borderColor:P.f,borderWidth:2.5,pointBackgroundColor:P.f,pointRadius:4},
-    {label:'Total geral (n='+ALL.length+')',data:all,backgroundColor:P.b+'18',borderColor:P.b,borderWidth:1.5,borderDash:[5,4],pointBackgroundColor:P.b,pointRadius:3}
-  ]);
-  insBox('ins-radar',`Radar de vulnerabilidade multidimensional — grupo filtrado vs. amostra total. Divergências entre as curvas revelam especificidades do subgrupo selecionado que podem orientar políticas diferenciadas.`);
-
-  // OE
-  const oes=[
-    {num:'OE1',title:'Múltiplos usos da água na RMVRCE',cor:P.a,
-     findings:[`${pct(cntA(D,'fontes_agua','poco_artesiano'),N)}% usam poços artesianos`,`${pct(cntA(D,'fontes_agua','rio_corrego'),N)}% dependem de rios/córregos`,`${pct(cntA(D,'irrigacao','sem_irrigacao'),N)}% sem sistemas formais de irrigação`,`Uso múltiplo de fontes em ${pct(D.filter(d=>(d.fontes_agua||[]).length>1).length,N)}% das propriedades`]},
-    {num:'OE2',title:'Demanda hídrica e capacidade de suporte',cor:P.j,
-     findings:[`${pct(cnt(D,'percepcao_chuva','muito_menos')+cnt(D,'percepcao_chuva','mais_irregular'),N)}% percebem deterioração hídrica significativa`,`Conflitos pela água relatados em ${pct(cntA(D,'impactos_marcados','conflitos_agua'),N)}%`,`Percepção convergente com dados instrumentais ANA/2023 para a BHRC`]},
-    {num:'OE3',title:'Impactos socioeconômicos da escassez',cor:P.f,
-     findings:[`${pct(cntA(D,'impactos_marcados','reducao_produtividade'),N)}% relatam redução de produtividade`,`${pct(cnt(D,'seguranca_alimentar','sim'),N)}% com comprometimento direto da segurança alimentar`,`${pct(cntA(D,'impactos_marcados','aumento_custos'),N)}% com aumento significativo de custos`,`${pct(cntA(D,'impactos_marcados','exodo'),N)}% relatam êxodo ou abandono da atividade`]},
-    {num:'OE4',title:'Alternativas para gestão sustentável',cor:P.h,
-     findings:[`${pct(cnt(D,'avaliacao_politicas','ruim')+cnt(D,'avaliacao_politicas','muito_ruim'),N)}% avaliam negativamente o acesso a políticas públicas`,`${pct(cntA(D,'estrategias','sem_estrategia'),N)}% sem estratégias definidas`,`Barreiras financeiras identificadas em ${pct(cntA(D,'dificuldades','financeiro'),N)}% dos casos`,`Cisternagem e barraginhas emergem como tecnologias prioritárias localmente`]}
-  ];
-  document.getElementById('sinteseOE').innerHTML=oes.map(o=>`
+  document.getElementById('sinteseOE').innerHTML = oes.map(o => `
     <div class="ac" style="border-left:4px solid ${o.cor};">
-      <div class="ac-title"><span style="background:${o.cor};color:#fff;padding:2px 10px;border-radius:99px;font-size:11px;font-family:'DM Sans',sans-serif;">${o.num}</span>${o.title}</div>
-      ${o.findings.map(f=>`<div style="display:flex;gap:8px;font-size:12px;color:var(--t2);margin-bottom:6px;align-items:flex-start;"><span style="color:${o.cor};font-weight:700;flex-shrink:0;">▶</span><span>${f}</span></div>`).join('')}
+      <div class="ac-title"><span style="background:${o.cor};color:#fff;padding:2px 9px;border-radius:99px;font-size:11px;font-family:'DM Sans',sans-serif;">${o.num}</span>${o.title}</div>
+      ${o.findings.length ? o.findings.map(f=>`<div style="display:flex;gap:8px;font-size:12px;color:var(--t2);margin-bottom:5px;"><span style="color:${o.cor};font-weight:700;flex-shrink:0;">▶</span><span>${f}</span></div>`).join('') : '<div class="no-data">Dados insuficientes para este objetivo.</div>'}
     </div>`).join('');
 
   // Tabela municípios
-  const muns=[...new Set(D.map(d=>d.municipio).filter(Boolean))].sort();
-  const tb=document.getElementById('tb-mun'); if(!tb)return;
-  tb.innerHTML=`<tr><th>Município</th><th style="text-align:center;">N</th><th style="text-align:center;">% Agric.</th><th style="text-align:center;">Red. Prod.</th><th style="text-align:center;">Sem Estr.</th><th style="text-align:center;">Média Pol.</th></tr>`+
-    muns.map(m=>{const s=D.filter(d=>d.municipio===m);const sc={muito_bom:5,bom:4,regular:3,ruim:2,muito_ruim:1};const pol=s.filter(d=>d.avaliacao_politicas).map(d=>sc[d.avaliacao_politicas]||0);const media=pol.length?(pol.reduce((a,b)=>a+b,0)/pol.length).toFixed(1):'-';const mc=parseFloat(media)>=3.5?P.h:parseFloat(media)>=2.5?P.d:P.f;
-    return`<tr><td><strong>${m}</strong></td><td class="num">${s.length}</td><td class="pct">${pct(cnt(s,'tipo','agricultor'),s.length)}%</td><td class="pct">${pct(cntA(s,'impactos_marcados','reducao_produtividade'),s.length)}%</td><td class="pct">${pct(cntA(s,'estrategias','sem_estrategia'),s.length)}%</td><td class="num" style="color:${mc};">${media}</td></tr>`;}).join('');
+  const tb = document.getElementById('tb-mun');
+  if (tb && muns.length > 0) {
+    tb.innerHTML = `<tr><th>Município</th><th style="text-align:center;">N</th><th style="text-align:center;">Agric.</th><th style="text-align:center;">Técnicos</th><th style="text-align:center;">Com perdas</th><th style="text-align:center;">Apoio técnico</th></tr>`
+      + muns.sort().map(m => {
+        const s = DATA.filter(d=>d.municipio===m);
+        const sAg = s.filter(d=>d.tipo==='agricultor');
+        const comPerd = sAg.filter(d=>d.perdas&&d.perdas!=='Nao').length;
+        const comApoio = cnt(sAg,'apoio_tecnico','Sim');
+        return `<tr>
+          <td><strong>${m}</strong></td>
+          <td class="num">${s.length}</td>
+          <td class="pct">${cnt(s,'tipo','agricultor')}</td>
+          <td class="pct">${cnt(s,'tipo','tecnico')}</td>
+          <td class="pct">${sAg.length>0?pct(comPerd,sAg.length)+'%':'-'}</td>
+          <td class="pct">${sAg.length>0?pct(comApoio,sAg.length)+'%':'-'}</td>
+        </tr>`;
+      }).join('');
+  } else if (tb) tb.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--g3);">Municípios não informados.</td></tr>';
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 // BOOT
-// ══════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
 loadData();
+if (ALL.length === 0) {
+  document.getElementById('importBanner').style.display = 'flex';
+} else {
+  document.getElementById('importBanner').style.display = 'none';
+}
 applyFilters();
 </script>
 </body>
