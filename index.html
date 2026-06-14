@@ -889,7 +889,7 @@
           <div class="form-group"><label class="form-label">Codigo <span class="required">*</span></label><input class="form-input" id="f_codigo" placeholder="Ex: AG-001" oninput="updateProgress()"></div>
           <div class="form-group"><label class="form-label">Data <span class="required">*</span></label><input class="form-input" type="date" id="f_data" oninput="updateProgress()"></div>
         </div>
-        <div class="form-group"><label class="form-label">1. Idade</label><input class="form-input" id="f_ag_idade" placeholder="Ex: 45 anos"></div>
+        <div class="form-group"><label class="form-label">1. Idade <span class="required">*</span></label><input class="form-input" id="f_ag_idade" placeholder="Ex: 37 anos" oninput="updateProgress()"></div>
         <div class="form-group"><label class="form-label">2. Genero</label>
           <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_genero')"><input type="radio" name="r_ag_genero" value="Feminino"><span class="check-label">Feminino</span></label>
@@ -942,6 +942,13 @@
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Poco_artesiano">🔩 Poco Artesiano</label>
             <label class="check-item" onclick="toggleCheck(this)" id="opt_poco_caipira"><input type="checkbox" value="Poco_caipira">🪣 Poco caipira</label>
           </div>
+          <div id="bloco_poco_artesiano" style="display:none;margin-top:8px;background:var(--gray1);border-radius:9px;padding:12px 14px;border:1px solid var(--gray2);">
+            <div style="font-size:12px;color:var(--teal);margin-bottom:8px;font-weight:700;">🔩 Poco Artesiano — detalhes:</div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label" style="font-size:10px;">Profundidade (m)</label><input class="form-input" id="f_pa_profundidade" placeholder="Ex: 60 m"></div>
+              <div class="form-group"><label class="form-label" style="font-size:10px;">Vazao (m³/h ou L/h)</label><input class="form-input" id="f_pa_vazao" placeholder="Ex: 2 m³/h"></div>
+            </div>
+          </div>
           <div id="bloco_poco_caipira" style="display:none;margin-top:8px;background:var(--gray1);border-radius:9px;padding:12px 14px;border:1px solid var(--gray2);">
             <div style="font-size:12px;color:var(--text2);margin-bottom:8px;font-weight:600;">Poco caipira — detalhes:</div>
             <div class="check-group" style="flex-direction:row;gap:8px;margin-bottom:8px;">
@@ -954,21 +961,49 @@
           <input class="form-input" id="f_outros_fonte" placeholder="Especifique outra fonte..." style="margin-top:7px;display:none;">
         </div>
         <div class="form-group">
-          <label class="form-label">11. Possui armazenamento de agua?</label>
+          <label class="form-label">11. Possui armazenamento de agua? (pode marcar mais de um)</label>
           <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
-            <label class="check-item" onclick="toggleCheck(this,'radio','r_armazen')"><input type="radio" name="r_armazen" value="Nao"><span class="check-label">Nao</span></label>
-            <label class="check-item" onclick="toggleCheck(this,'radio','r_armazen')"><input type="radio" name="r_armazen" value="Cisterna"><span class="check-label">Sim — Cisterna</span></label>
-            <label class="check-item" onclick="toggleCheck(this,'radio','r_armazen')"><input type="radio" name="r_armazen" value="Cx_elevada"><span class="check-label">Sim — Cx d'agua elevada</span></label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Sem_armazen">Nao possui</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Cisterna">🛢️ Cisterna</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Cx_elevada">🏗️ Cx d'agua elevada</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Outro_armazen">➕ Outro</label>
           </div>
+          <input class="form-input" id="f_outro_armazen" placeholder="Especifique outro tipo de armazenamento..." style="margin-top:7px;display:none;">
         </div>
-        <div class="form-group"><label class="form-label">12. A quantidade de agua disponivel e suficiente para as atividades?</label>
+        <div class="form-group">
+          <label class="form-label">12. E realizado o tratamento da agua coletada?</label>
+          <div class="check-group" style="flex-direction:row;gap:8px;">
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Trat_nao">Nao realiza</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Trat_decantacao">🪣 Decantacao</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Trat_filtracao">🔵 Filtracao</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Trat_cloracao">💊 Cloracao</label>
+            <label class="check-item" onclick="optCheck(this)" id="opt_trat_outro"><input type="checkbox" value="Trat_outro">➕ Outro</label>
+          </div>
+          <input class="form-input" id="f_trat_outro" placeholder="Especifique outro tratamento..." style="margin-top:7px;display:none;">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">13. Quais sao as utilizacoes da agua na propriedade?</label>
+          <div class="check-group">
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Uso_beber">🥤 Beber</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Uso_banho">🚿 Banho</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Uso_cozinha">🍳 Cozinha e limpeza</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Uso_animal">🐄 Dessedentacao animal</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Uso_irrig_manual">🪣 Irrigacao manual (mangueira ou balde)</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Uso_gotejamento">💦 Irrigacao por gotejamento</label>
+            <label class="check-item" onclick="optCheck(this)"><input type="checkbox" value="Uso_aspersao">🚿 Irrigacao por aspersao</label>
+          </div>
+          <textarea class="form-textarea" id="f_uso_agua_obs" rows="2" placeholder="Outras utilizacoes ou observacoes sobre o uso da agua..." style="margin-top:8px;"></textarea>
+        </div>
+
+        <div class="form-group"><label class="form-label">14. A quantidade de agua disponivel e suficiente para as atividades?</label>
           <div class="check-group" style="flex-direction:row;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_suficiente')"><input type="radio" name="r_suficiente" value="Sim"><span class="check-label">Sim</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_suficiente')"><input type="radio" name="r_suficiente" value="Nao"><span class="check-label">Nao</span></label>
           </div>
           <textarea class="form-textarea" id="f_suficiente_exp" rows="2" placeholder="Se nao, explique..." style="margin-top:8px;"></textarea>
         </div>
-        <div class="form-group"><label class="form-label">13. Houve reducao na disponibilidade de agua nos ultimos anos?</label>
+        <div class="form-group"><label class="form-label">15. Houve reducao na disponibilidade de agua nos ultimos anos?</label>
           <div class="check-group" style="flex-direction:row;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_reducao_agua')"><input type="radio" name="r_reducao_agua" value="Sim"><span class="check-label">Sim</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_reducao_agua')"><input type="radio" name="r_reducao_agua" value="Nao"><span class="check-label">Nao</span></label>
@@ -984,7 +1019,7 @@
       <!-- IV. QUALIDADE DA ÁGUA -->
       <div class="section-header"><div class="section-header-dot" style="background:#1A6B9A;"></div><div class="section-header-title">IV — Qualidade da Agua</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco IV</div></div>
       <div class="card">
-        <div class="form-group"><label class="form-label">14. Sao realizadas coletas de agua para analise?</label>
+        <div class="form-group"><label class="form-label">16. Sao realizadas coletas de agua para analise?</label>
           <div class="check-group" style="flex-direction:row;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_coleta_analise')"><input type="radio" name="r_coleta_analise" value="Sim"><span class="check-label">Sim</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_coleta_analise')"><input type="radio" name="r_coleta_analise" value="Nao"><span class="check-label">Nao</span></label>
@@ -1011,7 +1046,7 @@
       <!-- V. IMPACTOS DA ESCASSEZ -->
       <div class="section-header"><div class="section-header-dot" style="background:var(--red);"></div><div class="section-header-title">V — Impactos da Escassez Hidrica</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco V</div></div>
       <div class="card">
-        <div class="form-group"><label class="form-label">15. A escassez de agua ja ocasionou perdas?</label>
+        <div class="form-group"><label class="form-label">17. A escassez de agua ja ocasionou perdas?</label>
           <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_perdas')"><input type="radio" name="r_perdas" value="Nao"><span class="check-label">Nao</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_perdas')"><input type="radio" name="r_perdas" value="Sim_Cultura"><span class="check-label">Sim — Cultura</span></label>
@@ -1020,7 +1055,7 @@
           </div>
           <textarea class="form-textarea" id="f_perdas_desc" rows="3" placeholder="Descreva as perdas..." style="margin-top:8px;"></textarea>
         </div>
-        <div class="form-group"><label class="form-label">16. Houve reducao de renda devido a falta de agua?</label>
+        <div class="form-group"><label class="form-label">18. Houve reducao de renda devido a falta de agua?</label>
           <div class="check-group" style="flex-direction:row;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_red_renda')"><input type="radio" name="r_red_renda" value="Sim"><span class="check-label">Sim</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_red_renda')"><input type="radio" name="r_red_renda" value="Nao"><span class="check-label">Nao</span></label>
@@ -1035,7 +1070,7 @@
       <!-- VI. ESTRATÉGIAS -->
       <div class="section-header"><div class="section-header-dot" style="background:var(--teal2);"></div><div class="section-header-title">VI — Estrategias de Adaptacao</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco VI</div></div>
       <div class="card">
-        <div class="form-group"><label class="form-label">17. Quais estrategias voce utiliza para lidar com a falta de agua?</label>
+        <div class="form-group"><label class="form-label">19. Quais estrategias voce utiliza para lidar com a falta de agua?</label>
           <div class="check-group">
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Reuso">♻️ Reuso de agua</label>
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Captacao_chuva">🌧️ Captacao de chuva</label>
@@ -1046,7 +1081,7 @@
           </div>
           <input class="form-input" id="f_outras_estr_ag" placeholder="Especifique outras estrategias..." style="margin-top:8px;display:none;">
         </div>
-        <div class="form-group"><label class="form-label">18. Ja recebeu apoio tecnico ou orientacao sobre manejo da agua?</label>
+        <div class="form-group"><label class="form-label">20. Ja recebeu apoio tecnico ou orientacao sobre manejo da agua?</label>
           <div class="check-group" style="flex-direction:row;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_apoio_tecnico')"><input type="radio" name="r_apoio_tecnico" value="Sim"><span class="check-label">Sim</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_apoio_tecnico')"><input type="radio" name="r_apoio_tecnico" value="Nao"><span class="check-label">Nao</span></label>
@@ -1062,7 +1097,7 @@
       <!-- VII. RESÍDUOS E SUSTENTABILIDADE -->
       <div class="section-header"><div class="section-header-dot" style="background:#8B4513;"></div><div class="section-header-title">VII — Residuos e Sustentabilidade Ambiental</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco VII</div></div>
       <div class="card">
-        <div class="form-group"><label class="form-label">19. Quais tipos de residuos sao gerados na sua propriedade?</label>
+        <div class="form-group"><label class="form-label">21. Quais tipos de residuos sao gerados na sua propriedade?</label>
           <div class="check-group">
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Restos_cultura">🌿 Restos de cultura</label>
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Embalagens_agrotox">🧴 Embalagens de agrotoxicos</label>
@@ -1073,7 +1108,7 @@
           </div>
           <input class="form-input" id="f_outros_residuos_ag" placeholder="Especifique outros residuos..." style="margin-top:8px;display:none;">
         </div>
-        <div class="form-group"><label class="form-label">20. Como e feita a destinacao final desses residuos?</label>
+        <div class="form-group"><label class="form-label">22. Como e feita a destinacao final desses residuos?</label>
           <div class="check-group">
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Queima">🔥 Queima</label>
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Enterra">⛏️ Enterra</label>
@@ -1084,15 +1119,16 @@
             <label class="check-item" onclick="toggleCheck(this)" id="opt_outro_destino_ag"><input type="checkbox" value="Outro_destino">➕ Outro</label>
           </div>
           <input class="form-input" id="f_outro_destino_ag" placeholder="Especifique outra destinacao..." style="margin-top:8px;display:none;">
+          <textarea class="form-textarea" id="f_destinacao_obs" rows="2" placeholder="Detalhes sobre a destinacao dos residuos (ex: queima em periodo permitido, enterra as embalagens...)" style="margin-top:8px;"></textarea>
         </div>
-        <div class="form-group"><label class="form-label">21. Existem dificuldades para realizar o manejo adequado dos residuos?</label>
+        <div class="form-group"><label class="form-label">23. Existem dificuldades para realizar o manejo adequado dos residuos?</label>
           <div class="check-group" style="flex-direction:row;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_dif_residuos')"><input type="radio" name="r_dif_residuos" value="Sim"><span class="check-label">Sim</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_dif_residuos')"><input type="radio" name="r_dif_residuos" value="Nao"><span class="check-label">Nao</span></label>
           </div>
           <textarea class="form-textarea" id="f_dif_residuos" rows="2" placeholder="Se sim, quais dificuldades?" style="margin-top:8px;"></textarea>
         </div>
-        <div class="form-group"><label class="form-label">22. Voce conhece sobre o Biogas?</label>
+        <div class="form-group"><label class="form-label">24. Voce conhece sobre o Biogas?</label>
           <div class="check-group" style="flex-direction:row;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_biogas')"><input type="radio" name="r_biogas" value="Sim"><span class="check-label">Sim</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_biogas')"><input type="radio" name="r_biogas" value="Nao"><span class="check-label">Nao — tem interesse em conhecer?</span></label>
@@ -1108,9 +1144,9 @@
       <!-- VIII. PERCEPÇÕES E EXPECTATIVAS -->
       <div class="section-header"><div class="section-header-dot" style="background:var(--amber);"></div><div class="section-header-title">VIII — Percepcoes e Expectativas</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco VIII</div></div>
       <div class="card">
-        <div class="form-group"><label class="form-label">23. Na sua opiniao, quais sao as principais causas da escassez hidrica na regiao?</label><textarea class="form-textarea" id="f_causas_escassez" rows="4" placeholder="Causas apontadas pelo participante..."></textarea></div>
-        <div class="form-group"><label class="form-label">24. O que poderia ajudar a melhorar a disponibilidade de agua na sua comunidade?</label><textarea class="form-textarea" id="f_melhorias_agua" rows="4" placeholder="Sugestoes do participante..."></textarea></div>
-        <div class="form-group"><label class="form-label">25. Gostaria de acrescentar alguma observacao?</label><textarea class="form-textarea" id="f_obs_final_ag" rows="3" placeholder="Consideracoes finais..."></textarea></div>
+        <div class="form-group"><label class="form-label">25. Na sua opiniao, quais sao as principais causas da escassez hidrica na regiao?</label><textarea class="form-textarea" id="f_causas_escassez" rows="4" placeholder="Causas apontadas pelo participante..."></textarea></div>
+        <div class="form-group"><label class="form-label">26. O que poderia ajudar a melhorar a disponibilidade de agua na sua comunidade?</label><textarea class="form-textarea" id="f_melhorias_agua" rows="4" placeholder="Sugestoes do participante..."></textarea></div>
+        <div class="form-group"><label class="form-label">27. Gostaria de acrescentar alguma observacao?</label><textarea class="form-textarea" id="f_obs_final_ag" rows="3" placeholder="Consideracoes finais..."></textarea></div>
         <div style="background:#f5f0fb;border:1.5px dashed #b39ddb;border-radius:10px;padding:14px 16px;">
           <div style="font-size:11px;font-weight:700;color:#6a1b9a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco VIII</div>
           <textarea class="form-textarea" id="f_memo_viii" rows="2" placeholder="Perspectiva de futuro, esperancas, resiliencia observada..." style="background:rgba(255,255,255,0.7);border-color:#b39ddb;font-size:13px;"></textarea>
@@ -1876,6 +1912,8 @@ function setupOutrosListeners() {
     ['Outras_estrategias',  'f_outras_estr_ag'],
     ['Outros_residuos',     'f_outros_residuos_ag'],
     ['Outro_destino',       'f_outro_destino_ag'],
+    ['Outro_armazen',       'f_outro_armazen'],
+    ['Trat_outro',          'f_trat_outro'],
     ['Outros_fatores',      'f_te_fator_outro'],
     ['Outros_impactos',     'f_te_imp_outro'],
     ['Outros_praticas_te',  'f_te_prat_outro'],
@@ -1891,6 +1929,14 @@ function setupOutrosListeners() {
       });
     }
   });
+  // Poco Artesiano — profundidade e vazao
+  const cbPA = document.querySelector('input[value="Poco_artesiano"]');
+  const blocoPA = document.getElementById('bloco_poco_artesiano');
+  if (cbPA && blocoPA) {
+    cbPA.addEventListener('change', function() {
+      blocoPA.style.display = this.checked ? 'block' : 'none';
+    });
+  }
   // Poco caipira detalhes
   const cbPoco = document.querySelector('input[value="Poco_caipira"]');
   const blocoPoco = document.getElementById('bloco_poco_caipira');
@@ -2015,7 +2061,20 @@ function salvarEntrevista() {
       poco_tipo:          getR('r_poco_tipo'),
       poco_profundidade:  getF('f_poco_profundidade'),
       outro_fonte:        getF('f_outros_fonte'),
-      armazenamento:      getR('r_armazen'),
+      armazenamento: getCB('#form-agricultor input[type=checkbox]').filter(v =>
+        ['Sem_armazen','Cisterna','Cx_elevada','Outro_armazen'].includes(v)),
+      outro_armazen:      getF('f_outro_armazen'),
+      // Q12 tratamento
+      tratamento_agua: getCB('#form-agricultor input[type=checkbox]').filter(v =>
+        ['Trat_nao','Trat_decantacao','Trat_filtracao','Trat_cloracao','Trat_outro'].includes(v)),
+      trat_outro:         getF('f_trat_outro'),
+      // Q13 utilizacoes
+      usos_agua: getCB('#form-agricultor input[type=checkbox]').filter(v =>
+        ['Uso_beber','Uso_banho','Uso_cozinha','Uso_animal','Uso_irrig_manual','Uso_gotejamento','Uso_aspersao'].includes(v)),
+      uso_agua_obs:       getF('f_uso_agua_obs'),
+      // poço artesiano
+      pa_profundidade:    getF('f_pa_profundidade'),
+      pa_vazao:           getF('f_pa_vazao'),
       agua_suficiente:    getR('r_suficiente'),
       agua_insuf_exp:     getF('f_suficiente_exp'),
       reducao_agua:       getR('r_reducao_agua'),
@@ -2048,6 +2107,7 @@ function salvarEntrevista() {
       destinacao_residuos: getCB('#form-agricultor input[type=checkbox]').filter(v =>
         ['Queima','Enterra','Coleta_publica','Devolucao_posto','Compostagem','Reaproveitamento','Outro_destino'].includes(v)),
       outro_destino:      getF('f_outro_destino_ag'),
+      destinacao_obs:  getF('f_destinacao_obs'),
       dif_residuos:       getR('r_dif_residuos'),
       dif_residuos_desc:  getF('f_dif_residuos'),
       conhece_biogas:     getR('r_biogas'),
@@ -2480,36 +2540,53 @@ function exportarRelatorio() {
   ];
   entrevistas.forEach((e, i) => {
     linhas.push(`--- ENTREVISTA ${i+1}: ${e.codigo} ---`);
-    linhas.push(`Tipo: ${e.tipo} | Data: ${e.data} | Municipio: ${e.municipio} | Localidade: ${e.localidade||'-'}`);
-    linhas.push(`Genero: ${e.genero||'-'} | Faixa etaria: ${e.faixa_etaria||'-'}`);
-    linhas.push(`TCLE assinado: ${e.tcle_assinado?'Sim':'Nao'}`);
+    linhas.push(`Tipo: ${e.tipo} | Data: ${e.data||'-'} | Municipio: ${e.municipio||'-'}${e.localidade?' | Localidade: '+e.localidade:''}`);
     if (e.tipo === 'agricultor') {
-      linhas.push(`Genero: ${e.genero||'-'} | Escolaridade: ${e.escolaridade||'-'} | Tamanho: ${e.tamanho_prop||'-'} | Posse: ${e.posse_terra||'-'}`);
-      if(e.atividades) linhas.push(`\nAtividades produtivas: ${e.atividades}`);
-      if(e.fontes_agua?.length) linhas.push(`\n[Q10] Fontes de agua: ${e.fontes_agua.join(', ')}${e.poco_tipo ? ' | Poco caipira: '+e.poco_tipo+(e.poco_profundidade?', prof.'+e.poco_profundidade:'') : ''}${e.outro_fonte?' | Outro: '+e.outro_fonte:''}`);
-      if(e.armazenamento) linhas.push(`\n[Q11] Armazenamento: ${e.armazenamento}`);
-      if(e.agua_suficiente) linhas.push(`\n[Q12] Agua suficiente: ${e.agua_suficiente}${e.agua_insuf_exp?' — '+e.agua_insuf_exp:''}`);
-      if(e.reducao_agua) linhas.push(`\n[Q13] Reducao agua nos ultimos anos: ${e.reducao_agua}${e.reducao_agua_desc?' — '+e.reducao_agua_desc:''}`);
-      if(e.memo_iii) linhas.push(`\n[MEMO III - Acesso Agua]: ${e.memo_iii}`);
-      if(e.coleta_analise) linhas.push(`\n[Q14] Coleta agua para analise: ${e.coleta_analise}${e.periodicidade_coleta?' | Period.: '+e.periodicidade_coleta:''}${e.quem_analisa?' | Quem: '+e.quem_analisa:''}`);
-      if(e.result_analise) linhas.push(`Resultados analise: ${e.result_analise}`);
-      if(e.contaminacao) linhas.push(`Contaminacao da agua: ${e.contaminacao}${e.contaminacao_desc?' — '+e.contaminacao_desc:''}`);
-      if(e.memo_iv) linhas.push(`\n[MEMO IV - Qualidade Agua]: ${e.memo_iv}`);
-      if(e.perdas) linhas.push(`\n[Q15] Perdas por escassez: ${e.perdas}${e.perdas_desc?' — '+e.perdas_desc:''}`);
-      if(e.reducao_renda) linhas.push(`[Q16] Reducao de renda: ${e.reducao_renda}`);
+      // I. Identificacao
+      linhas.push(`[Q01] Idade: ${e.idade||'-'}`);
+      linhas.push(`[Q02] Genero: ${e.genero||'-'}`);
+      linhas.push(`[Q03] Escolaridade: ${e.escolaridade||'-'}`);
+      linhas.push(`[Q04] Municipio/Comunidade: ${e.municipio||'-'}${e.localidade?' — '+e.localidade:''}`);
+      linhas.push(`[Q05] Tempo de residencia: ${e.tempo_res||'-'}`);
+      // II. Propriedade
+      linhas.push(`\n[Q06] Tamanho: ${e.tamanho_prop||'-'}`);
+      linhas.push(`[Q07] Posse da terra: ${e.posse_terra||'-'}`);
+      if(e.atividades) linhas.push(`[Q08] Atividades produtivas: ${e.atividades}`);
+      linhas.push(`[Q09] Num. pessoas nas atividades: ${e.num_pessoas||'-'}`);
+      if(e.memo_ii) linhas.push(`[MEMO II]: ${e.memo_ii}`);
+      // III. Acesso e uso da agua
+      if(e.fontes_agua?.length) linhas.push(`\n[Q10] Fontes de agua: ${e.fontes_agua.join(', ')}${e.pa_profundidade?' | PA prof.: '+e.pa_profundidade:''}${e.pa_vazao?' | Vazao: '+e.pa_vazao:''}${e.poco_tipo?' | Poco caipira: '+e.poco_tipo+(e.poco_profundidade?', prof.'+e.poco_profundidade:''):''}${e.outro_fonte?' | Outro: '+e.outro_fonte:''}`);
+      if(e.armazenamento?.length) linhas.push(`[Q11] Armazenamento: ${e.armazenamento.join(', ')}${e.outro_armazen?' | '+e.outro_armazen:''}`);
+      if(e.tratamento_agua?.length) linhas.push(`[Q12] Tratamento da agua: ${e.tratamento_agua.join(', ')}${e.trat_outro?' | '+e.trat_outro:''}`);
+      if(e.usos_agua?.length) linhas.push(`[Q13] Utilizacoes da agua: ${e.usos_agua.join(', ')}${e.uso_agua_obs?' | Obs: '+e.uso_agua_obs:''}`);
+      if(e.agua_suficiente) linhas.push(`[Q14] Agua suficiente: ${e.agua_suficiente}${e.agua_insuf_exp?' — '+e.agua_insuf_exp:''}`);
+      if(e.reducao_agua) linhas.push(`[Q15] Reducao agua nos ultimos anos: ${e.reducao_agua}${e.reducao_agua_desc?' — '+e.reducao_agua_desc:''}`);
+      if(e.memo_iii) linhas.push(`[MEMO III - Acesso Agua]: ${e.memo_iii}`);
+      // IV. Qualidade
+      if(e.coleta_analise) linhas.push(`\n[Q16] Coleta para analise: ${e.coleta_analise}${e.periodicidade_coleta?' | Period.: '+e.periodicidade_coleta:''}${e.quem_analisa?' | Quem: '+e.quem_analisa:''}`);
+      if(e.result_analise) linhas.push(`Resultados: ${e.result_analise}`);
+      if(e.contaminacao) linhas.push(`Contaminacao: ${e.contaminacao}${e.contaminacao_desc?' — '+e.contaminacao_desc:''}`);
+      if(e.memo_iv) linhas.push(`[MEMO IV - Qualidade Agua]: ${e.memo_iv}`);
+      // V. Impactos
+      if(e.perdas) linhas.push(`\n[Q17] Perdas por escassez: ${e.perdas}${e.perdas_desc?' — '+e.perdas_desc:''}`);
+      if(e.reducao_renda) linhas.push(`[Q18] Reducao de renda: ${e.reducao_renda}`);
       if(e.memo_v) linhas.push(`[MEMO V - Impactos]: ${e.memo_v}`);
-      if(e.estrategias?.length) linhas.push(`\n[Q17] Estrategias: ${e.estrategias.join(', ')}${e.outras_estrategias?' | '+e.outras_estrategias:''}`);
-      if(e.apoio_tecnico) linhas.push(`[Q18] Apoio tecnico: ${e.apoio_tecnico}${e.apoio_quem?' — '+e.apoio_quem:''}`);
+      // VI. Estrategias
+      if(e.estrategias?.length) linhas.push(`\n[Q19] Estrategias: ${e.estrategias.join(', ')}${e.outras_estrategias?' | '+e.outras_estrategias:''}`);
+      if(e.apoio_tecnico) linhas.push(`[Q20] Apoio tecnico: ${e.apoio_tecnico}${e.apoio_quem?' — '+e.apoio_quem:''}`);
       if(e.memo_vi) linhas.push(`[MEMO VI - Estrategias]: ${e.memo_vi}`);
-      if(e.tipos_residuos?.length) linhas.push(`\n[Q19] Residuos gerados: ${e.tipos_residuos.join(', ')}${e.outros_residuos?' | '+e.outros_residuos:''}`);
-      if(e.destinacao_residuos?.length) linhas.push(`[Q20] Destinacao residuos: ${e.destinacao_residuos.join(', ')}${e.outro_destino?' | '+e.outro_destino:''}`);
-      if(e.dif_residuos) linhas.push(`[Q21] Dif. manejo residuos: ${e.dif_residuos}${e.dif_residuos_desc?' — '+e.dif_residuos_desc:''}`);
-      if(e.conhece_biogas) linhas.push(`[Q22] Conhece Biogas: ${e.conhece_biogas}${e.biogas_interesse?' — '+e.biogas_interesse:''}`);
+      // VII. Residuos
+      if(e.tipos_residuos?.length) linhas.push(`\n[Q21] Residuos gerados: ${e.tipos_residuos.join(', ')}${e.outros_residuos?' | '+e.outros_residuos:''}`);
+      if(e.destinacao_residuos?.length) linhas.push(`[Q22] Destinacao: ${e.destinacao_residuos.join(', ')}${e.outro_destino?' | '+e.outro_destino:''}${e.destinacao_obs?' | Obs: '+e.destinacao_obs:''}`);
+      if(e.dif_residuos) linhas.push(`[Q23] Dif. manejo residuos: ${e.dif_residuos}${e.dif_residuos_desc?' — '+e.dif_residuos_desc:''}`);
+      if(e.conhece_biogas) linhas.push(`[Q24] Conhece Biogas: ${e.conhece_biogas}${e.biogas_interesse?' — '+e.biogas_interesse:''}`);
       if(e.memo_vii) linhas.push(`[MEMO VII - Residuos]: ${e.memo_vii}`);
-      if(e.causas_escassez) linhas.push(`\n[Q23] Causas da escassez:\n${e.causas_escassez}`);
-      if(e.melhorias_agua) linhas.push(`\n[Q24] Sugestoes melhoria agua:\n${e.melhorias_agua}`);
-      if(e.obs_final) linhas.push(`\n[Q25] Observacoes finais:\n${e.obs_final}`);
-      if(e.memo_viii) linhas.push(`\n[MEMO VIII - Percepcoes]: ${e.memo_viii}`);
+      // VIII. Percepcoes
+      if(e.causas_escassez) linhas.push(`\n[Q25] Causas da escassez:\n${e.causas_escassez}`);
+      if(e.melhorias_agua) linhas.push(`\n[Q26] Sugestoes melhoria:\n${e.melhorias_agua}`);
+      if(e.obs_final) linhas.push(`\n[Q27] Observacoes finais:\n${e.obs_final}`);
+      if(e.memo_viii) linhas.push(`[MEMO VIII]: ${e.memo_viii}`);
+
     } else if (e.tipo === 'tecnico') {
       linhas.push(`Instituicao: ${e.instituicao||'-'} | Cargo: ${e.cargo||'-'} | Tempo: ${e.tempo_atuacao||'-'}`);
       if(e.municipios_atend) linhas.push(`Municipios atendidos: ${e.municipios_atend}`);
@@ -2566,6 +2643,7 @@ function gerarTxtBase(lista, titulo, campos) {
       const val = fn(e);
       if (val) linhas.push('\n' + label + ':\n' + val);
     });
+    linhas.push(`\nTCLE: ${e.tcle_assinado?'Sim':'Nao'} | Audio autorizado: ${e.audio_autorizado?'Sim':'Nao'} | Anonimato: ${e.anonimato_garantido?'Sim':'Nao'}`);
     linhas.push('\n' + '─'.repeat(60) + '\n');
   });
   return linhas.join('\n');
