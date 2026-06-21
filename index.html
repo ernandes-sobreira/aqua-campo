@@ -2516,20 +2516,222 @@ function exportarJSON() {
 }
 
 function exportarCSV() {
-  const headers = ['ID','Codigo','Tipo','Data','Municipio','Localidade','Genero','Faixa_Etaria','Fontes_Agua','Percepcao_Chuva','Seguranca_Alimentar','Impactos','Estrategias','Avaliacao_Politicas','TCLE','Timestamp'];
+  const headers = [
+    'ID','Codigo','Tipo','Data','Municipio','Localidade','Genero','Idade','Escolaridade',
+    'Tempo_Residencia','Tamanho_ha','Posse_Terra','Atividades','Num_Pessoas',
+    'Fontes_Agua','PA_Profundidade','PA_Vazao','Armazenamento','Tratamento_Agua',
+    'Usos_Agua','Agua_Suficiente','Reducao_Agua','Coleta_Analise','Contaminacao',
+    'Perdas','Reducao_Renda','Estrategias','Apoio_Tecnico','Apoio_Quem',
+    'Tipos_Residuos','Destinacao_Residuos','Dif_Residuos','Conhece_Biogas',
+    'Causas_Escassez','Sugestoes_Melhoria','Obs_Final',
+    'Instituicao_TE','Cargo_TE','Tempo_Atuacao_TE','Municipios_TE',
+    'Disponibilidade_TE','Agravamento_TE','Fatores_TE',
+    'Impactos_TE','Seg_Alimentar_TE','Praticas_TE',
+    'Infraestrutura_TE','Avaliacao_Politicas','Dificuldades_TE',
+    'Res_Qualidade_TE','Residuos_Mal_TE',
+    'TCLE','Categorias','Timestamp'
+  ];
   const rows = entrevistas.map(e => [
-    e.id, e.codigo, e.tipo, e.data, e.municipio, e.localidade, e.genero, e.faixa_etaria,
-    (e.fontes_agua||[]).join('|'), e.percepcao_chuva, e.seguranca_alimentar,
-    (e.impactos_marcados||[]).join('|'), (e.estrategias||[]).join('|'),
-    e.avaliacao_politicas, e.tcle_assinado?'Sim':'Nao', e.timestamp
-  ].map(v => '"' + (v||'').toString().replace(/"/g,'""') + '"').join(','));
-  const csv = [headers.join(','), ...rows].join('\n');
-  download('aquacampo_' + new Date().toISOString().split('T')[0] + '.csv', '\uFEFF' + csv, 'text/csv;charset=utf-8');
-  showToast('CSV exportado!');
+    e.id||'', e.codigo||'', e.tipo||'', e.data||'', e.municipio||'', e.localidade||'',
+    e.genero||'', e.idade||'', e.escolaridade||'',
+    e.tempo_res||'', e.tamanho_prop||'', e.posse_terra||'',
+    (e.atividades||'').replace(/\n/g,' '), e.num_pessoas||'',
+    (e.fontes_agua||[]).join('|'), e.pa_profundidade||'', e.pa_vazao||'',
+    (e.armazenamento||[]).join('|'), (e.tratamento_agua||[]).join('|'),
+    (e.usos_agua||[]).join('|'), e.agua_suficiente||'', e.reducao_agua||'',
+    e.coleta_analise||'', e.contaminacao||'',
+    e.perdas||'', e.reducao_renda||'',
+    (e.estrategias||[]).join('|'), e.apoio_tecnico||'', e.apoio_quem||'',
+    (e.tipos_residuos||[]).join('|'), (e.destinacao_residuos||[]).join('|'),
+    e.dif_residuos||'', e.conhece_biogas||'',
+    (e.causas_escassez||'').replace(/\n/g,' '),
+    (e.melhorias_agua||'').replace(/\n/g,' '),
+    (e.obs_final||'').replace(/\n/g,' '),
+    e.instituicao||'', e.cargo||'', e.tempo_atuacao||'', e.municipios_atend||'',
+    e.disponibilidade||'', e.agravamento||'', (e.fatores_reducao||[]).join('|'),
+    (e.impactos_marcados||[]).join('|'), e.seguranca_alimentar||'',
+    (e.praticas_manejo||[]).join('|'),
+    e.infraestrutura||'', e.avaliacao_politicas||'', (e.dificuldades||[]).join('|'),
+    e.res_qualidade||'', (e.residuos_mal_geridos||[]).join('|'),
+    e.tcle_assinado?'Sim':'Nao',
+    (e.categorias||[]).join('|'),
+    e.timestamp||''
+  ].map(v => '"' + String(v||'').replace(/"/g, '""') + '"').join(','));
+  download('aquacampo_'+new Date().toISOString().split('T')[0]+'.csv',
+    '\uFEFF' + [headers.join(','), ...rows].join('\n'), 'text/csv;charset=utf-8');
+  showToast('CSV exportado! (' + entrevistas.length + ' entrevistas, ' + headers.length + ' colunas)');
+}
+
+function gerarBlocoEntrevista(e, i) {
+  const L = [];
+  const sep = '----------------------------------------------------';
+  L.push('');
+  L.push('====================================================');
+  L.push(`ENTREVISTA ${i+1}: ${e.codigo}`);
+  L.push('====================================================');
+  L.push(`Tipo: ${e.tipo} | Data: ${e.data||'-'} | Municipio: ${e.municipio||'-'}${e.localidade?' | Localidade: '+e.localidade:''}`);
+  L.push(`TCLE assinado: ${e.tcle_assinado?'Sim':'Nao'} | Audio autorizado: ${e.audio_autorizado?'Sim':'Nao'}`);
+
+  if (e.tipo === 'agricultor') {
+    L.push('');
+    L.push('I - IDENTIFICACAO');
+    L.push(sep);
+    L.push(`[Q01] Idade (anos): ${e.idade||'-'}`);
+    L.push(`[Q02] Genero: ${e.genero||'-'}`);
+    L.push(`[Q03] Escolaridade: ${e.escolaridade||'-'}`);
+    L.push(`[Q04] Municipio/Comunidade: ${e.municipio||'-'}${e.localidade?' — '+e.localidade:''}`);
+    L.push(`[Q05] Tempo de residencia (anos): ${e.tempo_res||'-'}`);
+
+    L.push('');
+    L.push('II - CARACTERIZACAO DA PROPRIEDADE');
+    L.push(sep);
+    L.push(`[Q06] Tamanho (ha): ${e.tamanho_prop||'-'}`);
+    L.push(`[Q07] Posse da terra: ${e.posse_terra||'-'}`);
+    L.push(`[Q08] Atividades produtivas: ${e.atividades||'-'}`);
+    L.push(`[Q09] Num. pessoas nas atividades: ${e.num_pessoas||'-'}`);
+    if(e.memo_ii) L.push(`[MEMO II]: ${e.memo_ii}`);
+
+    L.push('');
+    L.push('III - ACESSO E USO DA AGUA');
+    L.push(sep);
+    L.push(`[Q10] Fontes de agua: ${(e.fontes_agua||[]).join(', ')||'-'}${e.pa_profundidade?' | PA prof.: '+e.pa_profundidade:''}${e.pa_vazao?' | Vazao: '+e.pa_vazao:''}${e.poco_tipo?' | Poco caipira: '+e.poco_tipo+(e.poco_profundidade?', prof.'+e.poco_profundidade:''):''}${e.outro_fonte?' | Outro: '+e.outro_fonte:''}`);
+    L.push(`[Q11] Armazenamento: ${(e.armazenamento||[]).join(', ')||'-'}${e.outro_armazen?' | '+e.outro_armazen:''}`);
+    L.push(`[Q13] Utilizacoes da agua: ${(e.usos_agua||[]).join(', ')||'-'}${e.uso_agua_obs?' | Obs: '+e.uso_agua_obs:''}`);
+    L.push(`[Q14] Agua suficiente: ${e.agua_suficiente||'-'}${e.agua_insuf_exp?' — '+e.agua_insuf_exp:''}`);
+    L.push(`[Q15] Reducao agua nos ultimos anos: ${e.reducao_agua||'-'}${e.reducao_agua_desc?' — '+e.reducao_agua_desc:''}`);
+    if(e.memo_iii) L.push(`[MEMO III - Acesso Agua]: ${e.memo_iii}`);
+
+    L.push('');
+    L.push('IV - QUALIDADE DA AGUA');
+    L.push(sep);
+    L.push(`[Q12] Tratamento da agua: ${(e.tratamento_agua||[]).join(', ')||'-'}${e.trat_outro?' | '+e.trat_outro:''}`);
+    L.push(`[Q16] Coleta para analise: ${e.coleta_analise||'-'}${e.periodicidade_coleta?' | Period.: '+e.periodicidade_coleta:''}${e.quem_analisa?' | Quem: '+e.quem_analisa:''}`);
+    if(e.result_analise) L.push(`Resultados: ${e.result_analise}`);
+    L.push(`Contaminacao da agua: ${e.contaminacao||'-'}${e.contaminacao_desc?' — '+e.contaminacao_desc:''}`);
+    if(e.memo_iv) L.push(`[MEMO IV - Qualidade Agua]: ${e.memo_iv}`);
+
+    L.push('');
+    L.push('V - IMPACTOS DA ESCASSEZ HIDRICA');
+    L.push(sep);
+    L.push(`[Q17] Perdas por escassez: ${e.perdas||'-'}${e.perdas_desc?' — '+e.perdas_desc:''}`);
+    L.push(`[Q18] Reducao de renda: ${e.reducao_renda||'-'}`);
+    if(e.memo_v) L.push(`[MEMO V - Impactos]: ${e.memo_v}`);
+
+    L.push('');
+    L.push('VI - ESTRATEGIAS DE ADAPTACAO');
+    L.push(sep);
+    L.push(`[Q19] Estrategias: ${(e.estrategias||[]).join(', ')||'-'}${e.outras_estrategias?' | '+e.outras_estrategias:''}`);
+    L.push(`[Q20] Apoio tecnico: ${e.apoio_tecnico||'-'}${e.apoio_quem?' — '+e.apoio_quem:''}`);
+    if(e.memo_vi) L.push(`[MEMO VI - Estrategias]: ${e.memo_vi}`);
+
+    L.push('');
+    L.push('VII - RESIDUOS E SUSTENTABILIDADE AMBIENTAL');
+    L.push(sep);
+    L.push(`[Q21] Residuos gerados: ${(e.tipos_residuos||[]).join(', ')||'-'}${e.outros_residuos?' | '+e.outros_residuos:''}`);
+    L.push(`[Q22] Destinacao: ${(e.destinacao_residuos||[]).join(', ')||'-'}${e.outro_destino?' | '+e.outro_destino:''}${e.destinacao_obs?' | Obs: '+e.destinacao_obs:''}`);
+    L.push(`[Q23] Dif. manejo residuos: ${e.dif_residuos||'-'}${e.dif_residuos_desc?' — '+e.dif_residuos_desc:''}`);
+    L.push(`[Q24] Conhece Biogas: ${e.conhece_biogas||'-'}${e.biogas_interesse?' — '+e.biogas_interesse:''}`);
+    if(e.memo_vii) L.push(`[MEMO VII - Residuos]: ${e.memo_vii}`);
+
+    L.push('');
+    L.push('VIII - PERCEPCOES E EXPECTATIVAS');
+    L.push(sep);
+    if(e.causas_escassez) { L.push('[Q25] Causas da escassez:'); L.push(e.causas_escassez); }
+    else L.push('[Q25] Causas da escassez: -');
+    if(e.melhorias_agua) { L.push('[Q26] Sugestoes de melhoria:'); L.push(e.melhorias_agua); }
+    else L.push('[Q26] Sugestoes de melhoria: -');
+    if(e.obs_final) { L.push('[Q27] Observacoes finais:'); L.push(e.obs_final); }
+    else L.push('[Q27] Observacoes finais: -');
+    if(e.memo_viii) L.push(`[MEMO VIII]: ${e.memo_viii}`);
+
+  } else if (e.tipo === 'tecnico') {
+    L.push('');
+    L.push('BLOCO 1 - PERFIL DO RESPONDENTE');
+    L.push(sep);
+    L.push(`[Q1] Instituicao: ${e.instituicao||'-'}`);
+    L.push(`[Q2] Cargo/Funcao: ${e.cargo||'-'}`);
+    L.push(`[Q3] Tempo de atuacao: ${e.tempo_atuacao||'-'}`);
+    L.push(`[Q4] Municipios atendidos: ${e.municipios_atend||'-'}`);
+    L.push(`[Q5] Cadeias produtivas: ${e.cadeias||'-'}`);
+
+    L.push('');
+    L.push('BLOCO 2 - PERCEPCOES SOBRE ESCASSEZ HIDRICA');
+    L.push(sep);
+    L.push(`[Q6] Disponibilidade hidrica: ${e.disponibilidade||'-'}`);
+    L.push(`[Q7] Escassez agravada: ${e.agravamento||'-'}${e.agrav_desc?' — '+e.agrav_desc:''}`);
+    L.push(`[Q8] Fatores de reducao: ${(e.fatores_reducao||[]).join(', ')||'-'}${e.outro_fator?' | '+e.outro_fator:''}`);
+    if(e.memo_b2) L.push(`[MEMO B2]: ${e.memo_b2}`);
+
+    L.push('');
+    L.push('BLOCO 3 - IMPACTOS NA PRODUCAO E NO COTIDIANO RURAL');
+    L.push(sep);
+    L.push(`[Q9] Impactos observados: ${(e.impactos_marcados||[]).join(', ')||'-'}${e.outro_impacto?' | '+e.outro_impacto:''}`);
+    L.push(`[Q10] Seguranca alimentar: ${e.seguranca_alimentar||'-'}${e.segalim_exp?' — '+e.segalim_exp:''}`);
+    if(e.memo_b3) L.push(`[MEMO B3]: ${e.memo_b3}`);
+
+    L.push('');
+    L.push('BLOCO 4 - MANEJO HIDRICO E TECNOLOGIAS');
+    L.push(sep);
+    L.push(`[Q11] Praticas de manejo: ${(e.praticas_manejo||[]).join(', ')||'-'}`);
+    L.push(`[Q12] Infraestrutura hidrica: ${e.infraestrutura||'-'}`);
+    if(e.tecnologias) { L.push('[Q13] Tecnologias prioritarias:'); L.push(e.tecnologias); }
+    else L.push('[Q13] Tecnologias prioritarias: -');
+    if(e.memo_b4) L.push(`[MEMO B4]: ${e.memo_b4}`);
+
+    L.push('');
+    L.push('BLOCO 5 - POLITICAS PUBLICAS E ASSISTENCIA TECNICA');
+    L.push(sep);
+    L.push(`[Q14] Avaliacao das politicas publicas: ${e.avaliacao_politicas||'-'}`);
+    L.push(`[Q15] Dificuldades para praticas sustentaveis: ${(e.dificuldades||[]).join(', ')||'-'}`);
+    if(e.programas) { L.push('[Q16] Programas eficazes:'); L.push(e.programas); }
+    else L.push('[Q16] Programas eficazes: -');
+    if(e.memo_b5) L.push(`[MEMO B5]: ${e.memo_b5}`);
+
+    L.push('');
+    L.push('BLOCO 6 - ASPECTOS AMBIENTAIS E RESIDUOS');
+    L.push(sep);
+    L.push(`[Q17a] Residuos interferem na qualidade da agua: ${e.res_qualidade||'-'}${e.res_qual_exp?' — '+e.res_qual_exp:''}`);
+    L.push(`[Q17b] Residuos mal geridos: ${(e.residuos_mal_geridos||[]).join(', ')||'-'}`);
+    if(e.orientacoes_res) { L.push('[Q18] Orientacoes sobre residuos:'); L.push(e.orientacoes_res); }
+    else L.push('[Q18] Orientacoes sobre residuos: -');
+    if(e.memo_b6) L.push(`[MEMO B6]: ${e.memo_b6}`);
+
+    L.push('');
+    L.push('BLOCO 7 - SUGESTOES E PERCEPCOES FINAIS');
+    L.push(sep);
+    if(e.acoes_resiliencia) { L.push('[Q20] Acoes para resiliencia hidrica:'); L.push(e.acoes_resiliencia); }
+    else L.push('[Q20] Acoes para resiliencia hidrica: -');
+    if(e.obs_final) { L.push('[Q21] Consideracoes adicionais:'); L.push(e.obs_final); }
+    else L.push('[Q21] Consideracoes adicionais: -');
+    if(e.memo_b7) L.push(`[MEMO B7]: ${e.memo_b7}`);
+
+  } else {
+    // Representante
+    L.push('');
+    L.push('ORGANIZACAO / COOPERATIVA');
+    L.push(sep);
+    L.push(`Organizacao: ${e.org_nome||'-'} (${e.org_tipo||'-'})`);
+    L.push(`Associados: ${e.associados||'-'} | Abrangencia: ${e.abrangencia||'-'}`);
+    if(e.impacto_coletivo) { L.push('Impactos coletivos:'); L.push(e.impacto_coletivo); }
+    L.push(`Avaliacao apoio institucional: ${e.avaliacao_politicas||'-'}`);
+    if(e.residuos_coletivos) { L.push('Gestao coletiva de residuos:'); L.push(e.residuos_coletivos); }
+    if(e.propostas) { L.push('Propostas para politicas publicas:'); L.push(e.propostas); }
+    if(e.obs_final) { L.push('Observacoes finais:'); L.push(e.obs_final); }
+    if(e.memo) L.push(`[MEMO]: ${e.memo}`);
+  }
+
+  L.push('');
+  L.push('CATEGORIAS TEMATICAS (Bardin, 2016):');
+  L.push((e.categorias||[]).length ? e.categorias.join(', ') : '(nenhuma selecionada)');
+  L.push('');
+  L.push('====================================================');
+  L.push('');
+  return L.join('\n');
 }
 
 function exportarRelatorio() {
-  const linhas = [
+  if (!entrevistas.length) { showToast('Nenhuma entrevista para exportar', true); return; }
+  const cabecalho = [
     '====================================================',
     'RELATORIO DE CAMPO - AQUA-CAMPO',
     '====================================================',
@@ -2539,224 +2741,115 @@ function exportarRelatorio() {
     'Instituicao: UNEMAT / ProfAgua',
     'Gerado em: ' + new Date().toLocaleString('pt-BR'),
     'Total de entrevistas: ' + entrevistas.length,
-    '====================================================\n'
-  ];
-  entrevistas.forEach((e, i) => {
-    linhas.push(`--- ENTREVISTA ${i+1}: ${e.codigo} ---`);
-    linhas.push(`Tipo: ${e.tipo} | Data: ${e.data||'-'} | Municipio: ${e.municipio||'-'}${e.localidade?' | Localidade: '+e.localidade:''}`);
-    if (e.tipo === 'agricultor') {
-      // I. Identificacao
-      linhas.push(`[Q01] Idade: ${e.idade||'-'}`);
-      linhas.push(`[Q02] Genero: ${e.genero||'-'}`);
-      linhas.push(`[Q03] Escolaridade: ${e.escolaridade||'-'}`);
-      linhas.push(`[Q04] Municipio/Comunidade: ${e.municipio||'-'}${e.localidade?' — '+e.localidade:''}`);
-      linhas.push(`[Q05] Tempo de residencia: ${e.tempo_res||'-'}`);
-      // II. Propriedade
-      linhas.push(`\n[Q06] Tamanho: ${e.tamanho_prop||'-'}`);
-      linhas.push(`[Q07] Posse da terra: ${e.posse_terra||'-'}`);
-      if(e.atividades) linhas.push(`[Q08] Atividades produtivas: ${e.atividades}`);
-      linhas.push(`[Q09] Num. pessoas nas atividades: ${e.num_pessoas||'-'}`);
-      if(e.memo_ii) linhas.push(`[MEMO II]: ${e.memo_ii}`);
-      // III. Acesso e uso da agua
-      if(e.fontes_agua?.length) linhas.push(`\n[Q10] Fontes de agua: ${e.fontes_agua.join(', ')}${e.pa_profundidade?' | PA prof.: '+e.pa_profundidade:''}${e.pa_vazao?' | Vazao: '+e.pa_vazao:''}${e.poco_tipo?' | Poco caipira: '+e.poco_tipo+(e.poco_profundidade?', prof.'+e.poco_profundidade:''):''}${e.outro_fonte?' | Outro: '+e.outro_fonte:''}`);
-      if(e.armazenamento?.length) linhas.push(`[Q11] Armazenamento: ${e.armazenamento.join(', ')}${e.outro_armazen?' | '+e.outro_armazen:''}`);
-      if(e.tratamento_agua?.length) linhas.push(`[Q12] Tratamento da agua: ${e.tratamento_agua.join(', ')}${e.trat_outro?' | '+e.trat_outro:''}`);
-      if(e.usos_agua?.length) linhas.push(`[Q13] Utilizacoes da agua: ${e.usos_agua.join(', ')}${e.uso_agua_obs?' | Obs: '+e.uso_agua_obs:''}`);
-      if(e.agua_suficiente) linhas.push(`[Q14] Agua suficiente: ${e.agua_suficiente}${e.agua_insuf_exp?' — '+e.agua_insuf_exp:''}`);
-      if(e.reducao_agua) linhas.push(`[Q15] Reducao agua nos ultimos anos: ${e.reducao_agua}${e.reducao_agua_desc?' — '+e.reducao_agua_desc:''}`);
-      if(e.memo_iii) linhas.push(`[MEMO III - Acesso Agua]: ${e.memo_iii}`);
-      // IV. Qualidade
-      if(e.coleta_analise) linhas.push(`\n[Q16] Coleta para analise: ${e.coleta_analise}${e.periodicidade_coleta?' | Period.: '+e.periodicidade_coleta:''}${e.quem_analisa?' | Quem: '+e.quem_analisa:''}`);
-      if(e.result_analise) linhas.push(`Resultados: ${e.result_analise}`);
-      if(e.contaminacao) linhas.push(`Contaminacao: ${e.contaminacao}${e.contaminacao_desc?' — '+e.contaminacao_desc:''}`);
-      if(e.memo_iv) linhas.push(`[MEMO IV - Qualidade Agua]: ${e.memo_iv}`);
-      // V. Impactos
-      if(e.perdas) linhas.push(`\n[Q17] Perdas por escassez: ${e.perdas}${e.perdas_desc?' — '+e.perdas_desc:''}`);
-      if(e.reducao_renda) linhas.push(`[Q18] Reducao de renda: ${e.reducao_renda}`);
-      if(e.memo_v) linhas.push(`[MEMO V - Impactos]: ${e.memo_v}`);
-      // VI. Estrategias
-      if(e.estrategias?.length) linhas.push(`\n[Q19] Estrategias: ${e.estrategias.join(', ')}${e.outras_estrategias?' | '+e.outras_estrategias:''}`);
-      if(e.apoio_tecnico) linhas.push(`[Q20] Apoio tecnico: ${e.apoio_tecnico}${e.apoio_quem?' — '+e.apoio_quem:''}`);
-      if(e.memo_vi) linhas.push(`[MEMO VI - Estrategias]: ${e.memo_vi}`);
-      // VII. Residuos
-      if(e.tipos_residuos?.length) linhas.push(`\n[Q21] Residuos gerados: ${e.tipos_residuos.join(', ')}${e.outros_residuos?' | '+e.outros_residuos:''}`);
-      if(e.destinacao_residuos?.length) linhas.push(`[Q22] Destinacao: ${e.destinacao_residuos.join(', ')}${e.outro_destino?' | '+e.outro_destino:''}${e.destinacao_obs?' | Obs: '+e.destinacao_obs:''}`);
-      if(e.dif_residuos) linhas.push(`[Q23] Dif. manejo residuos: ${e.dif_residuos}${e.dif_residuos_desc?' — '+e.dif_residuos_desc:''}`);
-      if(e.conhece_biogas) linhas.push(`[Q24] Conhece Biogas: ${e.conhece_biogas}${e.biogas_interesse?' — '+e.biogas_interesse:''}`);
-      if(e.memo_vii) linhas.push(`[MEMO VII - Residuos]: ${e.memo_vii}`);
-      // VIII. Percepcoes
-      if(e.causas_escassez) linhas.push(`\n[Q25] Causas da escassez:\n${e.causas_escassez}`);
-      if(e.melhorias_agua) linhas.push(`\n[Q26] Sugestoes melhoria:\n${e.melhorias_agua}`);
-      if(e.obs_final) linhas.push(`\n[Q27] Observacoes finais:\n${e.obs_final}`);
-      if(e.memo_viii) linhas.push(`[MEMO VIII]: ${e.memo_viii}`);
+    'Tipos: ' + ['agricultor','tecnico','representante'].map(t => {
+      const n = entrevistas.filter(e=>e.tipo===t).length;
+      return n > 0 ? n + ' ' + t + (n>1?'es':'') : null;
+    }).filter(Boolean).join(', '),
+    '====================================================',
+  ].join('\n');
 
-    } else if (e.tipo === 'tecnico') {
-      linhas.push(`Instituicao: ${e.instituicao||'-'} | Cargo: ${e.cargo||'-'} | Tempo: ${e.tempo_atuacao||'-'}`);
-      if(e.municipios_atend) linhas.push(`Municipios atendidos: ${e.municipios_atend}`);
-      if(e.cadeias) linhas.push(`Cadeias produtivas: ${e.cadeias}`);
-      if(e.disponibilidade) linhas.push(`\n[Q6] Disponibilidade hidrica: ${e.disponibilidade}`);
-      if(e.agravamento) linhas.push(`[Q7] Escassez agravada: ${e.agravamento}${e.agrav_desc?' — '+e.agrav_desc:''}`);
-      if(e.fatores_reducao?.length) linhas.push(`[Q8] Fatores de reducao: ${e.fatores_reducao.join(', ')}${e.outro_fator?' | '+e.outro_fator:''}`);
-      if(e.memo_b2) linhas.push(`[MEMO B2]: ${e.memo_b2}`);
-      if(e.impactos_marcados?.length) linhas.push(`\n[Q9] Impactos observados: ${e.impactos_marcados.join(', ')}${e.outro_impacto?' | '+e.outro_impacto:''}`);
-      if(e.seguranca_alimentar) linhas.push(`[Q10] Seg. alimentar: ${e.seguranca_alimentar}${e.segalim_exp?' — '+e.segalim_exp:''}`);
-      if(e.memo_b3) linhas.push(`[MEMO B3]: ${e.memo_b3}`);
-      if(e.praticas_manejo?.length) linhas.push(`\n[Q11] Praticas manejo: ${e.praticas_manejo.join(', ')}`);
-      if(e.infraestrutura) linhas.push(`[Q12] Infraestrutura: ${e.infraestrutura}`);
-      if(e.tecnologias) linhas.push(`\n[Q13] Tecnologias prioritarias:\n${e.tecnologias}`);
-      if(e.avaliacao_politicas) linhas.push(`\n[Q14] Avaliacao politicas: ${e.avaliacao_politicas}`);
-      if(e.dificuldades?.length) linhas.push(`[Q15] Dificuldades: ${e.dificuldades.join(', ')}`);
-      if(e.programas) linhas.push(`\n[Q16] Programas eficazes:\n${e.programas}`);
-      if(e.memo_b5) linhas.push(`[MEMO B5]: ${e.memo_b5}`);
-      if(e.res_qualidade) linhas.push(`\n[Q17a] Residuos interferem qualidade agua: ${e.res_qualidade}${e.res_qual_exp?' — '+e.res_qual_exp:''}`);
-      if(e.residuos_mal_geridos?.length) linhas.push(`[Q17b] Residuos mal geridos: ${e.residuos_mal_geridos.join(', ')}`);
-      if(e.orientacoes_res) linhas.push(`\n[Q18] Orientacoes sobre residuos:\n${e.orientacoes_res}`);
-      if(e.acoes_resiliencia) linhas.push(`\n[Q20] Acoes de resiliencia:\n${e.acoes_resiliencia}`);
-      if(e.obs_final) linhas.push(`\n[Q21] Consideracoes finais:\n${e.obs_final}`);
-      if(e.memo_b7) linhas.push(`[MEMO B7]: ${e.memo_b7}`);
-    } else {
-      if(e.impacto_coletivo) linhas.push(`\nImpactos coletivos:\n${e.impacto_coletivo}`);
-      if(e.avaliacao_politicas) linhas.push(`Apoio institucional: ${e.avaliacao_politicas}`);
-      if(e.residuos_coletivos) linhas.push(`Residuos coletivos:\n${e.residuos_coletivos}`);
-      if(e.propostas) linhas.push(`Propostas politicas:\n${e.propostas}`);
-      if(e.obs_final) linhas.push(`Observacoes: ${e.obs_final}`);
-    }
-    if(e.categorias?.length) linhas.push(`\nCATEGORIAS: ${e.categorias.join(', ')}`);
-    linhas.push('\n');
-  });
-  download('aquacampo_relatorio_' + new Date().toISOString().split('T')[0] + '.txt', linhas.join('\n'), 'text/plain;charset=utf-8');
-  showToast('Relatorio exportado!');
+  const corpo = entrevistas.map((e,i) => gerarBlocoEntrevista(e,i)).join('\n');
+  download('aquacampo_relatorio_' + new Date().toISOString().split('T')[0] + '.txt',
+    cabecalho + '\n' + corpo, 'text/plain;charset=utf-8');
+  showToast('Relatorio exportado! (' + entrevistas.length + ' entrevistas)');
 }
 
-function gerarTxtBase(lista, titulo, campos) {
-  const linhas = [
-    '====================================================',
-    titulo,
-    '====================================================',
-    'Pesquisadora: Maria Silvina da Cruz Goncalves',
-    'Orientador: Prof. Dr. Ernandes Sobreira Oliveira Junior',
-    'Instituicao: UNEMAT / ProfAgua — Caceres-MT',
-    'Gerado em: ' + new Date().toLocaleString('pt-BR'),
-    'Total: ' + lista.length + ' registro(s)',
-    '====================================================\n'
-  ];
-  lista.forEach((e, i) => {
-    linhas.push('--- ' + (i+1) + '. ' + e.codigo + ' | ' + e.tipo + ' | ' + e.municipio + ' | ' + e.data + ' ---');
-    campos.forEach(([label, fn]) => {
-      const val = fn(e);
-      if (val) linhas.push('\n' + label + ':\n' + val);
-    });
-    linhas.push(`\nTCLE: ${e.tcle_assinado?'Sim':'Nao'} | Audio autorizado: ${e.audio_autorizado?'Sim':'Nao'} | Anonimato: ${e.anonimato_garantido?'Sim':'Nao'}`);
-    linhas.push('\n' + '─'.repeat(60) + '\n');
-  });
-  return linhas.join('\n');
-}
 
 function exportarRelatorioAgricultores() {
   const lista = entrevistas.filter(e => e.tipo === 'agricultor');
   if (!lista.length) { showToast('Nenhum agricultor registrado', true); return; }
-  const txt = gerarTxtBase(lista, 'RELATORIO — AGRICULTORES FAMILIARES', [
-    ['Genero / Faixa Etaria', e => [e.genero, e.faixa_etaria, e.escolaridade, e.tamanho_prop].filter(Boolean).join(' | ')],
-    ['Fontes de agua', e => (e.fontes_agua||[]).join(', ') + (e.outros_fonte ? ' / Outros: '+e.outros_fonte : '')],
-    ['Irrigacao', e => (e.irrigacao||[]).join(', ')],
-    ['Percepcao chuvas', e => e.percepcao_chuva],
-    ['Situacao hidrica', e => e.situacao_hidrica],
-    ['[MEMO B1 Hidrico]', e => e.obs_b1],
-    ['Residuos gerados', e => (e.tipos_residuos||[]).join(', ') + (e.outros_residuo ? ' / '+e.outros_residuo : '')],
-    ['Destinacao residuos', e => (e.destinacao_residuos||[]).join(', ') + (e.outro_destino ? ' / '+e.outro_destino : '')],
-    ['Dificuldades residuos', e => e.dif_residuos_desc],
-    ['[MEMO B2 Residuos]', e => e.obs_b_res],
-    ['Impactos marcados', e => (e.impactos_marcados||[]).join(', ')],
-    ['Seguranca alimentar', e => e.seguranca_alimentar],
-    ['Relato de impactos', e => e.relato_impactos],
-    ['[MEMO B3 Impactos]', e => e.obs_b2],
-    ['Estrategias', e => (e.estrategias||[]).join(', ')],
-    ['Dificuldades adaptacao', e => (e.dificuldades||[]).join(', ')],
-    ['Sugestoes', e => e.sugestoes],
-    ['[MEMO B4 Estrategias]', e => e.obs_b3],
-    ['Avaliacao politicas', e => e.avaliacao_politicas],
-    ['Programas eficazes', e => e.programas_eficazes],
-    ['[MEMO B5 Politicas]', e => e.obs_b4],
-    ['Observacoes gerais', e => e.observacoes],
-    ['Categorias tematicas', e => (e.categorias||[]).join(', ')],
-  ]);
-  download('aquacampo_agricultores_' + new Date().toISOString().split('T')[0] + '.txt', txt, 'text/plain;charset=utf-8');
-  showToast('Relatorio de agricultores exportado!');
+  const cab = gerarCabecalho('RELATORIO — AGRICULTORES FAMILIARES', lista.length);
+  download('aquacampo_agricultores_'+new Date().toISOString().split('T')[0]+'.txt',
+    cab + lista.map((e,i)=>gerarBlocoEntrevista(e,i)).join('\n'), 'text/plain;charset=utf-8');
+  showToast('Relatorio agricultores exportado! (' + lista.length + ')');
 }
 
 function exportarRelatorioTecnicos() {
   const lista = entrevistas.filter(e => e.tipo === 'tecnico');
   if (!lista.length) { showToast('Nenhum tecnico registrado', true); return; }
-  const txt = gerarTxtBase(lista, 'RELATORIO — TECNICOS EXTENSIONISTAS', [
-    ['Instituicao / Tempo de atuacao', e => [e.instituicao, e.tempo_atuacao].filter(Boolean).join(' | ')],
-    ['Disponibilidade hidrica (avaliacao tecnica)', e => e.f_te_disponibilidade || e.situacao_hidrica],
-    ['Problemas hidricos observados', e => (e.tipos_residuos||[]).filter(v=>v.startsWith('te_')).join(', ')],
-    ['[MEMO T1]', e => e.obs_b1],
-    ['Gestao de residuos (observacao tecnica)', e => e.te_residuos],
-    ['[MEMO T2]', e => e.obs_b_res],
-    ['Impacto na assistencia tecnica', e => e.relato_impactos],
-    ['Tecnologias recomendadas', e => (e.estrategias||[]).filter(v=>v.startsWith('te_')).join(', ')],
-    ['Limitacoes para implementacao', e => e.sugestoes],
-    ['[MEMO T3]', e => e.obs_b2],
-    ['Avaliacao politicas publicas', e => e.avaliacao_politicas],
-    ['Sugestoes de melhoria', e => e.programas_eficazes],
-    ['[MEMO T4]', e => e.obs_b4],
-    ['Observacoes gerais', e => e.observacoes],
-    ['Categorias tematicas', e => (e.categorias||[]).join(', ')],
-  ]);
-  download('aquacampo_tecnicos_' + new Date().toISOString().split('T')[0] + '.txt', txt, 'text/plain;charset=utf-8');
-  showToast('Relatorio de tecnicos exportado!');
+  const cab = gerarCabecalho('RELATORIO — TECNICOS EXTENSIONISTAS', lista.length);
+  download('aquacampo_tecnicos_'+new Date().toISOString().split('T')[0]+'.txt',
+    cab + lista.map((e,i)=>gerarBlocoEntrevista(e,i)).join('\n'), 'text/plain;charset=utf-8');
+  showToast('Relatorio tecnicos exportado! (' + lista.length + ')');
 }
 
 function exportarRelatorioRepresentantes() {
   const lista = entrevistas.filter(e => e.tipo === 'representante');
   if (!lista.length) { showToast('Nenhum representante registrado', true); return; }
-  const txt = gerarTxtBase(lista, 'RELATORIO — PRESIDENTES / REPRESENTANTES', [
-    ['Organizacao / Associados', e => [e.org_tipo, e.n_associados ? e.n_associados + ' associados' : ''].filter(Boolean).join(' | ')],
-    ['Impactos coletivos da escassez', e => e.situacao_hidrica],
-    ['Acoes coletivas de agua', e => (e.estrategias||[]).filter(v=>v.startsWith('re_')).join(', ')],
-    ['[MEMO R1]', e => e.obs_b1],
-    ['Gestao coletiva de residuos', e => e.te_residuos],
-    ['Desafios coletivos em residuos', e => (e.tipos_residuos||[]).filter(v=>v.startsWith('re_res')).join(', ')],
-    ['[MEMO R2]', e => e.obs_b_res],
-    ['Impactos na producao e comercializacao', e => e.relato_impactos],
-    ['Avaliacao apoio institucional', e => e.avaliacao_politicas],
-    ['Propostas para politicas publicas', e => e.sugestoes],
-    ['Programas eficazes', e => e.programas_eficazes],
-    ['[MEMO R3]', e => e.obs_b2],
-    ['Observacoes gerais', e => e.observacoes],
-    ['Categorias tematicas', e => (e.categorias||[]).join(', ')],
-  ]);
-  download('aquacampo_representantes_' + new Date().toISOString().split('T')[0] + '.txt', txt, 'text/plain;charset=utf-8');
-  showToast('Relatorio de representantes exportado!');
+  const cab = gerarCabecalho('RELATORIO — REPRESENTANTES/COOPERATIVAS', lista.length);
+  download('aquacampo_representantes_'+new Date().toISOString().split('T')[0]+'.txt',
+    cab + lista.map((e,i)=>gerarBlocoEntrevista(e,i)).join('\n'), 'text/plain;charset=utf-8');
+  showToast('Relatorio representantes exportado! (' + lista.length + ')');
 }
 
 function exportarRelatorioResiduos() {
-  const txt = gerarTxtBase(entrevistas, 'RELATORIO — RESIDUOS SOLIDOS (TODOS OS PARTICIPANTES)', [
-    ['Tipo / Municipio', e => e.tipo + ' | ' + e.municipio],
-    ['Residuos gerados', e => (e.tipos_residuos||[]).join(', ') + (e.outros_residuo ? ' / '+e.outros_residuo : '')],
-    ['Destinacao final', e => (e.destinacao_residuos||[]).join(', ') + (e.outro_destino ? ' / '+e.outro_destino : '')],
-    ['Dificuldades de manejo', e => e.dif_residuos === 'sim_residuos' ? 'SIM: ' + (e.dif_residuos_desc||'(nao especificado)') : e.dif_residuos === 'nao_residuos' ? 'Nao' : ''],
-    ['Observacao residuos', e => e.obs_b_res],
-    ['Perspectiva tecnica (tecnicos)', e => e.te_residuos],
-  ]);
-  download('aquacampo_residuos_' + new Date().toISOString().split('T')[0] + '.txt', txt, 'text/plain;charset=utf-8');
-  showToast('Relatorio de residuos exportado!');
+  if (!entrevistas.length) { showToast('Nenhuma entrevista para exportar', true); return; }
+  const linhas = [gerarCabecalho('RELATORIO — RESIDUOS SOLIDOS', entrevistas.length)];
+  entrevistas.forEach((e,i) => {
+    linhas.push(`--- ENTREVISTA ${i+1}: ${e.codigo} | ${e.tipo} | ${e.municipio||'-'} | ${e.data||'-'} ---`);
+    if (e.tipo === 'agricultor') {
+      linhas.push(`[Q21] Residuos gerados: ${(e.tipos_residuos||[]).join(', ')||'-'}${e.outros_residuos?' | '+e.outros_residuos:''}`);
+      linhas.push(`[Q22] Destinacao: ${(e.destinacao_residuos||[]).join(', ')||'-'}${e.destinacao_obs?' | Obs: '+e.destinacao_obs:''}`);
+      linhas.push(`[Q23] Dif. manejo: ${e.dif_residuos||'-'}${e.dif_residuos_desc?' — '+e.dif_residuos_desc:''}`);
+      linhas.push(`[Q24] Conhece Biogas: ${e.conhece_biogas||'-'}${e.biogas_interesse?' — '+e.biogas_interesse:''}`);
+    } else if (e.tipo === 'tecnico') {
+      linhas.push(`[Q17a] Residuos interferem na agua: ${e.res_qualidade||'-'}${e.res_qual_exp?' — '+e.res_qual_exp:''}`);
+      linhas.push(`[Q17b] Residuos mal geridos: ${(e.residuos_mal_geridos||[]).join(', ')||'-'}`);
+      linhas.push(`[Q18] Orientacoes: ${e.orientacoes_res||'-'}`);
+    }
+    linhas.push('');
+  });
+  download('aquacampo_residuos_'+new Date().toISOString().split('T')[0]+'.txt',
+    linhas.join('\n'), 'text/plain;charset=utf-8');
+  showToast('Relatorio residuos exportado!');
 }
 
 function exportarRelatorioMemos() {
-  const txt = gerarTxtBase(entrevistas, 'MEMOS DE CAMPO — TODAS AS ENTREVISTAS', [
-    ['Tipo / Municipio', e => e.tipo + ' | ' + e.municipio],
-    ['MEMO B1 — Recursos Hidricos', e => e.obs_b1],
-    ['MEMO B2 — Residuos Solidos', e => e.obs_b_res],
-    ['MEMO B3 — Impactos', e => e.obs_b2],
-    ['MEMO B4 — Estrategias', e => e.obs_b3],
-    ['MEMO B5 — Politicas Publicas', e => e.obs_b4],
-    ['OBSERVACOES GERAIS', e => e.observacoes],
-  ]);
-  download('aquacampo_memos_' + new Date().toISOString().split('T')[0] + '.txt', txt, 'text/plain;charset=utf-8');
-  showToast('Memos de campo exportados!');
+  if (!entrevistas.length) { showToast('Nenhuma entrevista para exportar', true); return; }
+  const linhas = [gerarCabecalho('MEMOS DE CAMPO — TODAS AS ENTREVISTAS', entrevistas.length)];
+  entrevistas.forEach((e,i) => {
+    linhas.push(`--- ENTREVISTA ${i+1}: ${e.codigo} | ${e.tipo} | ${e.municipio||'-'} ---`);
+    const memos = [
+      e.memo_ii && `[MEMO II - Propriedade]: ${e.memo_ii}`,
+      e.memo_iii && `[MEMO III - Acesso Agua]: ${e.memo_iii}`,
+      e.memo_iv && `[MEMO IV - Qualidade Agua]: ${e.memo_iv}`,
+      e.memo_v && `[MEMO V - Impactos]: ${e.memo_v}`,
+      e.memo_vi && `[MEMO VI - Estrategias]: ${e.memo_vi}`,
+      e.memo_vii && `[MEMO VII - Residuos]: ${e.memo_vii}`,
+      e.memo_viii && `[MEMO VIII - Percepcoes]: ${e.memo_viii}`,
+      e.memo_b2 && `[MEMO B2 - Percepcoes Escassez]: ${e.memo_b2}`,
+      e.memo_b3 && `[MEMO B3 - Impactos]: ${e.memo_b3}`,
+      e.memo_b4 && `[MEMO B4 - Manejo Tec]: ${e.memo_b4}`,
+      e.memo_b5 && `[MEMO B5 - Politicas]: ${e.memo_b5}`,
+      e.memo_b6 && `[MEMO B6 - Residuos TE]: ${e.memo_b6}`,
+      e.memo_b7 && `[MEMO B7 - Final TE]: ${e.memo_b7}`,
+      e.memo && `[MEMO GERAL]: ${e.memo}`,
+    ].filter(Boolean);
+    if (memos.length) linhas.push(...memos);
+    else linhas.push('(Sem memos registrados nesta entrevista)');
+    linhas.push('');
+  });
+  download('aquacampo_memos_'+new Date().toISOString().split('T')[0]+'.txt',
+    linhas.join('\n'), 'text/plain;charset=utf-8');
+  showToast('Memos exportados!');
 }
+
+function gerarCabecalho(titulo, total) {
+  return [
+    '====================================================',
+    titulo,
+    '====================================================',
+    'Projeto: Impactos da Escassez Hidrica na Agricultura Familiar da Regiao do Vale do Rio Cuiaba',
+    'Pesquisadora: Maria Silvina da Cruz Goncalves',
+    'Orientador: Prof. Dr. Ernandes Sobreira Oliveira Junior',
+    'Instituicao: UNEMAT / ProfAgua',
+    'Gerado em: ' + new Date().toLocaleString('pt-BR'),
+    'Total: ' + total + ' registro(s)',
+    '====================================================',
+    '',
+  ].join('\n');
+}
+
 
 function download(filename, content, type) {
   const blob = new Blob([content], {type});
