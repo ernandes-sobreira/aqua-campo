@@ -901,19 +901,19 @@
           <select class="form-select" id="f_ag_escolaridade"><option value="">Selecione...</option><option>Sem escolaridade</option><option>Fundamental incompleto</option><option>Fundamental completo</option><option>Medio incompleto</option><option>Medio completo</option><option>Superior</option></select>
         </div>
         <div class="form-row">
-          <div class="form-group"><label class="form-label">4. Municipio / Comunidade <span class="required">*</span></label>
+          <div class="form-group"><label class="form-label">4. Municipio <span class="required">*</span></label>
             <select class="form-select" id="f_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select>
           </div>
-          <div class="form-group"><label class="form-label">Localidade</label><input class="form-input" id="f_localidade" placeholder="Nome da comunidade ou sitio"></div>
+          <div class="form-group"><label class="form-label">5. Comunidade / Localidade <span class="required">*</span></label><input class="form-input" id="f_localidade" placeholder="Nome da comunidade, sitio ou assentamento" oninput="updateProgress()"></div>
         </div>
-        <div class="form-group"><label class="form-label">5. Tempo de residencia no local</label><input class="form-input" id="f_ag_tempo_res" placeholder="Ex: 20 anos"></div>
+        <div class="form-group"><label class="form-label">6. Tempo de residencia no local</label><input class="form-input" id="f_ag_tempo_res" placeholder="Ex: 20 anos"></div>
       </div>
 
       <!-- II. PROPRIEDADE -->
       <div class="section-header"><div class="section-header-dot" style="background:var(--orange);"></div><div class="section-header-title">II — Caracterizacao da Propriedade</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco II</div></div>
       <div class="card">
-        <div class="form-group"><label class="form-label">6. Tamanho da propriedade (hectares)</label><input class="form-input" id="f_ag_tamanho" placeholder="Ex: 12 ha"></div>
-        <div class="form-group"><label class="form-label">7. Tipo de posse da terra</label>
+        <div class="form-group"><label class="form-label">7. Tamanho da propriedade (hectares)</label><input class="form-input" id="f_ag_tamanho" placeholder="Ex: 12 ha"></div>
+        <div class="form-group"><label class="form-label">8. Tipo de posse da terra</label>
           <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_posse')"><input type="radio" name="r_ag_posse" value="Propria"><span class="check-label">Propria</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_posse')"><input type="radio" name="r_ag_posse" value="Arrendada"><span class="check-label">Arrendada</span></label>
@@ -921,8 +921,8 @@
             <label class="check-item" onclick="toggleCheck(this,'radio','r_ag_posse')"><input type="radio" name="r_ag_posse" value="Outro_posse"><span class="check-label">Outro</span></label>
           </div>
         </div>
-        <div class="form-group"><label class="form-label">8. Principais atividades produtivas desenvolvidas</label><textarea class="form-textarea" id="f_ag_atividades" rows="2" placeholder="Ex: hortalicas, gado, mandioca, milho..."></textarea></div>
-        <div class="form-group"><label class="form-label">9. Numero de pessoas envolvidas nas atividades da propriedade</label><input class="form-input" id="f_ag_pessoas" placeholder="Ex: 3 pessoas"></div>
+        <div class="form-group"><label class="form-label">9. Principais atividades produtivas desenvolvidas</label><textarea class="form-textarea" id="f_ag_atividades" rows="2" placeholder="Ex: hortalicas, gado, mandioca, milho..."></textarea></div>
+        <div class="form-group"><label class="form-label">10. Numero de pessoas envolvidas nas atividades da propriedade</label><input class="form-input" id="f_ag_pessoas" placeholder="Ex: 3 pessoas"></div>
         <div style="background:#f0fafa;border:1.5px dashed var(--mint);border-radius:10px;padding:14px 16px;">
           <div style="font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco II</div>
           <textarea class="form-textarea" id="f_memo_ii" rows="2" placeholder="Observacoes sobre a propriedade e contexto..." style="background:rgba(255,255,255,0.7);border-color:var(--mint);font-size:13px;"></textarea>
@@ -1131,14 +1131,14 @@
           <input class="form-input" id="f_outro_destino_ag" placeholder="Especifique outra destinacao..." style="margin-top:8px;display:none;">
           <textarea class="form-textarea" id="f_destinacao_obs" rows="2" placeholder="Detalhes sobre a destinacao dos residuos (ex: queima em periodo permitido, enterra as embalagens...)" style="margin-top:8px;"></textarea>
         </div>
-        <div class="form-group"><label class="form-label">23. Existem dificuldades para realizar o manejo adequado dos residuos?</label>
+        <div class="form-group"><label class="form-label">25. Existem dificuldades para realizar o manejo adequado dos residuos?</label>
           <div class="check-group" style="flex-direction:row;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_dif_residuos')"><input type="radio" name="r_dif_residuos" value="Sim"><span class="check-label">Sim</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_dif_residuos')"><input type="radio" name="r_dif_residuos" value="Nao"><span class="check-label">Nao</span></label>
           </div>
           <textarea class="form-textarea" id="f_dif_residuos" rows="2" placeholder="Se sim, quais dificuldades?" style="margin-top:8px;"></textarea>
         </div>
-        <div class="form-group"><label class="form-label">24. Voce conhece sobre o Biogas?</label>
+        <div class="form-group"><label class="form-label">26. Voce conhece sobre o Biogas?</label>
           <div class="check-group" style="flex-direction:row;gap:8px;">
             <label class="check-item" onclick="toggleCheck(this,'radio','r_biogas')"><input type="radio" name="r_biogas" value="Sim"><span class="check-label">Sim</span></label>
             <label class="check-item" onclick="toggleCheck(this,'radio','r_biogas')"><input type="radio" name="r_biogas" value="Nao"><span class="check-label">Nao — tem interesse em conhecer?</span></label>
@@ -1154,9 +1154,9 @@
       <!-- VIII. PERCEPÇÕES E EXPECTATIVAS -->
       <div class="section-header"><div class="section-header-dot" style="background:var(--amber);"></div><div class="section-header-title">VIII — Percepcoes e Expectativas</div><div style="margin-left:auto;font-size:10px;color:var(--gray3);font-weight:600;background:var(--gray2);padding:2px 9px;border-radius:99px;">Bloco VIII</div></div>
       <div class="card">
-        <div class="form-group"><label class="form-label">25. Na sua opiniao, quais sao as principais causas da escassez hidrica na regiao?</label><textarea class="form-textarea" id="f_causas_escassez" rows="4" placeholder="Causas apontadas pelo participante..."></textarea></div>
-        <div class="form-group"><label class="form-label">26. O que poderia ajudar a melhorar a disponibilidade de agua na sua comunidade?</label><textarea class="form-textarea" id="f_melhorias_agua" rows="4" placeholder="Sugestoes do participante..."></textarea></div>
-        <div class="form-group"><label class="form-label">27. Gostaria de acrescentar alguma observacao?</label><textarea class="form-textarea" id="f_obs_final_ag" rows="3" placeholder="Consideracoes finais..."></textarea></div>
+        <div class="form-group"><label class="form-label">27. Na sua opiniao, quais sao as principais causas da escassez hidrica na regiao?</label><textarea class="form-textarea" id="f_causas_escassez" rows="4" placeholder="Causas apontadas pelo participante..."></textarea></div>
+        <div class="form-group"><label class="form-label">28. O que poderia ajudar a melhorar a disponibilidade de agua na sua comunidade?</label><textarea class="form-textarea" id="f_melhorias_agua" rows="4" placeholder="Sugestoes do participante..."></textarea></div>
+        <div class="form-group"><label class="form-label">29. Gostaria de acrescentar alguma observacao?</label><textarea class="form-textarea" id="f_obs_final_ag" rows="3" placeholder="Consideracoes finais..."></textarea></div>
         <div style="background:#f5f0fb;border:1.5px dashed #b39ddb;border-radius:10px;padding:14px 16px;">
           <div style="font-size:11px;font-weight:700;color:#6a1b9a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">📌 Memo — Bloco VIII</div>
           <textarea class="form-textarea" id="f_memo_viii" rows="2" placeholder="Perspectiva de futuro, esperancas, resiliencia observada..." style="background:rgba(255,255,255,0.7);border-color:#b39ddb;font-size:13px;"></textarea>
@@ -2024,7 +2024,7 @@ function salvarEntrevista() {
   const getR = name => document.querySelector('[name='+name+']:checked')?.value || '';
   const getCB = sel => Array.from(document.querySelectorAll(sel+':checked')).filter(e=>e.type==='checkbox').map(e=>e.value);
 
-  const codigoId = {agricultor:'f_codigo', tecnico:'f_codigo', representante:'f_codigo'};
+  const codigoId = {agricultor:'f_codigo', tecnico:'te_codigo', representante:'re_codigo'};
   const codigo = getF(codigoId[tipo] || 'f_codigo');
 
   if (!codigo || !tipo) {
@@ -2601,7 +2601,7 @@ function gerarBlocoEntrevista(e, i) {
     L.push('[Q02] Genero: ' + (e.genero||'-'));
     L.push('[Q03] Escolaridade: ' + (e.escolaridade||'-'));
     L.push('[Q04] Municipio: ' + (e.municipio||'-'));
-    L.push('[Q05] Comunidade: ' + (e.localidade||'-'));
+    L.push('[Q05] Comunidade/Localidade: ' + (e.localidade||'-'));
     L.push('[Q06] Tempo de residencia (anos): ' + (e.tempo_res||'-'));
 
     L.push(''); L.push('II - CARACTERIZACAO DA PROPRIEDADE'); L.push(sep);
