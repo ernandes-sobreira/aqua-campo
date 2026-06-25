@@ -33,6 +33,73 @@
     --shadow2: 0 2px 8px rgba(0,0,0,0.07);
     --radius:  14px;
   }
+
+function preencherFormulario(e) {
+  const setF = (id, val) => { const el = document.getElementById(id); if(el) el.value = val||''; };
+  const setR = (name, val) => { if(!val) return;
+    const r = document.querySelector('[name='+name+'][value="'+val+'"]');
+    if(r) { r.checked = true; r.closest('.check-item')?.classList.add('checked'); }
+  };
+  const setCB = (vals) => { if(!Array.isArray(vals)) return;
+    vals.forEach(v => {
+      const cb = document.querySelector('#page-nova input[type=checkbox][value="'+v+'"]');
+      if(cb) { cb.checked = true; cb.closest('.check-item')?.classList.add('checked'); }
+    });
+  };
+  if (e.tipo === 'agricultor') {
+    setF('f_codigo', e.codigo); setF('f_data', e.data);
+    const mun = document.getElementById('f_municipio');
+    if(mun) mun.value = e.municipio||'';
+    setF('f_localidade', e.localidade); setF('f_ag_idade', e.idade);
+    setR('r_ag_genero', e.genero);
+    const esc = document.getElementById('f_ag_escolaridade');
+    if(esc) esc.value = e.escolaridade||'';
+    setF('f_ag_tempo_res', e.tempo_res); setF('f_ag_tamanho', e.tamanho_prop);
+    setR('r_ag_posse', e.posse_terra); setF('f_ag_atividades', e.atividades);
+    setF('f_ag_pessoas', e.num_pessoas);
+    setCB(e.fontes_agua); setF('f_outros_fonte', e.outro_fonte); setF('f_fontes_obs', e.fontes_obs);
+    setCB(e.armazenamento); setCB(e.usos_agua); setF('f_uso_agua_obs', e.uso_agua_obs);
+    setCB(e.tratamento_agua); setF('f_trat_outro', e.trat_outro);
+    setR('r_coleta_analise', e.coleta_analise);
+    setF('f_periodicidade_coleta', e.periodicidade_coleta);
+    setF('f_result_analise', e.result_analise); setF('f_quem_analisa', e.quem_analisa);
+    setR('r_contaminacao', e.contaminacao); setF('f_contaminacao_desc', e.contaminacao_desc);
+    setR('r_suficiente', e.agua_suficiente); setF('f_suficiente_exp', e.agua_insuf_exp);
+    setR('r_reducao_agua', e.reducao_agua); setF('f_reducao_agua_desc', e.reducao_agua_desc);
+    setR('r_perdas', e.perdas); setF('f_perdas_desc', e.perdas_desc);
+    setR('r_red_renda', e.reducao_renda); setF('f_renda_obs', e.renda_obs);
+    setCB(e.estrategias); setF('f_outras_estr_ag', e.outras_estrategias); setF('f_estr_obs', e.estr_obs);
+    setR('r_apoio_tecnico', e.apoio_tecnico); setF('f_apoio_quem', e.apoio_quem);
+    setCB(e.tipos_residuos); setF('f_outros_residuos_ag', e.outros_residuos);
+    setCB(e.destinacao_residuos); setF('f_outro_destino_ag', e.outro_destino);
+    setF('f_destinacao_obs', e.destinacao_obs);
+    setR('r_dif_residuos', e.dif_residuos); setF('f_dif_residuos', e.dif_residuos_desc);
+    setR('r_biogas', e.conhece_biogas); setF('f_biogas_interesse', e.biogas_interesse);
+    setF('f_causas_escassez', e.causas_escassez); setF('f_melhorias_agua', e.melhorias_agua);
+    setF('f_obs_final_ag', e.obs_final);
+  } else if (e.tipo === 'tecnico') {
+    setF('te_codigo', e.codigo); setF('te_data', e.data);
+    const mun = document.getElementById('te_municipio');
+    if(mun) mun.value = e.municipio||'';
+    setR('r_te_genero', e.genero); setF('f_te_instituicao', e.instituicao);
+    setF('f_te_cargo', e.cargo); setF('f_te_tempo', e.tempo_atuacao);
+    setF('f_te_municipios', e.municipios_atend); setF('f_te_cadeias', e.cadeias);
+    setR('r_te_disponib', e.disponibilidade); setR('r_te_agrav', e.agravamento);
+    setF('f_te_agrav_desc', e.agrav_desc); setCB(e.fatores_reducao);
+    setCB(e.impactos_marcados); setF('f_te_imp_obs', e.imp_obs);
+    setR('r_te_segalim', e.seguranca_alimentar); setF('f_te_segalim_exp', e.segalim_exp);
+    setCB(e.praticas_manejo); setF('f_te_prat_obs', e.prat_obs);
+    setR('r_te_infra', e.infraestrutura); setF('f_te_tecnologias', e.tecnologias);
+    setR('r_te_politicas', e.avaliacao_politicas); setCB(e.dificuldades);
+    setF('f_te_programas', e.programas);
+    setR('r_te_res_qualidade', e.res_qualidade); setF('f_te_res_qualidade_exp', e.res_qual_exp);
+    setCB(e.residuos_mal_geridos); setF('f_te_orientacoes_res', e.orientacoes_res);
+    setR('r_te_prog_res', e.prog_res); setF('f_te_prog_res', e.prog_res_desc);
+    setF('f_te_acoes_resiliencia', e.acoes_resiliencia); setF('f_te_obs_final', e.obs_final);
+  }
+  showToast('✏️ Entrevista carregada para edicao!');
+}
+
   * { margin:0; padding:0; box-sizing:border-box; }
   body {
     font-family: 'DM Sans', sans-serif;
@@ -728,6 +795,14 @@
 }
 .btn-exp-skip:hover { color: #666; border-color: #bbb; }
 
+.tipo-btn {
+  width:100%; padding:14px 16px; border:2px solid var(--gray2);
+  border-radius:12px; background:var(--white); text-align:left;
+  cursor:pointer; font-family:'DM Sans',sans-serif; font-size:14px;
+  color:var(--text); transition:all .15s; display:block;
+}
+.tipo-btn:hover { border-color:var(--teal2); background:var(--light); }
+
 /* RESPONSIVE */
   @media(max-width:600px){
     .form-row, .form-row-3 { grid-template-columns:1fr; }
@@ -858,18 +933,20 @@
     <div class="card" style="border:2px solid var(--teal);">
       <div class="card-title"><span class="icon">🎯</span> Tipo de Participante</div>
       <div class="check-group" id="tipoParticipante">
-        <label class="check-item" onclick="onTipoChange(this)">
-          <input type="radio" name="tipo" value="agricultor">
-          <span class="check-label">🌾 <strong>Agricultor(a) Familiar</strong></span>
-        </label>
-        <label class="check-item" onclick="onTipoChange(this)">
-          <input type="radio" name="tipo" value="tecnico">
-          <span class="check-label">🔧 <strong>Tecnico(a) Extensionista</strong> (EMPAER / SEAF)</span>
-        </label>
-        <label class="check-item" onclick="onTipoChange(this)">
-          <input type="radio" name="tipo" value="representante">
-          <span class="check-label">🏛️ <strong>Presidente de Cooperativa / Representante de Associacao</strong></span>
-        </label>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+        <button type="button" id="btn-tipo-agricultor" class="tipo-btn" onclick="selecionarTipo('agricultor')">
+          🌾 <strong>Agricultor(a) Familiar</strong>
+          <div style="font-size:11px;color:var(--text2);font-weight:400;margin-top:3px;">Produtor(a) rural participante da pesquisa</div>
+        </button>
+        <button type="button" id="btn-tipo-tecnico" class="tipo-btn" onclick="selecionarTipo('tecnico')">
+          🔧 <strong>Tecnico(a) Extensionista</strong>
+          <div style="font-size:11px;color:var(--text2);font-weight:400;margin-top:3px;">EMPAER / SEAF / Prefeitura / Outros</div>
+        </button>
+        <button type="button" id="btn-tipo-representante" class="tipo-btn" onclick="selecionarTipo('representante')">
+          🏛️ <strong>Presidente de Cooperativa / Representante de Associacao</strong>
+          <div style="font-size:11px;color:var(--text2);font-weight:400;margin-top:3px;">Lideranca de organizacao agricola</div>
+        </button>
+      </div>
       </div>
     </div>
 
@@ -1249,6 +1326,7 @@
             <label class="check-item" onclick="toggleCheck(this)" id="opt_te_imp_outro"><input type="checkbox" value="Outros_impactos">➕ Outros</label>
           </div>
           <input class="form-input" id="f_te_imp_outro" placeholder="Especifique outros impactos..." style="margin-top:8px;display:none;">
+          <textarea class="form-textarea" id="f_te_imp_obs" rows="3" placeholder="Descreva os impactos observados com mais detalhe..." style="margin-top:8px;"></textarea>
         </div>
         <div class="form-group"><label class="form-label">10. A escassez hidrica tem afetado a seguranca alimentar das familias?</label>
           <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
@@ -1280,6 +1358,7 @@
             <label class="check-item" onclick="toggleCheck(this)" id="opt_te_prat_outro"><input type="checkbox" value="Outros_praticas_te">➕ Outros</label>
           </div>
           <input class="form-input" id="f_te_prat_outro" placeholder="Especifique outras praticas..." style="margin-top:8px;display:none;">
+          <textarea class="form-textarea" id="f_te_prat_obs" rows="3" placeholder="Descreva as praticas observadas com mais detalhe..." style="margin-top:8px;"></textarea>
         </div>
         <div class="form-group"><label class="form-label">12. A infraestrutura hidrica existente nas propriedades e:</label>
           <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
@@ -1357,6 +1436,14 @@
       <!-- BLOCO 7: SUGESTÕES E PERCEPÇÕES FINAIS -->
       <div class="section-header"><div class="section-header-dot" style="background:var(--orange);"></div><div class="section-header-title">Bloco 7 — Sugestoes e Percepcoes Finais</div></div>
       <div class="card">
+        <div class="form-group">
+          <label class="form-label">19. Ha algum programa ou politica local voltada ao manejo de residuos e recursos hidricos nas propriedades rurais que voce conhece ou acompanha?</label>
+          <div class="check-group" style="flex-direction:row;gap:8px;flex-wrap:wrap;">
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_prog_res')"><input type="radio" name="r_te_prog_res" value="Sim"><span class="check-label">Sim</span></label>
+            <label class="check-item" onclick="toggleCheck(this,'radio','r_te_prog_res')"><input type="radio" name="r_te_prog_res" value="Nao"><span class="check-label">Nao</span></label>
+          </div>
+          <textarea class="form-textarea" id="f_te_prog_res" rows="3" placeholder="Se sim, descreva o programa e avalie sua eficacia..." style="margin-top:8px;"></textarea>
+        </div>
         <div class="form-group"><label class="form-label">20. Em sua opiniao, quais acoes ou programas poderiam fortalecer a resiliencia hidrica da agricultura familiar na regiao?</label><textarea class="form-textarea" id="f_te_acoes_resiliencia" rows="5" placeholder="Acoes, programas e iniciativas que o tecnico recomenda..."></textarea></div>
         <div class="form-group"><label class="form-label">21. Deseja registrar alguma consideracao adicional sobre o tema?</label><textarea class="form-textarea" id="f_te_obs_final" rows="4" placeholder="Consideracoes finais do tecnico..."></textarea></div>
         <div style="background:#f0fafa;border:1.5px dashed var(--mint);border-radius:10px;padding:14px 16px;">
@@ -1892,29 +1979,31 @@ function openNovaEntrevista() {
 }
 
 // ===== FORM =====
-function onTipoChange(el) {
-  // Marca visualmente
-  document.querySelectorAll('[name=tipo]').forEach(r => {
-    r.closest('.check-item').classList.toggle('checked', r.checked);
+function selecionarTipo(tipo) {
+  _tipoAtual = tipo;
+  // Visual
+  ['agricultor','tecnico','representante'].forEach(t => {
+    const btn = document.getElementById('btn-tipo-' + t);
+    if (btn) btn.style.cssText = t === tipo
+      ? 'background:var(--teal2);color:#fff;border-color:var(--teal2);'
+      : '';
   });
-  // Esconde todos os formularios
+  // Formulários
   ['form-agricultor','form-tecnico','form-representante'].forEach(id => {
-    document.getElementById(id).style.display = 'none';
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
   });
-  // Mostra o formulario correto
-  const tipo = document.querySelector('[name=tipo]:checked')?.value;
-  if (tipo) {
-    document.getElementById('form-' + tipo).style.display = 'block';
-    document.getElementById('bloco-audio-comum').style.display = 'block';
-    document.getElementById('bloco-obs-comum').style.display = 'block';
-    // Seta data de hoje
-    const d = new Date().toISOString().split('T')[0];
-    const dataId = tipo==='tecnico'?'te_data': tipo==='representante'?'re_data':'f_data';
-    const dataEl = document.getElementById(dataId);
-    if(dataEl && !dataEl.value) dataEl.value = d;
-  }
-  // Mostrar/esconder campo "Outros" nas fontes
-  setupOutrosListeners();
+  const form = document.getElementById('form-' + tipo);
+  if (form) form.style.display = 'block';
+  const audio = document.getElementById('bloco-audio-comum');
+  if (audio) audio.style.display = 'block';
+  const obs = document.getElementById('bloco-obs-comum');
+  if (obs) obs.style.display = 'block';
+  // Data de hoje
+  const d = new Date().toISOString().split('T')[0];
+  const dataId = tipo==='tecnico'?'te_data': tipo==='representante'?'re_data':'f_data';
+  const dataEl = document.getElementById(dataId);
+  if (dataEl && !dataEl.value) dataEl.value = d;
   updateProgress();
 }
 
@@ -1986,7 +2075,7 @@ function toggleCheck(el, type, name) {
 }
 
 function updateProgress() {
-  const tipo = document.querySelector('[name=tipo]:checked')?.value;
+  const tipo = _tipoAtual || document.querySelector('[name=tipo]:checked')?.value;
   const prefix = tipo === 'tecnico' ? 'te' : tipo === 'representante' ? 're' : 'f';
   const codigoId   = prefix === 'f' ? 'f_codigo'    : prefix + '_codigo';
   const dataId     = prefix === 'f' ? 'f_data'      : prefix + '_data';
@@ -2027,8 +2116,14 @@ function salvarEntrevista() {
   const codigoId = {agricultor:'f_codigo', tecnico:'te_codigo', representante:'re_codigo'};
   const codigo = getF(codigoId[tipo] || 'f_codigo');
 
-  if (!codigo || !tipo) {
-    showToast('Preencha o codigo e o tipo de participante!', true);
+  // Debug: verificar o que está faltando
+  if (!tipo) {
+    showToast('Selecione o tipo de participante (Agricultor, Tecnico ou Representante)!', true);
+    return;
+  }
+  if (!codigo) {
+    const nomeId = codigoId[tipo];
+    showToast('Preencha o codigo de identificacao (campo "Codigo" no topo do formulario)!', true);
     return;
   }
 
@@ -2185,6 +2280,10 @@ function salvarEntrevista() {
       orientacoes_res:  getF('f_te_orientacoes_res'),
       memo_b6:          getF('f_te_memo_6'),
       // B7
+      imp_obs:           getF('f_te_imp_obs'),
+      prat_obs:          getF('f_te_prat_obs'),
+      prog_res:          getR('r_te_prog_res'),
+      prog_res_desc:     getF('f_te_prog_res'),
       acoes_resiliencia: getF('f_te_acoes_resiliencia'),
       obs_final:         getF('f_te_obs_final'),
       memo_b7:           getF('f_te_memo_7'),
@@ -2269,6 +2368,8 @@ function fecharAlertaExportacao() {
 
 
 function limparFormulario() {
+  editingId = null;
+  _tipoAtual = null;
   editingId = null;
   currentAudios = [];
   document.querySelectorAll('#page-nova input, #page-nova textarea, #page-nova select').forEach(el => {
@@ -2357,8 +2458,10 @@ function renderEntrevistas() {
           ${e.localidade ? `<span>🏘️ ${e.localidade}</span>` : ''}
         </div>
       </div>
-      <div class="interview-actions">
+      <div class="interview-actions" style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
         <span class="badge ${e.sincronizado ? 'badge-sync' : 'badge-pending'}">${e.sincronizado ? '✔ Sync' : '⏳ Local'}</span>
+        <button class="btn-sm" style="font-size:11px;padding:5px 10px;background:var(--teal2);color:#fff;border:none;border-radius:7px;cursor:pointer;"
+          onclick="event.stopPropagation();editarEntrevista('${e.id}')">✏️ Editar</button>
       </div>
     </div>
   `).join('');
@@ -2676,11 +2779,13 @@ function gerarBlocoEntrevista(e, i) {
 
     L.push(''); L.push('BLOCO 3 - IMPACTOS NA PRODUCAO E NO COTIDIANO RURAL'); L.push(sep);
     L.push('[Q9] Impactos observados: ' + ((e.impactos_marcados||[]).join(', ')||'-') + (e.outro_impacto ? ' | ' + e.outro_impacto : ''));
+    if(e.imp_obs) L.push('    Obs: ' + e.imp_obs);
     L.push('[Q10] Seguranca alimentar: ' + (e.seguranca_alimentar||'-') + (e.segalim_exp ? ' — ' + e.segalim_exp : ''));
     if (e.memo_b3) L.push('[MEMO B3]: ' + e.memo_b3);
 
     L.push(''); L.push('BLOCO 4 - MANEJO HIDRICO E TECNOLOGIAS'); L.push(sep);
     L.push('[Q11] Praticas de manejo: ' + ((e.praticas_manejo||[]).join(', ')||'-'));
+    if(e.prat_obs) L.push('    Obs: ' + e.prat_obs);
     L.push('[Q12] Infraestrutura hidrica: ' + (e.infraestrutura||'-'));
     if (e.tecnologias) { L.push('[Q13] Tecnologias prioritarias:'); L.push(e.tecnologias); }
     else L.push('[Q13] Tecnologias prioritarias: -');
