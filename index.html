@@ -58,16 +58,7 @@ function preencherFormulario(e) {
     setR('r_ag_posse', e.posse_terra); setF('f_ag_atividades', e.atividades);
     setF('f_ag_pessoas', e.num_pessoas);
     setCB(e.fontes_agua); setF('f_outros_fonte', e.outro_fonte); setF('f_fontes_obs', e.fontes_obs);
-    // Poco artesiano
-    setF('f_pa_profundidade', e.pa_profundidade); setF('f_pa_vazao', e.pa_vazao);
-    // Poco caipira
-    setR('r_poco_tipo', e.poco_tipo); setF('f_poco_profundidade', e.poco_profundidade);
-    // Memos
-    setF('f_memo_ii', e.memo_ii); setF('f_memo_iii', e.memo_iii); setF('f_memo_iv', e.memo_iv);
-    setF('f_memo_v', e.memo_v); setF('f_memo_vi', e.memo_vi); setF('f_memo_vii', e.memo_vii);
-    setF('f_memo_viii', e.memo_viii);
-    setCB(e.armazenamento); setF('f_outro_armazen', e.outro_armazen);
-    setCB(e.usos_agua); setF('f_uso_agua_obs', e.uso_agua_obs);
+    setCB(e.armazenamento); setCB(e.usos_agua); setF('f_uso_agua_obs', e.uso_agua_obs);
     setCB(e.tratamento_agua); setF('f_trat_outro', e.trat_outro);
     setR('r_coleta_analise', e.coleta_analise);
     setF('f_periodicidade_coleta', e.periodicidade_coleta);
@@ -105,10 +96,6 @@ function preencherFormulario(e) {
     setCB(e.residuos_mal_geridos); setF('f_te_orientacoes_res', e.orientacoes_res);
     setR('r_te_prog_res', e.prog_res); setF('f_te_prog_res', e.prog_res_desc);
     setF('f_te_acoes_resiliencia', e.acoes_resiliencia); setF('f_te_obs_final', e.obs_final);
-    // Memos tecnico
-    setF('f_te_memo_2', e.memo_b2); setF('f_te_memo_3', e.memo_b3);
-    setF('f_te_memo_4', e.memo_b4); setF('f_te_memo_5', e.memo_b5);
-    setF('f_te_memo_6', e.memo_b6); setF('f_te_memo_7', e.memo_b7);
   }
   showToast('✏️ Entrevista carregada para edicao!');
 }
@@ -1810,6 +1797,8 @@ let deleteTargetId = null;
 
 // ===== INIT =====
 async function entrarApp() {
+  // Restaurar tipo da sessão se disponível
+  try { const t = sessionStorage.getItem('_tipoAtual'); if(t) _tipoAtual = t; } catch(e) {}
   document.getElementById('capa').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   await loadData();
@@ -1994,6 +1983,7 @@ function openNovaEntrevista() {
 // ===== FORM =====
 function selecionarTipo(tipo) {
   _tipoAtual = tipo;
+  try { sessionStorage.setItem('_tipoAtual', tipo); } catch(e) {}
   // Visual
   ['agricultor','tecnico','representante'].forEach(t => {
     const btn = document.getElementById('btn-tipo-' + t);
@@ -2044,6 +2034,14 @@ function setupOutrosListeners() {
       });
     }
   });
+  // Poco Artesiano — profundidade e vazao
+  const cbPA = document.querySelector('input[value="Poco_artesiano"]');
+  const blocoPA = document.getElementById('bloco_poco_artesiano');
+  if (cbPA && blocoPA) {
+    cbPA.addEventListener('change', function() {
+      blocoPA.style.display = this.checked ? 'block' : 'none';
+    });
+  }
   // Poco Artesiano — profundidade e vazao
   const cbPA = document.querySelector('input[value="Poco_artesiano"]');
   const blocoPA = document.getElementById('bloco_poco_artesiano');
@@ -2121,7 +2119,7 @@ function getAllCheckedBoxes() {
 }
 
 function salvarEntrevista() {
-  const tipo = _tipoAtual || document.querySelector('[name=tipo]:checked')?.value;
+  const tipo = _tipoAtual || document.querySelector('[name=tipo]:checked')?.value || (['form-agricultor','form-tecnico','form-representante'].find(id => document.getElementById(id)?.style.display === 'block') || '').replace('form-','');
   const getF = id => (document.getElementById(id)?.value || '').trim();
   const getR = name => document.querySelector('[name='+name+']:checked')?.value || '';
   const getCB = sel => Array.from(document.querySelectorAll(sel+':checked')).filter(e=>e.type==='checkbox').map(e=>e.value);
@@ -2515,57 +2513,6 @@ function openDetalhes(id) {
     ${e.categorias?.length ? `<div style="font-size:13px;"><strong style="color:var(--teal2);">Categorias:</strong> ${e.categorias.join(', ')}</div>` : ''}
   `;
   openModal('modalDetalhes');
-}
-
-function editarEntrevista(id) {
-  const e = entrevistas.find(x => x.id === id);
-  if (!e) { showToast('Entrevista nao encontrada', true); return; }
-  // Fechar modal se estiver aberto
-  closeModal('modalDetalhes');
-  // Ir para aba de registro
-  showPage('nova');
-  // Limpar formulario
-  limparFormulario();
-  // Setar o ID de edicao
-  editingId = id;
-  // Selecionar o tipo (isso mostra o formulario correto)
-  selecionarTipo(e.tipo);
-  // Preencher todos os campos
-  preencherFormulario(e);
-  // Mostrar blocos condicionais se necessario
-  if (e.tipo === 'agricultor') {
-    // Poco caipira
-    if (e.fontes_agua && e.fontes_agua.includes('Poco_caipira')) {
-      const bloco = document.getElementById('bloco_poco_caipira');
-      if (bloco) bloco.style.display = 'block';
-    }
-    // Poco artesiano
-    if (e.fontes_agua && e.fontes_agua.includes('Poco_artesiano')) {
-      const bloco = document.getElementById('bloco_poco_artesiano');
-      if (bloco) bloco.style.display = 'block';
-    }
-    // Coleta analise agua
-    if (e.coleta_analise === 'Sim') {
-      const bloco = document.getElementById('bloco_analise_agua');
-      if (bloco) bloco.style.display = 'block';
-    }
-    // Campos "outros"
-    if (e.outro_fonte) { const el = document.getElementById('f_outros_fonte'); if(el) el.style.display = 'block'; }
-    if (e.outras_estrategias) { const el = document.getElementById('f_outras_estr_ag'); if(el) el.style.display = 'block'; }
-    if (e.outros_residuos) { const el = document.getElementById('f_outros_residuos_ag'); if(el) el.style.display = 'block'; }
-    if (e.outro_destino) { const el = document.getElementById('f_outro_destino_ag'); if(el) el.style.display = 'block'; }
-    if (e.trat_outro) { const el = document.getElementById('f_trat_outro'); if(el) el.style.display = 'block'; }
-    if (e.outro_armazen) { const el = document.getElementById('f_outro_armazen'); if(el) el.style.display = 'block'; }
-  } else if (e.tipo === 'tecnico') {
-    if (e.outro_fator) { const el = document.getElementById('f_te_fator_outro'); if(el) el.style.display = 'block'; }
-    if (e.outro_impacto) { const el = document.getElementById('f_te_imp_outro'); if(el) el.style.display = 'block'; }
-    if (e.outro_pratica) { const el = document.getElementById('f_te_prat_outro'); if(el) el.style.display = 'block'; }
-    if (e.outro_dif) { const el = document.getElementById('f_te_dif_outro'); if(el) el.style.display = 'block'; }
-    if (e.outro_res_te) { const el = document.getElementById('f_te_res_outro'); if(el) el.style.display = 'block'; }
-  }
-  showToast('✏️ Editando: ' + e.codigo);
-  // Scroll to top
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function deleteEntrevista() {
