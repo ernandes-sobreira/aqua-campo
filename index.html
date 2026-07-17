@@ -2097,6 +2097,11 @@ function toggleCheck(el, type, name) {
   updateProgress();
 }
 
+// optCheck: alias para toggleCheck em checkboxes simples
+function optCheck(el) {
+  toggleCheck(el);
+}
+
 function updateProgress() {
   const tipo = _tipoAtual || document.querySelector('[name=tipo]:checked')?.value;
   const prefix = tipo === 'tecnico' ? 'te' : tipo === 'representante' ? 're' : 'f';
