@@ -937,6 +937,46 @@
     </div>
 
     <!-- FORMULÁRIO AGRICULTOR -->
+    
+    <!-- BLOCO COMUM (TOPO): AUDIO E FOTOS -->
+    <div id="bloco-audio-comum" style="display:none;">
+      <div class="section-header"><div class="section-header-dot" style="background:var(--red);"></div><div class="section-header-title">Gravacao de Audio (Offline)</div></div>
+      <div class="card">
+        <div class="alert alert-success" style="margin-bottom:12px;">✅ <strong>Gravacao 100% offline</strong> — funciona sem internet. O audio fica salvo no proprio dispositivo.</div>
+        <div class="alert alert-ok" style="margin-bottom:12px;">
+          ✅ <div><strong>Audio salvo direto no celular</strong> — ao clicar em 💾 Salvar, o arquivo <code>.webm</code> vai automaticamente para a pasta <strong>Downloads</strong> do celular. Funciona 100% offline.</div>
+        </div>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Grave quantos trechos quiser. Cada um gera um arquivo separado em Downloads.</p>
+        <div class="audio-recorder">
+          <div class="audio-controls">
+            <button class="btn-record idle" id="btnRecord" onclick="toggleRecord()">🎤</button>
+            <div>
+              <div class="audio-time" id="audioTime">00:00</div>
+              <div class="audio-status" id="audioStatus">Pronto para gravar</div>
+            </div>
+            <button class="btn-sm outline" onclick="saveAudio()" id="btnSaveAudio" style="display:none;">💾 Salvar audio</button>
+          </div>
+        </div>
+        <div class="audio-list" id="audioList" style="margin-top:12px;"></div>
+      </div>
+    </div>
+
+    <div id="bloco-fotos-comum" style="display:none;">
+      <div class="section-header"><div class="section-header-dot" style="background:var(--orange);"></div><div class="section-header-title">Fotos da Entrevista (Offline)</div></div>
+      <div class="card">
+        <p style="font-size:13px;color:var(--text2);margin-bottom:12px;">Registre fotos da propriedade, fontes de agua, poco, residuos, documentos. As fotos ficam salvas no aparelho junto com a entrevista.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <label class="btn-sm primary" style="cursor:pointer;">📷 Tirar Foto
+            <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="adicionarFoto(this)">
+          </label>
+          <label class="btn-sm outline" style="cursor:pointer;">🖼️ Da Galeria
+            <input type="file" accept="image/*" multiple style="display:none;" onchange="adicionarFoto(this)">
+          </label>
+        </div>
+        <div id="fotoGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:14px;"></div>
+      </div>
+    </div>
+
     <div id="form-agricultor" style="display:none;">
 
       <!-- I. IDENTIFICAÇÃO -->
@@ -1514,28 +1554,6 @@
     </div><!-- /form-representante -->
 
     <!-- BLOCO COMUM: AUDIO -->
-    <div id="bloco-audio-comum" style="display:none;">
-      <div class="section-header"><div class="section-header-dot" style="background:var(--red);"></div><div class="section-header-title">Gravacao de Audio (Offline)</div></div>
-      <div class="card">
-        <div class="alert alert-success" style="margin-bottom:12px;">✅ <strong>Gravacao 100% offline</strong> — funciona sem internet. O audio fica salvo no proprio dispositivo.</div>
-        <div class="alert alert-ok" style="margin-bottom:12px;">
-          ✅ <div><strong>Audio salvo direto no celular</strong> — ao clicar em 💾 Salvar, o arquivo <code>.webm</code> vai automaticamente para a pasta <strong>Downloads</strong> do celular. Funciona 100% offline.</div>
-        </div>
-        <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Grave quantos trechos quiser. Cada um gera um arquivo separado em Downloads.</p>
-        <div class="audio-recorder">
-          <div class="audio-controls">
-            <button class="btn-record idle" id="btnRecord" onclick="toggleRecord()">🎤</button>
-            <div>
-              <div class="audio-time" id="audioTime">00:00</div>
-              <div class="audio-status" id="audioStatus">Pronto para gravar</div>
-            </div>
-            <button class="btn-sm outline" onclick="saveAudio()" id="btnSaveAudio" style="display:none;">💾 Salvar audio</button>
-          </div>
-        </div>
-        <div class="audio-list" id="audioList" style="margin-top:12px;"></div>
-      </div>
-    </div>
-
     <!-- BLOCO COMUM: OBSERVACOES E ETICA -->
     <div id="bloco-obs-comum" style="display:none;">
       <div class="card">
@@ -1563,8 +1581,7 @@
         <button class="btn-sm outline" onclick="limparFormulario()" style="padding:14px 28px;font-size:15px;">🗑️ Limpar</button>
         <button class="btn-sm primary" onclick="salvarEntrevista()" style="padding:14px 32px;font-size:15px;">💾 Salvar Entrevista</button>
       </div>
-    </div>
-  </div><!-- /bloco-obs-comum -->
+    </div><!-- /bloco-obs-comum -->
 
   </div><!-- /page-nova -->
 
@@ -2085,6 +2102,83 @@ function popularSelectComunidades() {
   }
 }
 
+// ===== FOTOS DA ENTREVISTA =====
+let currentFotos = []; // [{id, name, dataUrl}]
+
+function adicionarFoto(input) {
+  const files = Array.from(input.files || []);
+  if (!files.length) return;
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        // Comprimir: max 1280px, JPEG 0.7 — equilibrio qualidade/espaco
+        const MAX = 1280;
+        let w = img.width, h = img.height;
+        if (w > MAX || h > MAX) {
+          const ratio = Math.min(MAX / w, MAX / h);
+          w = Math.round(w * ratio); h = Math.round(h * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+        const fid = 'foto_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+        currentFotos.push({ id: fid, name: fid + '.jpg', dataUrl });
+        renderFotoGrid();
+        showToast('📷 Foto adicionada (' + currentFotos.length + ')');
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value = '';
+}
+function renderFotoGrid() {
+  const grid = document.getElementById('fotoGrid');
+  if (!grid) return;
+  grid.innerHTML = currentFotos.map((f, i) => `
+    <div style="position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--gray2);">
+      <img src="${f.dataUrl}" style="width:100%;height:90px;object-fit:cover;display:block;">
+      <button onclick="removerFoto(${i})" style="position:absolute;top:3px;right:3px;background:rgba(231,111,81,0.92);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:12px;cursor:pointer;line-height:1;">✕</button>
+    </div>`).join('');
+}
+function removerFoto(i) {
+  currentFotos.splice(i, 1);
+  renderFotoGrid();
+}
+// IndexedDB store para fotos (separado, nao estoura localStorage)
+function salvarFotosIDB(entrevistaId, fotos) {
+  return new Promise((resolve) => {
+    if (!db || !fotos.length) { resolve(); return; }
+    try {
+      const tx = db.transaction(['fotos'], 'readwrite');
+      const store = tx.objectStore('fotos');
+      fotos.forEach(f => store.put({ id: f.id, entrevista_id: entrevistaId, name: f.name, dataUrl: f.dataUrl }));
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => resolve();
+    } catch(_) { resolve(); }
+  });
+}
+function carregarFotosIDB(entrevistaId) {
+  return new Promise((resolve) => {
+    if (!db) { resolve([]); return; }
+    try {
+      const tx = db.transaction(['fotos'], 'readonly');
+      const store = tx.objectStore('fotos');
+      const req = store.getAll();
+      req.onsuccess = () => resolve((req.result || []).filter(f => f.entrevista_id === entrevistaId));
+      req.onerror = () => resolve([]);
+    } catch(_) { resolve([]); }
+  });
+}
+function baixarFoto(dataUrl, name) {
+  const a = document.createElement('a');
+  a.href = dataUrl; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
 // ===== PREENCHER FORMULARIO (para edicao) =====
 function preencherFormulario(e) {
   const setF = (id, val) => { const el = document.getElementById(id); if(el) el.value = val||''; };
@@ -2204,7 +2298,7 @@ async function entrarApp() {
 
 let db = null;
 const DB_NAME = 'aquacampo_db';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const STORE_NAME = 'entrevistas';
 
 // Inicializa IndexedDB
@@ -2216,6 +2310,9 @@ function initIndexedDB() {
       const d = e.target.result;
       if (!d.objectStoreNames.contains(STORE_NAME)) {
         d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+      }
+      if (!d.objectStoreNames.contains('fotos')) {
+        d.createObjectStore('fotos', { keyPath: 'id' });
       }
     };
     req.onsuccess = (e) => { db = e.target.result; resolve(true); };
@@ -2390,6 +2487,8 @@ function selecionarTipo(tipo) {
   if (form) form.style.display = 'block';
   const audio = document.getElementById('bloco-audio-comum');
   if (audio) audio.style.display = 'block';
+  const fotos = document.getElementById('bloco-fotos-comum');
+  if (fotos) fotos.style.display = 'block';
   const obs = document.getElementById('bloco-obs-comum');
   if (obs) obs.style.display = 'block';
   // Data de hoje
@@ -2554,6 +2653,8 @@ function salvarEntrevista() {
     audio_autorizado:    document.getElementById('f_audio_autorizado')?.checked || false,
     anonimato_garantido: document.getElementById('f_anonimato_garantido')?.checked || false,
     audios: currentAudios.map(a => ({ name: a.name })),
+    fotos: currentFotos.map(f => ({ id: f.id, name: f.name })),
+    n_fotos: currentFotos.length,
     sincronizado: false,
     categorias: getCB('#page-nova input[type=checkbox]').filter(v =>
       ['impactos_percebidos','estrategias_adaptacao','barreiras_solucoes','governanca_agua'].includes(v)),
@@ -2726,6 +2827,7 @@ function salvarEntrevista() {
     entrevistas.unshift(entrevista);
   }
   saveData();
+  salvarFotosIDB(entrevista.id, currentFotos);
   _pendingSave = false;
   mostrarConfirmacaoSalvo(entrevista);
   limparFormulario();
@@ -2782,8 +2884,10 @@ function fecharAlertaExportacao() {
 function limparFormulario() {
   editingId = null;
   _tipoAtual = null;
-  editingId = null;
   currentAudios = [];
+  currentFotos = [];
+  const _fg = document.getElementById('fotoGrid');
+  if (_fg) _fg.innerHTML = '';
   const _comAtual = document.getElementById('sel_comunidade')?.value || '';
   document.querySelectorAll('#page-nova input, #page-nova textarea, #page-nova select').forEach(el => {
     if(el.type === 'checkbox' || el.type === 'radio') el.checked = false;
@@ -2923,8 +3027,30 @@ function openDetalhes(id) {
     ${e.sugestoes ? `<div style="margin-bottom:10px;margin-top:10px;"><div style="font-size:12px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Sugestoes do participante</div><div style="font-size:13px;background:var(--light);padding:10px 14px;border-radius:8px;line-height:1.6;">${e.sugestoes}</div></div>` : ''}
     ${e.observacoes ? `<div style="margin-bottom:10px;"><div style="font-size:12px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Observacoes gerais</div><div style="font-size:13px;background:#fff8e1;padding:10px 14px;border-radius:8px;line-height:1.6;">${e.observacoes}</div></div>` : ''}
     ${e.categorias?.length ? `<div style="font-size:13px;"><strong style="color:var(--teal2);">Categorias:</strong> ${e.categorias.join(', ')}</div>` : ''}
+    ${e.n_fotos ? `<div style="margin-top:14px;"><div style="font-size:12px;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">📷 Fotos (${e.n_fotos})</div><div id="detFotoGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;"><span style="font-size:12px;color:var(--text2);">Carregando fotos...</span></div></div>` : ''}
   `;
   openModal('modalDetalhes');
+  // Carregar fotos do IndexedDB
+  if (e.n_fotos) {
+    carregarFotosIDB(e.id).then(fotos => {
+      const g = document.getElementById('detFotoGrid');
+      if (!g) return;
+      if (!fotos.length) { g.innerHTML = '<span style="font-size:12px;color:var(--text2);">Fotos nao encontradas neste dispositivo</span>'; return; }
+      g.innerHTML = fotos.map(f => `
+        <div style="position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--gray2);">
+          <img src="${f.dataUrl}" style="width:100%;height:90px;object-fit:cover;display:block;cursor:pointer;" onclick="baixarFoto('${f.id}_full','${f.name}')" data-fid="${f.id}">
+          <button onclick="baixarFotoIDB('${f.id}','${f.name}')" style="position:absolute;bottom:3px;right:3px;background:rgba(0,95,115,0.92);color:#fff;border:none;border-radius:6px;padding:2px 7px;font-size:11px;cursor:pointer;">⬇</button>
+        </div>`).join('');
+    });
+  }
+}
+function baixarFotoIDB(fotoId, name) {
+  if (!db) return;
+  try {
+    const tx = db.transaction(['fotos'], 'readonly');
+    const req = tx.objectStore('fotos').get(fotoId);
+    req.onsuccess = () => { if (req.result) baixarFoto(req.result.dataUrl, name); };
+  } catch(_) {}
 }
 
 function editarEntrevista(id) {
@@ -2973,6 +3099,12 @@ function editarEntrevista(id) {
     if (e.outro_dif) { const el = document.getElementById('f_te_dif_outro'); if(el) el.style.display = 'block'; }
     if (e.outro_res_te) { const el = document.getElementById('f_te_res_outro'); if(el) el.style.display = 'block'; }
   }
+  // Carregar fotos existentes para edicao
+  currentFotos = [];
+  carregarFotosIDB(e.id).then(fotos => {
+    currentFotos = fotos.map(f => ({ id: f.id, name: f.name, dataUrl: f.dataUrl }));
+    renderFotoGrid();
+  });
   showToast('✏️ Editando: ' + e.codigo);
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
