@@ -757,23 +757,30 @@
     <p class="capa-subtitle">Plataforma de Coleta de Entrevistas Qualitativas<br>Impactos da Escassez Hidrica na Agricultura Familiar</p>
 
     <div class="capa-proj">
-      <p>Projeto de Pesquisa</p>
-      <h3>Impactos da Escassez Hidrica na Agricultura Familiar da Regiao do Vale do Rio Cuiaba</h3>
+      <p>Plataforma Nacional</p>
+      <h3>Diagnostico dos Impactos da Escassez Hidrica na Agricultura Familiar — Brasil</h3>
     </div>
 
     <div class="capa-authors">
       <div class="capa-author-item">
         <div class="capa-author-avatar pesq">👩‍🔬</div>
         <div class="capa-author-info">
-          <div class="capa-author-role">Pesquisadora</div>
+          <div class="capa-author-role">Desenvolvimento</div>
           <div class="capa-author-name">Maria Silvina da Cruz Goncalves</div>
         </div>
       </div>
       <div class="capa-author-item">
         <div class="capa-author-avatar ori">🎓</div>
         <div class="capa-author-info">
-          <div class="capa-author-role">Orientador</div>
+          <div class="capa-author-role">Desenvolvimento</div>
           <div class="capa-author-name">Prof. Dr. Ernandes Sobreira Oliveira Junior</div>
+        </div>
+      </div>
+      <div class="capa-author-item">
+        <div class="capa-author-avatar pesq">🏛️</div>
+        <div class="capa-author-info">
+          <div class="capa-author-role">Destinado a</div>
+          <div class="capa-author-name">Extensionistas, Secretarias, Cooperativas e Pesquisadores de todo o Brasil</div>
         </div>
       </div>
     </div>
@@ -803,6 +810,7 @@
   <!-- Nav -->
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="showPage('dashboard')" id="tab-dashboard">📊 Painel</button>
+    <button class="nav-tab" onclick="showPage('comunidades')" id="tab-comunidades">🏘️ Comunidades</button>
     <button class="nav-tab" onclick="showPage('entrevistas')" id="tab-entrevistas">📋 Entrevistas</button>
     <button class="nav-tab" onclick="showPage('nova')" id="tab-nova">✏️ Registrar</button>
     <button class="nav-tab" onclick="showPage('roteiro')" id="tab-roteiro">📖 Roteiro</button>
@@ -813,28 +821,34 @@
   <div class="page active" id="page-dashboard">
     <div class="stats-grid" id="statsGrid">
       <div class="stat-card"><div class="stat-value" id="st-total">0</div><div class="stat-label">Entrevistas</div></div>
+      <div class="stat-card"><div class="stat-value" id="st-com">0</div><div class="stat-label">Comunidades</div></div>
       <div class="stat-card"><div class="stat-value" id="st-ag">0</div><div class="stat-label">Agricultores</div></div>
       <div class="stat-card"><div class="stat-value" id="st-te">0</div><div class="stat-label">Tecnicos</div></div>
       <div class="stat-card"><div class="stat-value" id="st-rep">0</div><div class="stat-label">Representantes</div></div>
     </div>
 
+    <div class="card" id="perfilCard" style="cursor:pointer;" onclick="openPerfilModal()">
+      <div class="card-title"><span class="icon">👤</span> Pesquisador(a) <span style="font-size:11px;color:var(--text2);font-weight:400;margin-left:auto;">toque para editar</span></div>
+      <div id="perfilResumo" style="font-size:14px;color:var(--text2);line-height:1.6;">Nenhum perfil configurado. Toque para configurar.</div>
+    </div>
+
     <div class="alert alert-info">
-      📡 <div><strong>Modo Offline Ativo</strong> — Todos os dados sao salvos localmente. Exporte os dados quando tiver internet disponivel.</div>
+      📡 <div><strong>Modo Offline Ativo</strong> — Todos os dados sao salvos localmente neste dispositivo. Exporte os dados quando tiver internet disponivel.</div>
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="icon">🌱</span> Sobre a Pesquisa</div>
-      <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:14px;">Esta pesquisa analisa os impactos da escassez hidrica na producao, sustentabilidade e condicoes socioeconomicas da agricultura familiar na <strong>Regiao Metropolitana do Vale do Rio Cuiaba e Entorno (RMVRCE)</strong>.</p>
-      <p style="font-size:14px;color:var(--text2);line-height:1.7;">Abrange 14 municipios: Acorizal, Campo Verde, Cuiaba, Chapada dos Guimaraes, Nossa Senhora do Livramento, Santo Antonio do Leverger, Varzea Grande, Barao de Melgaco, Jangada, Nobres, Nova Brasilandia, Planalto da Serra, Pocone e Rosario Oeste.</p>
+      <div class="card-title"><span class="icon">🌱</span> Sobre a Plataforma</div>
+      <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:14px;">O <strong>AQUA-CAMPO</strong> e uma plataforma nacional de diagnostico dos impactos da <strong>escassez hidrica</strong> na agricultura familiar. Destina-se a extensionistas, secretarias de planejamento, meio ambiente e agricultura, cooperativas e pesquisadores de todo o Brasil.</p>
+      <p style="font-size:14px;color:var(--text2);line-height:1.7;">Organize suas entrevistas por <strong>comunidades</strong>: cadastre cada localidade visitada, registre as entrevistas vinculadas a ela e acompanhe os resultados de cada comunidade separadamente. O instrumento de coleta e aprovado por Comite de Etica em Pesquisa (CEP/CNS 510/2016).</p>
     </div>
 
     <div class="card">
-      <div class="card-title"><span class="icon">🎯</span> Objetivos da Etapa de Campo</div>
+      <div class="card-title"><span class="icon">🎯</span> Como Usar</div>
       <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--text2);line-height:1.6;">
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">01</span>Diagnosticar os multiplos usos da agua na RMVRCE</div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">02</span>Diagnosticar a demanda hidrica da regiao</div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">03</span>Identificar impactos socioeconomicos da escassez hidrica</div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">04</span>Propor alternativas para gestao sustentavel dos recursos hidricos</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">01</span>Configure seu perfil de pesquisador(a) no cartao acima</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">02</span>Cadastre a comunidade que vai visitar na aba Comunidades</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">03</span>Registre as entrevistas vinculando cada uma a comunidade</div>
+        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--teal);font-weight:700;flex-shrink:0;">04</span>Acompanhe resultados por comunidade e exporte os dados</div>
       </div>
     </div>
 
@@ -844,16 +858,36 @@
     </div>
   </div>
 
+  <!-- COMUNIDADES -->
+  <div class="page" id="page-comunidades">
+    <div id="comunidadesLista">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+        <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--teal2);">Comunidades Cadastradas</h2>
+        <button class="btn-sm primary" onclick="openComunidadeModal()">➕ Nova Comunidade</button>
+      </div>
+      <div id="listaComunidades"></div>
+    </div>
+    <div id="comunidadeDetalhe" style="display:none;">
+      <button class="btn-sm outline" onclick="fecharDetalheComunidade()" style="margin-bottom:14px;">← Voltar as comunidades</button>
+      <div id="comunidadeDetalheBody"></div>
+    </div>
+  </div>
+
   <!-- ENTREVISTAS -->
   <div class="page" id="page-entrevistas">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--teal2);">Entrevistas Salvas</h2>
-      <select class="form-select" style="width:auto;padding:8px 12px;font-size:13px;" id="filtroTipo" onchange="renderEntrevistas()">
-        <option value="">Todos os tipos</option>
-        <option value="agricultor">Agricultores</option>
-        <option value="tecnico">Tecnicos</option>
-        <option value="representante">Representantes</option>
-      </select>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <select class="form-select" style="width:auto;padding:8px 12px;font-size:13px;" id="filtroComunidade" onchange="renderEntrevistas()">
+          <option value="">Todas as comunidades</option>
+        </select>
+        <select class="form-select" style="width:auto;padding:8px 12px;font-size:13px;" id="filtroTipo" onchange="renderEntrevistas()">
+          <option value="">Todos os tipos</option>
+          <option value="agricultor">Agricultores</option>
+          <option value="tecnico">Tecnicos</option>
+          <option value="representante">Representantes</option>
+        </select>
+      </div>
     </div>
     <div id="listaEntrevistas"></div>
   </div>
@@ -861,7 +895,19 @@
   <!-- NOVA ENTREVISTA -->
   <div class="page" id="page-nova">
     <h2 style="font-family:'Playfair Display',serif;font-size:20px;color:var(--teal2);margin-bottom:6px;">Registrar Entrevista</h2>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;">Selecione o tipo de participante para carregar o formulario correspondente</p>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;">Selecione a comunidade e o tipo de participante para carregar o formulario</p>
+
+    <!-- SELETOR DE COMUNIDADE -->
+    <div class="card" style="border:2px solid var(--amber);">
+      <div class="card-title"><span class="icon">🏘️</span> Comunidade <span class="required">*</span></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <select class="form-select" id="sel_comunidade" style="flex:1;min-width:200px;" onchange="updateProgress()">
+          <option value="">Selecione a comunidade...</option>
+        </select>
+        <button class="btn-sm outline" type="button" onclick="openComunidadeModal()" style="white-space:nowrap;">➕ Nova</button>
+      </div>
+      <p style="font-size:12px;color:var(--text2);margin-top:8px;">Todas as entrevistas ficam organizadas pela comunidade selecionada. Cadastre a comunidade uma vez e reutilize nas proximas visitas.</p>
+    </div>
 
     <!-- SELETOR DE TIPO -->
     <div class="card" style="border:2px solid var(--teal);">
@@ -913,7 +959,7 @@
         </div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">4. Municipio <span class="required">*</span></label>
-            <select class="form-select" id="f_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select>
+            <div style="display:flex;gap:8px;"><select class="form-select" id="f_uf" style="width:90px;flex-shrink:0;" onchange="updateProgress()"><option value="">UF...</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option></select><input class="form-input" id="f_municipio" placeholder="Digite o municipio" oninput="updateProgress()"></div>
           </div>
           <div class="form-group"><label class="form-label">5. Comunidade / Localidade <span class="required">*</span></label><input class="form-input" id="f_localidade" placeholder="Nome da comunidade, sitio ou assentamento" oninput="updateProgress()"></div>
         </div>
@@ -1187,7 +1233,7 @@
           <div class="form-group"><label class="form-label">Data <span class="required">*</span></label><input class="form-input" type="date" id="te_data" oninput="updateProgress()"></div>
         </div>
         <div class="form-group"><label class="form-label">Municipio <span class="required">*</span></label>
-          <select class="form-select" id="te_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select>
+          <div style="display:flex;gap:8px;"><select class="form-select" id="te_uf" style="width:90px;flex-shrink:0;" onchange="updateProgress()"><option value="">UF...</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option></select><input class="form-input" id="te_municipio" placeholder="Digite o municipio" oninput="updateProgress()"></div>
         </div>
         <div class="form-group"><label class="form-label">Genero</label>
           <div class="check-group" style="flex-direction:row;flex-wrap:wrap;gap:8px;">
@@ -1398,7 +1444,7 @@
           <div class="form-group"><label class="form-label">Data <span class="required">*</span></label><input class="form-input" type="date" id="re_data" oninput="updateProgress()"></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Municipio <span class="required">*</span></label><select class="form-select" id="re_municipio" onchange="updateProgress()"><option value="">Selecione...</option><option>Acorizal</option><option>Barao de Melgaco</option><option>Campo Verde</option><option>Chapada dos Guimaraes</option><option>Cuiaba</option><option>Jangada</option><option>Nobres</option><option>Nossa Senhora do Livramento</option><option>Nova Brasilandia</option><option>Planalto da Serra</option><option>Pocone</option><option>Rosario Oeste</option><option>Santo Antonio do Leverger</option><option>Varzea Grande</option></select></div>
+          <div class="form-group"><label class="form-label">Municipio <span class="required">*</span></label><div style="display:flex;gap:8px;"><select class="form-select" id="re_uf" style="width:90px;flex-shrink:0;" onchange="updateProgress()"><option value="">UF...</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option></select><input class="form-input" id="re_municipio" placeholder="Digite o municipio" oninput="updateProgress()"></div></div>
           <div class="form-group"><label class="form-label">Tipo de organizacao</label><select class="form-select" id="f_org_tipo"><option value="">Selecione...</option><option>Cooperativa</option><option>Associacao de agricultores</option><option>Sindicato rural</option><option>Comite de bacia hidrografica</option><option>Outra</option></select></div>
         </div>
         <div class="form-row">
@@ -1712,6 +1758,63 @@
   </div>
 </div>
 
+<!-- MODAL COMUNIDADE -->
+<div class="modal-overlay" id="modalComunidade">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 style="font-family:'Playfair Display',serif;color:var(--teal2);" id="modalComunidadeTitulo">Nova Comunidade</h3>
+      <button class="modal-close" onclick="closeModal('modalComunidade')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="com_edit_id">
+      <div class="form-group"><label class="form-label">Nome da comunidade <span class="required">*</span></label>
+        <input class="form-input" id="com_nome" placeholder="Ex: Assentamento Sao Jose, Comunidade Ribeirinha Alta Floresta"></div>
+      <div class="form-group"><label class="form-label">UF <span class="required">*</span> e Municipio <span class="required">*</span></label>
+        <div style="display:flex;gap:8px;">
+          <select class="form-select" id="com_uf" style="width:90px;flex-shrink:0;"><option value="">UF...</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option></select>
+          <input class="form-input" id="com_municipio" placeholder="Municipio">
+        </div></div>
+      <div class="form-group"><label class="form-label">Tipo de localidade</label>
+        <select class="form-select" id="com_tipo_local"><option value="">Selecione...</option><option>Assentamento</option><option>Comunidade rural</option><option>Comunidade tradicional</option><option>Comunidade ribeirinha</option><option>Comunidade quilombola</option><option>Aldeia indigena</option><option>Distrito</option><option>Bairro rural</option><option>Outro</option></select></div>
+      <div class="form-group"><label class="form-label">Coordenadas GPS (opcional)</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input class="form-input" id="com_gps" placeholder="Lat, Long" style="flex:1;">
+          <button class="btn-sm outline" type="button" onclick="capturarGPS()" style="white-space:nowrap;">📍 Capturar</button>
+        </div></div>
+      <div class="form-group"><label class="form-label">Observacoes</label>
+        <textarea class="form-textarea" id="com_obs" rows="2" placeholder="Contexto, acesso, contatos locais..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm outline" onclick="closeModal('modalComunidade')">Cancelar</button>
+      <button class="btn-sm primary" onclick="salvarComunidade()">💾 Salvar Comunidade</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PERFIL -->
+<div class="modal-overlay" id="modalPerfil">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 style="font-family:'Playfair Display',serif;color:var(--teal2);">Perfil do Pesquisador(a)</h3>
+      <button class="modal-close" onclick="closeModal('modalPerfil')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;">Estes dados identificam quem coletou as entrevistas e acompanham todas as exportacoes.</p>
+      <div class="form-group"><label class="form-label">Nome completo <span class="required">*</span></label>
+        <input class="form-input" id="pf_nome" placeholder="Seu nome"></div>
+      <div class="form-group"><label class="form-label">Instituicao / Orgao <span class="required">*</span></label>
+        <input class="form-input" id="pf_instituicao" placeholder="Ex: EMPAER, Secretaria de Agricultura, UNEMAT, Cooperativa..."></div>
+      <div class="form-group"><label class="form-label">Funcao / Cargo</label>
+        <input class="form-input" id="pf_funcao" placeholder="Ex: Extensionista, Analista ambiental, Pesquisador..."></div>
+      <div class="form-group"><label class="form-label">E-mail de contato</label>
+        <input class="form-input" id="pf_email" placeholder="email@exemplo.com"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm primary" onclick="salvarPerfil()">💾 Salvar Perfil</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div id="toast"></div>
 
@@ -1728,6 +1831,259 @@ let isRecording = false;
 let isPaused = false;
 let audioStream = null;
 let deleteTargetId = null;
+let comunidades = [];
+let perfil = null;
+let _comunidadeDetalheId = null;
+
+// ===== COMUNIDADES E PERFIL — PERSISTENCIA =====
+function loadComunidades() {
+  try { comunidades = JSON.parse(localStorage.getItem('aquacampo_comunidades') || '[]'); } catch(_) { comunidades = []; }
+  try { perfil = JSON.parse(localStorage.getItem('aquacampo_perfil') || 'null'); } catch(_) { perfil = null; }
+}
+function saveComunidades() {
+  try { localStorage.setItem('aquacampo_comunidades', JSON.stringify(comunidades)); } catch(e) { showToast('Erro ao salvar comunidades', true); }
+}
+function savePerfilStorage() {
+  try { localStorage.setItem('aquacampo_perfil', JSON.stringify(perfil)); } catch(_) {}
+}
+
+// ===== PERFIL =====
+function openPerfilModal() {
+  if (perfil) {
+    document.getElementById('pf_nome').value = perfil.nome || '';
+    document.getElementById('pf_instituicao').value = perfil.instituicao || '';
+    document.getElementById('pf_funcao').value = perfil.funcao || '';
+    document.getElementById('pf_email').value = perfil.email || '';
+  }
+  openModal('modalPerfil');
+}
+function salvarPerfil() {
+  const nome = document.getElementById('pf_nome').value.trim();
+  const inst = document.getElementById('pf_instituicao').value.trim();
+  if (!nome || !inst) { showToast('Preencha nome e instituicao', true); return; }
+  perfil = {
+    nome, instituicao: inst,
+    funcao: document.getElementById('pf_funcao').value.trim(),
+    email: document.getElementById('pf_email').value.trim(),
+  };
+  savePerfilStorage();
+  renderPerfilResumo();
+  closeModal('modalPerfil');
+  showToast('✅ Perfil salvo!');
+}
+function renderPerfilResumo() {
+  const el = document.getElementById('perfilResumo');
+  if (!el) return;
+  if (!perfil) {
+    el.innerHTML = '⚠️ Nenhum perfil configurado. <strong>Toque para configurar</strong> — seus dados identificam quem coletou as entrevistas.';
+    return;
+  }
+  el.innerHTML = `<strong>${perfil.nome}</strong><br>${perfil.instituicao}${perfil.funcao ? ' — ' + perfil.funcao : ''}${perfil.email ? '<br>📧 ' + perfil.email : ''}`;
+}
+
+// ===== COMUNIDADES — CRUD =====
+function openComunidadeModal(id) {
+  document.getElementById('com_edit_id').value = id || '';
+  document.getElementById('modalComunidadeTitulo').textContent = id ? 'Editar Comunidade' : 'Nova Comunidade';
+  if (id) {
+    const c = comunidades.find(x => x.id === id);
+    if (c) {
+      document.getElementById('com_nome').value = c.nome || '';
+      document.getElementById('com_uf').value = c.uf || '';
+      document.getElementById('com_municipio').value = c.municipio || '';
+      document.getElementById('com_tipo_local').value = c.tipo_local || '';
+      document.getElementById('com_gps').value = c.gps || '';
+      document.getElementById('com_obs').value = c.obs || '';
+    }
+  } else {
+    ['com_nome','com_municipio','com_gps','com_obs'].forEach(i => { const el = document.getElementById(i); if(el) el.value=''; });
+    document.getElementById('com_uf').value = '';
+    document.getElementById('com_tipo_local').value = '';
+  }
+  openModal('modalComunidade');
+}
+function salvarComunidade() {
+  const nome = document.getElementById('com_nome').value.trim();
+  const uf = document.getElementById('com_uf').value;
+  const mun = document.getElementById('com_municipio').value.trim();
+  if (!nome || !uf || !mun) { showToast('Preencha nome, UF e municipio', true); return; }
+  const editId = document.getElementById('com_edit_id').value;
+  if (editId) {
+    const c = comunidades.find(x => x.id === editId);
+    if (c) {
+      c.nome = nome; c.uf = uf; c.municipio = mun;
+      c.tipo_local = document.getElementById('com_tipo_local').value;
+      c.gps = document.getElementById('com_gps').value.trim();
+      c.obs = document.getElementById('com_obs').value.trim();
+    }
+  } else {
+    comunidades.push({
+      id: 'com_' + Date.now().toString(),
+      criada_em: new Date().toISOString(),
+      nome, uf, municipio: mun,
+      tipo_local: document.getElementById('com_tipo_local').value,
+      gps: document.getElementById('com_gps').value.trim(),
+      obs: document.getElementById('com_obs').value.trim(),
+    });
+  }
+  saveComunidades();
+  renderComunidades();
+  popularSelectComunidades();
+  closeModal('modalComunidade');
+  showToast('✅ Comunidade salva!');
+  if (!editId) {
+    const sel = document.getElementById('sel_comunidade');
+    if (sel) sel.value = comunidades[comunidades.length-1].id;
+  }
+}
+function excluirComunidade(id) {
+  const n = entrevistas.filter(e => e.comunidade_id === id).length;
+  if (n > 0) { showToast('Esta comunidade tem ' + n + ' entrevista(s). Nao e possivel excluir.', true); return; }
+  if (!confirm('Excluir esta comunidade?')) return;
+  comunidades = comunidades.filter(c => c.id !== id);
+  saveComunidades();
+  renderComunidades();
+  popularSelectComunidades();
+  showToast('Comunidade excluida');
+}
+function capturarGPS() {
+  if (!navigator.geolocation) { showToast('GPS nao disponivel neste dispositivo', true); return; }
+  showToast('📍 Capturando localizacao...');
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      document.getElementById('com_gps').value = pos.coords.latitude.toFixed(6) + ', ' + pos.coords.longitude.toFixed(6);
+      showToast('✅ GPS capturado!');
+    },
+    () => showToast('Nao foi possivel obter o GPS', true),
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
+}
+
+// ===== COMUNIDADES — RENDER =====
+function contarPorComunidade(comId) {
+  const list = entrevistas.filter(e => e.comunidade_id === comId);
+  return {
+    total: list.length,
+    ag: list.filter(e=>e.tipo==='agricultor').length,
+    te: list.filter(e=>e.tipo==='tecnico').length,
+    rep: list.filter(e=>e.tipo==='representante').length,
+  };
+}
+function renderComunidades() {
+  const cont = document.getElementById('listaComunidades');
+  if (!cont) return;
+  if (comunidades.length === 0) {
+    cont.innerHTML = '<div class="empty-state"><div class="icon">🏘️</div><h3>Nenhuma comunidade cadastrada</h3><p>Cadastre a primeira comunidade que voce vai visitar. As entrevistas ficam organizadas por comunidade.</p></div>';
+    return;
+  }
+  const semCom = entrevistas.filter(e => !e.comunidade_id).length;
+  cont.innerHTML = comunidades.map(c => {
+    const n = contarPorComunidade(c.id);
+    return `
+    <div class="interview-item" onclick="abrirDetalheComunidade('${c.id}')">
+      <div class="interview-avatar" style="background:linear-gradient(135deg,var(--amber),var(--orange));">🏘️</div>
+      <div class="interview-info">
+        <div class="interview-name">${c.nome}</div>
+        <div class="interview-meta">
+          <span>📍 ${c.municipio} - ${c.uf}</span>
+          ${c.tipo_local ? `<span>${c.tipo_local}</span>` : ''}
+          <span><strong>${n.total}</strong> entrevista(s)</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+        <button class="btn-sm" style="font-size:11px;padding:5px 10px;background:var(--teal2);color:#fff;border:none;border-radius:7px;cursor:pointer;"
+          onclick="event.stopPropagation();openComunidadeModal('${c.id}')">✏️</button>
+        <button class="btn-sm" style="font-size:11px;padding:5px 10px;background:var(--gray2);color:var(--text2);border:none;border-radius:7px;cursor:pointer;"
+          onclick="event.stopPropagation();excluirComunidade('${c.id}')">🗑️</button>
+      </div>
+    </div>`;
+  }).join('') + (semCom > 0 ? `
+    <div class="interview-item" onclick="abrirDetalheComunidade('__sem__')">
+      <div class="interview-avatar" style="background:var(--gray3);">❔</div>
+      <div class="interview-info">
+        <div class="interview-name">Sem comunidade vinculada</div>
+        <div class="interview-meta"><span><strong>${semCom}</strong> entrevista(s) antigas sem vinculo</span></div>
+      </div>
+    </div>` : '');
+}
+function abrirDetalheComunidade(id) {
+  _comunidadeDetalheId = id;
+  const c = id === '__sem__' ? { nome: 'Sem comunidade vinculada', municipio: '-', uf: '-' } : comunidades.find(x => x.id === id);
+  if (!c) return;
+  const list = id === '__sem__' ? entrevistas.filter(e => !e.comunidade_id) : entrevistas.filter(e => e.comunidade_id === id);
+  const n = { total: list.length,
+    ag: list.filter(e=>e.tipo==='agricultor').length,
+    te: list.filter(e=>e.tipo==='tecnico').length,
+    rep: list.filter(e=>e.tipo==='representante').length };
+  const body = document.getElementById('comunidadeDetalheBody');
+  body.innerHTML = `
+    <div class="card" style="border:2px solid var(--amber);">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--teal2);">${c.nome}</h2>
+          <p style="font-size:13px;color:var(--text2);margin-top:4px;">📍 ${c.municipio} - ${c.uf}${c.tipo_local ? ' • ' + c.tipo_local : ''}${c.gps ? ' • GPS: ' + c.gps : ''}</p>
+          ${c.obs ? `<p style="font-size:13px;color:var(--text2);margin-top:6px;background:var(--light);padding:8px 12px;border-radius:8px;">${c.obs}</p>` : ''}
+        </div>
+        ${id !== '__sem__' ? `<button class="btn-sm primary" onclick="novaEntrevistaNaComunidade('${id}')">✏️ Nova entrevista aqui</button>` : ''}
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-value">${n.total}</div><div class="stat-label">Entrevistas</div></div>
+      <div class="stat-card"><div class="stat-value">${n.ag}</div><div class="stat-label">Agricultores</div></div>
+      <div class="stat-card"><div class="stat-value">${n.te}</div><div class="stat-label">Tecnicos</div></div>
+      <div class="stat-card"><div class="stat-value">${n.rep}</div><div class="stat-label">Representantes</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">📋</span> Entrevistados desta comunidade</div>
+      ${list.length === 0
+        ? '<div class="empty-state"><div class="icon">📭</div><h3>Nenhuma entrevista ainda</h3><p>Registre a primeira entrevista desta comunidade</p></div>'
+        : list.map(e => `
+        <div class="interview-item" onclick="openDetalhes('${e.id}')">
+          <div class="interview-avatar ${tipoAvatar(e.tipo)}">${tipoEmoji(e.tipo)}</div>
+          <div class="interview-info">
+            <div class="interview-name">${e.codigo}</div>
+            <div class="interview-meta">
+              <span>${tipoLabel(e.tipo)}</span>
+              <span>📅 ${e.data || '-'}</span>
+              ${e.localidade ? `<span>🏘️ ${e.localidade}</span>` : ''}
+            </div>
+          </div>
+          <button class="btn-sm" style="font-size:11px;padding:5px 10px;background:var(--teal2);color:#fff;border:none;border-radius:7px;cursor:pointer;"
+            onclick="event.stopPropagation();editarEntrevista('${e.id}')">✏️</button>
+        </div>`).join('')}
+    </div>`;
+  document.getElementById('comunidadesLista').style.display = 'none';
+  document.getElementById('comunidadeDetalhe').style.display = 'block';
+}
+function fecharDetalheComunidade() {
+  document.getElementById('comunidadeDetalhe').style.display = 'none';
+  document.getElementById('comunidadesLista').style.display = 'block';
+  _comunidadeDetalheId = null;
+  renderComunidades();
+}
+function novaEntrevistaNaComunidade(comId) {
+  showPage('nova');
+  limparFormulario();
+  const sel = document.getElementById('sel_comunidade');
+  if (sel) sel.value = comId;
+}
+function popularSelectComunidades() {
+  const sel = document.getElementById('sel_comunidade');
+  if (sel) {
+    const atual = sel.value;
+    sel.innerHTML = '<option value="">Selecione a comunidade...</option>' +
+      comunidades.map(c => `<option value="${c.id}">${c.nome} (${c.municipio}-${c.uf})</option>`).join('');
+    if (atual) sel.value = atual;
+  }
+  const filtro = document.getElementById('filtroComunidade');
+  if (filtro) {
+    const atualF = filtro.value;
+    filtro.innerHTML = '<option value="">Todas as comunidades</option>' +
+      comunidades.map(c => `<option value="${c.id}">${c.nome}</option>`).join('') +
+      '<option value="__sem__">Sem comunidade</option>';
+    if (atualF) filtro.value = atualF;
+  }
+}
 
 // ===== PREENCHER FORMULARIO (para edicao) =====
 function preencherFormulario(e) {
@@ -1742,8 +2098,12 @@ function preencherFormulario(e) {
       if(cb) { cb.checked = true; cb.closest('.check-item')?.classList.add('checked'); }
     });
   };
+  // Comunidade (comum a todos os tipos)
+  const selCom = document.getElementById('sel_comunidade');
+  if (selCom && e.comunidade_id) selCom.value = e.comunidade_id;
   if (e.tipo === 'agricultor') {
     setF('f_codigo', e.codigo); setF('f_data', e.data);
+    setF('f_uf', e.uf);
     const mun = document.getElementById('f_municipio');
     if(mun) mun.value = e.municipio||'';
     setF('f_localidade', e.localidade); setF('f_ag_idade', e.idade);
@@ -1781,6 +2141,7 @@ function preencherFormulario(e) {
     setF('f_obs_final_ag', e.obs_final);
   } else if (e.tipo === 'tecnico') {
     setF('te_codigo', e.codigo); setF('te_data', e.data);
+    setF('te_uf', e.uf);
     const mun = document.getElementById('te_municipio');
     if(mun) mun.value = e.municipio||'';
     setR('r_te_genero', e.genero); setF('f_te_instituicao', e.instituicao);
@@ -1803,6 +2164,7 @@ function preencherFormulario(e) {
     setF('f_te_memo_6', e.memo_b6); setF('f_te_memo_7', e.memo_b7);
   } else if (e.tipo === 'representante') {
     setF('re_codigo', e.codigo); setF('re_data', e.data);
+    setF('re_uf', e.uf);
     const mun = document.getElementById('re_municipio');
     if(mun) mun.value = e.municipio||'';
     setR('r_te_genero', e.genero);
@@ -1823,10 +2185,16 @@ async function entrarApp() {
   document.getElementById('capa').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   await loadData();
+  loadComunidades();
   renderDashboard();
+  renderPerfilResumo();
+  popularSelectComunidades();
+  setupOutrosListeners();
   // set today's date
   const d = new Date().toISOString().split('T')[0];
   if(document.getElementById('f_data')) document.getElementById('f_data').value = d;
+  // Primeiro acesso: pedir perfil
+  if (!perfil) setTimeout(() => openPerfilModal(), 600);
 }
 
 // ===== SISTEMA DE PERSISTÊNCIA 3 CAMADAS =====
@@ -1987,7 +2355,9 @@ function showPage(name) {
   const tab  = document.getElementById('tab-' + name);
   if (page) page.classList.add('active');
   if (tab)  tab.classList.add('active');
-  if (name === 'entrevistas') renderEntrevistas();
+  if (name === 'entrevistas') { popularSelectComunidades(); renderEntrevistas(); }
+  if (name === 'comunidades') { fecharDetalheComunidade(); renderComunidades(); }
+  if (name === 'nova') { popularSelectComunidades(); }
   if (name === 'painel' || name === 'dashboard') renderPainel();
   if (name === 'exportar' || name === 'export') {
     const el = document.getElementById('exportTotal');
@@ -2159,13 +2529,27 @@ function salvarEntrevista() {
     codigo:    tipo==='tecnico'?'te_codigo':    tipo==='representante'?'re_codigo':    'f_codigo',
     data:      tipo==='tecnico'?'te_data':      tipo==='representante'?'re_data':      'f_data',
     municipio: tipo==='tecnico'?'te_municipio': tipo==='representante'?'re_municipio': 'f_municipio',
+    uf:        tipo==='tecnico'?'te_uf':        tipo==='representante'?'re_uf':        'f_uf',
   };
+  // Comunidade obrigatoria
+  const comId = document.getElementById('sel_comunidade')?.value || '';
+  if (!comId) {
+    showToast('Selecione a comunidade desta entrevista (topo da pagina)!', true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+  const comObj = comunidades.find(c => c.id === comId);
   const base = {
     id: editingId || Date.now().toString(),
     timestamp: new Date().toISOString(),
     codigo, tipo,
     data:      getF(idMap.data),
     municipio: getF(idMap.municipio),
+    uf:        getF(idMap.uf),
+    comunidade_id:   comId,
+    comunidade_nome: comObj ? comObj.nome : '',
+    entrevistador_nome:       perfil ? perfil.nome : '',
+    entrevistador_instituicao: perfil ? perfil.instituicao : '',
     tcle_assinado:       document.getElementById('f_tcle_assinado')?.checked || false,
     audio_autorizado:    document.getElementById('f_audio_autorizado')?.checked || false,
     anonimato_garantido: document.getElementById('f_anonimato_garantido')?.checked || false,
@@ -2400,10 +2784,14 @@ function limparFormulario() {
   _tipoAtual = null;
   editingId = null;
   currentAudios = [];
+  const _comAtual = document.getElementById('sel_comunidade')?.value || '';
   document.querySelectorAll('#page-nova input, #page-nova textarea, #page-nova select').forEach(el => {
     if(el.type === 'checkbox' || el.type === 'radio') el.checked = false;
     else el.value = '';
   });
+  // Manter a comunidade selecionada para facilitar entrevistas em sequencia na mesma comunidade
+  const _selCom = document.getElementById('sel_comunidade');
+  if (_selCom && _comAtual) _selCom.value = _comAtual;
   document.querySelectorAll('#page-nova .check-item').forEach(el => el.classList.remove('checked'));
   const audioList = document.getElementById('audioList');
   if (audioList) audioList.innerHTML = '';
@@ -2439,6 +2827,8 @@ function tipoEmoji(tipo) {
 
 function renderDashboard() {
   document.getElementById('st-total').textContent = entrevistas.length;
+  const stCom = document.getElementById('st-com');
+  if (stCom) stCom.textContent = comunidades.length;
   document.getElementById('st-ag').textContent = entrevistas.filter(e=>e.tipo==='agricultor').length;
   document.getElementById('st-te').textContent = entrevistas.filter(e=>e.tipo==='tecnico').length;
   document.getElementById('st-rep').textContent = entrevistas.filter(e=>e.tipo==='representante').length;
@@ -2467,8 +2857,11 @@ function renderDashboard() {
 
 function renderEntrevistas() {
   const filtro = document.getElementById('filtroTipo').value;
+  const filtroCom = document.getElementById('filtroComunidade')?.value || '';
   let lista = entrevistas;
   if(filtro) lista = lista.filter(e => e.tipo === filtro);
+  if(filtroCom === '__sem__') lista = lista.filter(e => !e.comunidade_id);
+  else if(filtroCom) lista = lista.filter(e => e.comunidade_id === filtroCom);
   const cont = document.getElementById('listaEntrevistas');
   if(lista.length === 0) {
     cont.innerHTML = '<div class="empty-state"><div class="icon">📭</div><h3>Nenhuma entrevista encontrada</h3><p>Nao ha entrevistas com os filtros selecionados</p></div>';
@@ -2481,9 +2874,9 @@ function renderEntrevistas() {
         <div class="interview-name">${e.codigo}</div>
         <div class="interview-meta">
           <span>${tipoLabel(e.tipo)}</span>
-          <span>📍 ${e.municipio || '-'}</span>
+          ${e.comunidade_nome ? `<span>🏘️ ${e.comunidade_nome}</span>` : ''}
+          <span>📍 ${e.municipio || '-'}${e.uf ? '-' + e.uf : ''}</span>
           <span>📅 ${e.data || '-'}</span>
-          ${e.localidade ? `<span>🏘️ ${e.localidade}</span>` : ''}
         </div>
       </div>
       <div class="interview-actions" style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
@@ -2511,7 +2904,9 @@ function openDetalhes(id) {
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;font-size:13px;">
       <div><span style="color:var(--text2);">📅 Data:</span> <strong>${e.data||'-'}</strong></div>
-      <div><span style="color:var(--text2);">📍 Municipio:</span> <strong>${e.municipio||'-'}</strong></div>
+      <div><span style="color:var(--text2);">📍 Municipio:</span> <strong>${e.municipio||'-'}${e.uf ? '-'+e.uf : ''}</strong></div>
+      <div><span style="color:var(--text2);">🏘️ Comunidade:</span> <strong>${e.comunidade_nome||'-'}</strong></div>
+      <div><span style="color:var(--text2);">🎙️ Entrevistador(a):</span> <strong>${e.entrevistador_nome||'-'}</strong></div>
       <div><span style="color:var(--text2);">🏘️ Localidade:</span> <strong>${e.localidade||'-'}</strong></div>
       <div><span style="color:var(--text2);">👤 Genero:</span> <strong>${e.genero||'-'}</strong></div>
       <div><span style="color:var(--text2);">🎂 Faixa etaria:</span> <strong>${e.faixa_etaria||'-'}</strong></div>
@@ -2701,10 +3096,12 @@ function saveAudio() {
 function exportarJSON() {
   const data = JSON.stringify({
     projeto: 'AQUA-CAMPO',
-    pesquisadora: 'Maria Silvina da Cruz Goncalves',
-    orientador: 'Ernandes Sobreira Oliveira Junior',
+    plataforma: 'Plataforma Nacional de Diagnostico da Escassez Hidrica na Agricultura Familiar',
+    entrevistador: perfil || null,
     exportado_em: new Date().toISOString(),
     total_entrevistas: entrevistas.length,
+    total_comunidades: comunidades.length,
+    comunidades: comunidades,
     entrevistas: entrevistas.map(e => ({...e, audios: e.audios?.map(a=>a.name) || []}))
   }, null, 2);
   download('aquacampo_dados_' + new Date().toISOString().split('T')[0] + '.json', data, 'application/json');
@@ -2714,7 +3111,7 @@ function exportarJSON() {
 function exportarCSV() {
   // 29 colunas exatas do modelo Excel da pesquisadora
   const headers = [
-    'Codigo','Data',
+    'Codigo','Data','Comunidade Cadastrada','UF','Entrevistador','Instituicao',
     'Idade (anos)','Genero','Escolaridade','Municipio','Comunidade','Tempo Resid.',
     'Tamanho Prop.(ha)','Posse da terra','Atividades Produtivas','N pessoas',
     'Fontes Agua','Armazenamento','Utilizacoes Agua',
@@ -2730,6 +3127,10 @@ function exportarCSV() {
     return [
       cel(e.codigo),
       cel(e.data),
+      cel(e.comunidade_nome),
+      cel(e.uf),
+      cel(e.entrevistador_nome),
+      cel(e.entrevistador_instituicao),
       cel(e.idade),
       cel(e.genero),
       cel(e.escolaridade),
@@ -2918,8 +3319,8 @@ function exportarRelatorio() {
     '====================================================',
     'RELATORIO DE CAMPO - AQUA-CAMPO',
     '====================================================',
-    'Projeto: Impactos da Escassez Hidrica na Agricultura Familiar da Regiao do Vale do Rio Cuiaba',
-    'Pesquisadora: Maria Silvina da Cruz Goncalves',
+    'Plataforma: AQUA-CAMPO — Diagnostico Nacional da Escassez Hidrica na Agricultura Familiar',
+    'Entrevistador(a): ' + (perfil ? perfil.nome + ' — ' + perfil.instituicao : 'Nao informado'),
     'Orientador: Prof. Dr. Ernandes Sobreira Oliveira Junior',
     'Instituicao: UNEMAT / ProfAgua',
     'Gerado em: ' + new Date().toLocaleString('pt-BR'),
@@ -3022,8 +3423,8 @@ function gerarCabecalho(titulo, total) {
     '====================================================',
     titulo,
     '====================================================',
-    'Projeto: Impactos da Escassez Hidrica na Agricultura Familiar da Regiao do Vale do Rio Cuiaba',
-    'Pesquisadora: Maria Silvina da Cruz Goncalves',
+    'Plataforma: AQUA-CAMPO — Diagnostico Nacional da Escassez Hidrica na Agricultura Familiar',
+    'Entrevistador(a): ' + (perfil ? perfil.nome + ' — ' + perfil.instituicao : 'Nao informado'),
     'Orientador: Prof. Dr. Ernandes Sobreira Oliveira Junior',
     'Instituicao: UNEMAT / ProfAgua',
     'Gerado em: ' + new Date().toLocaleString('pt-BR'),
@@ -3086,6 +3487,14 @@ function processarImportJSON(input) {
     try {
       const parsed = JSON.parse(e.target.result);
       let dados = Array.isArray(parsed) ? parsed : (parsed.entrevistas || []);
+      // Importar comunidades do backup, se existirem
+      if (parsed.comunidades && Array.isArray(parsed.comunidades)) {
+        let comAdd = 0;
+        parsed.comunidades.forEach(nc => {
+          if (!comunidades.find(c => c.id === nc.id)) { comunidades.push(nc); comAdd++; }
+        });
+        if (comAdd > 0) { saveComunidades(); popularSelectComunidades(); }
+      }
       if (!Array.isArray(dados) || dados.length === 0) {
         showToast('Arquivo JSON nao contem entrevistas', true); return;
       }
