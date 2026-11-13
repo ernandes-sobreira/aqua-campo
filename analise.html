@@ -681,8 +681,8 @@ function renderEstrategias(N) {
   const nAg = ag.length, nTe = te.length;
 
   if (nAg > 0) {
-    const eKeys = ['Reuso','Captacao_chuva','Irrigacao_economica','Mudanca_culturas','Reducao_area','Cisterna_reserv','Barraginha','Outras_estrategias'];
-    const eLabs = ['Reuso de água','Captação de chuva','Irrigação econômica','Mudança culturas','Redução de área','Cisternas/reserv.','Barraginhas','Outras'];
+    const eKeys = ['Reuso','Manejo_plantio','Aguas_cinzas','Captacao_chuva','Irrigacao_economica','Mudanca_culturas','Reducao_area','Cisterna_reserv','Barraginha','Outras_estrategias'];
+    const eLabs = ['Reuso de água','Manejo de plantio','Águas cinzas','Captação de chuva','Irrigação econômica','Mudança culturas','Redução de área','Cisternas/reserv.','Barraginhas','Outras'];
     const eVals = eKeys.map(k => cntA(ag,'estrategias',k));
     const eF = eVals.map((v,i)=>({l:eLabs[i],v})).filter(x=>x.v>0);
     if (eF.length) {

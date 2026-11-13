@@ -5,7 +5,7 @@
 // Versao: 3.0 — Plataforma Nacional
 // =====================================================
 
-const CACHE_NAME = 'aquacampo-v3-nacional';
+const CACHE_NAME = 'aquacampo-v3-nacional-q21';
 const CACHE_URLS = [
   './',
   './index.html',

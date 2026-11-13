@@ -1178,11 +1178,11 @@
           <label class="form-label">21. Quais estrategias voce utiliza para lidar com a falta de agua?</label>
           <div class="check-group">
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Reuso">♻️ Reuso de agua</label>
-            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Captacao_chuva">🌧️ Captacao de chuva</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Manejo_plantio">🌱 Manejo de plantio</label>
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Irrigacao_economica">💦 Irrigacao economica</label>
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Mudanca_culturas">🌵 Mudanca de culturas</label>
             <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Reducao_area">📏 Reducao de area plantada</label>
-            <label class="check-item" onclick="toggleCheck(this)" id="opt_outras_estr_ag"><input type="checkbox" value="Outras_estrategias">➕ Outras</label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Aguas_cinzas">🚿 Reaproveitamento de aguas cinzas</label>
           </div>
           <input class="form-input" id="f_outras_estr_ag" placeholder="Especifique outras estrategias..." style="margin-top:8px;display:none;">
           <textarea class="form-textarea" id="f_estr_obs" rows="2" placeholder="Descreva as estrategias em mais detalhe..." style="margin-top:8px;"></textarea>
@@ -2718,8 +2718,12 @@ function salvarEntrevista() {
       renda_obs:      getF('f_renda_obs'),
       memo_v:         getF('f_memo_v'),
       // VI
+      // Captacao_chuva e Outras_estrategias sairam do formulario (nov/2026);
+      // ao editar entrevista antiga, essas respostas ja registradas sao mantidas.
       estrategias: getCB('#form-agricultor input[type=checkbox]').filter(v =>
-        ['Reuso','Captacao_chuva','Irrigacao_economica','Mudanca_culturas','Reducao_area','Outras_estrategias'].includes(v)),
+        ['Reuso','Manejo_plantio','Irrigacao_economica','Mudanca_culturas','Reducao_area','Aguas_cinzas'].includes(v))
+        .concat((((entrevistas.find(x => x.id === editingId) || {}).estrategias) || []).filter(v =>
+          ['Captacao_chuva','Outras_estrategias'].includes(v))),
       outras_estrategias: getF('f_outras_estr_ag'),
       estr_obs:           getF('f_estr_obs'),
       apoio_tecnico:      getR('r_apoio_tecnico'),
